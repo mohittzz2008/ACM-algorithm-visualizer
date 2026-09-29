@@ -2,13 +2,9 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowRight,
-  Play,
-  Pause,
   BookOpen,
   Zap,
   GraduationCap,
-  X,
-  Sparkles,
   Search,
   GitBranch,
   BarChart3,
@@ -22,7 +18,6 @@ import { useVisualizerStore } from '../store/useVisualizerStore';
 import { ACMLogo } from '../components/branding/AlgoVistaLogo';
 import studentStudyingImg from '../assets/student-studying-desk.jpg';
 import studentDiscoversImg from '../assets/student-discovers-acm.jpg';
-import heroBgLandscapeImg from '../assets/hero-bg-landscape.jpg';
 import { GeometricCanvasBackground } from '../components/layout/GeometricCanvasBackground';
 import './HomePage.css';
 

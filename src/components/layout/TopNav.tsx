@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Search, Terminal, Sparkles } from 'lucide-react';
+import { Search, Terminal } from 'lucide-react';
 import { useVisualizerStore } from '../../store/useVisualizerStore';
 import { ACMLogo } from '../branding/AlgoVistaLogo';
 
