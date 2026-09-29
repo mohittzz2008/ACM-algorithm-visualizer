@@ -179,24 +179,15 @@ export const useVisualizerStore = create<VisualizerState>((set, get) => ({
   theme: (() => {
     if (typeof window !== 'undefined') {
       try {
-        const saved = localStorage.getItem('acm_theme') || localStorage.getItem('algovista_theme');
-        if (saved === 'dark' || saved === 'light') {
-          if (saved === 'dark') {
-            document.documentElement.classList.add('dark');
-            document.documentElement.classList.remove('light');
-          } else {
-            document.documentElement.classList.remove('dark');
-            document.documentElement.classList.add('light');
-          }
-          return saved;
-        }
+        localStorage.setItem('acm_theme', 'light');
+        localStorage.setItem('algovista_theme', 'light');
       } catch {
         // ignore
       }
       document.documentElement.classList.remove('dark');
       document.documentElement.classList.add('light');
     }
-    return 'light';
+    return 'light' as const;
   })(),
   selectedLanguage: 'python',
   activeAlgorithmId: 'bubble-sort',
@@ -223,28 +214,23 @@ export const useVisualizerStore = create<VisualizerState>((set, get) => ({
     set({ skipIntroOnNextHome: skip });
   },
 
-  setTheme: (theme: 'dark' | 'light') => {
+  setTheme: (_theme: 'dark' | 'light') => {
     if (typeof document !== 'undefined') {
-      if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
-        document.documentElement.classList.remove('light');
-      } else {
-        document.documentElement.classList.remove('dark');
-        document.documentElement.classList.add('light');
-      }
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
       try {
-        localStorage.setItem('acm_theme', theme);
-        localStorage.setItem('algovista_theme', theme);
+        localStorage.setItem('acm_theme', 'light');
+        localStorage.setItem('algovista_theme', 'light');
       } catch {
         // ignore storage errors
       }
     }
-    set({ theme });
+    set({ theme: 'light' });
   },
 
   toggleTheme: () => {
-    const nextTheme = get().theme === 'dark' ? 'light' : 'dark';
-    get().setTheme(nextTheme);
+    // Light theme only
+    get().setTheme('light');
   },
 
   setArray: (newArray: number[]) => {

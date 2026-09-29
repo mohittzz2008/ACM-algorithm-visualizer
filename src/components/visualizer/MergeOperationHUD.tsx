@@ -1,5 +1,5 @@
 import React from 'react';
-import { GitMerge, Sparkles, CheckCircle2, Split, ArrowDownRight, Layers } from 'lucide-react';
+import { GitMerge, CheckCircle2, Split, ArrowDownRight, Layers } from 'lucide-react';
 import type { AlgorithmStep } from '../../algorithms/types';
 
 interface MergeOperationHUDProps {
@@ -34,8 +34,8 @@ export const MergeOperationHUD: React.FC<MergeOperationHUDProps> = ({ currentSte
         title: 'COMPLETE',
         subtitle: 'All recursive calls completed and merged.',
         badge: 'SORTING COMPLETE',
-        badgeClass: 'bg-[#ECFDF5] text-[#047857] border-[#A7F3D0] dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-500/50',
-        icon: <CheckCircle2 className="w-4 h-4 text-[#047857] dark:text-emerald-400" />,
+        badgeClass: 'bg-[#ECFDF5] text-[#047857] border-[#A7F3D0]',
+        icon: <CheckCircle2 className="w-4 h-4 text-[#047857]" />,
       };
     }
     if (currentStep.type === 'merge-complete') {
@@ -43,8 +43,8 @@ export const MergeOperationHUD: React.FC<MergeOperationHUDProps> = ({ currentSte
         title: 'MERGE COMPLETE',
         subtitle: `Range [${currentStep.mergeRange?.[0]} — ${currentStep.mergeRange?.[1]}] is now fully merged and sorted.`,
         badge: 'MERGED',
-        badgeClass: 'bg-[#ECFDF5] text-[#047857] border-[#A7F3D0] dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-500/50',
-        icon: <CheckCircle2 className="w-4 h-4 text-[#047857] dark:text-emerald-400" />,
+        badgeClass: 'bg-[#ECFDF5] text-[#047857] border-[#A7F3D0]',
+        icon: <CheckCircle2 className="w-4 h-4 text-[#047857]" />,
       };
     }
     if (currentStep.type === 'append-left') {
@@ -52,8 +52,8 @@ export const MergeOperationHUD: React.FC<MergeOperationHUDProps> = ({ currentSte
         title: 'COPY REMAINING LEFT',
         subtitle: `Right subarray exhausted. Taking remaining ${currentStep.chosenValue} from left subarray.`,
         badge: 'APPEND LEFT',
-        badgeClass: 'bg-[#F3E8FF] text-[#6D28D9] border-[#C084FC] dark:bg-purple-950/60 dark:text-purple-300 dark:border-purple-500/50',
-        icon: <GitMerge className="w-4 h-4 text-[#7C3AED] dark:text-purple-400" />,
+        badgeClass: 'bg-[#FFFBEB] text-[#B45309] border-[#FDE68A]',
+        icon: <GitMerge className="w-4 h-4 text-[#D97706]" />,
       };
     }
     if (currentStep.type === 'append-right') {
@@ -61,8 +61,8 @@ export const MergeOperationHUD: React.FC<MergeOperationHUDProps> = ({ currentSte
         title: 'COPY REMAINING RIGHT',
         subtitle: `Left subarray exhausted. Taking remaining ${currentStep.chosenValue} from right subarray.`,
         badge: 'APPEND RIGHT',
-        badgeClass: 'bg-[#F3E8FF] text-[#6D28D9] border-[#C084FC] dark:bg-purple-950/60 dark:text-purple-300 dark:border-purple-500/50',
-        icon: <GitMerge className="w-4 h-4 text-[#7C3AED] dark:text-purple-400" />,
+        badgeClass: 'bg-[#FFFBEB] text-[#B45309] border-[#FDE68A]',
+        icon: <GitMerge className="w-4 h-4 text-[#D97706]" />,
       };
     }
     if (currentStep.type === 'take-left') {
@@ -70,8 +70,8 @@ export const MergeOperationHUD: React.FC<MergeOperationHUDProps> = ({ currentSte
         title: 'TAKE LEFT',
         subtitle: `Selected ${currentStep.chosenValue} from left subarray.`,
         badge: 'TAKE LEFT',
-        badgeClass: 'bg-[#FEF2F2] text-[#DC2626] border-[#FECDD3] dark:bg-rose-950/60 dark:text-rose-300 dark:border-rose-500/50',
-        icon: <GitMerge className="w-4 h-4 text-[#DC2626] dark:text-rose-400" />,
+        badgeClass: 'bg-[#FFF1F2] text-[#E11D48] border-[#FECDD3]',
+        icon: <GitMerge className="w-4 h-4 text-[#E11D48]" />,
       };
     }
     if (currentStep.type === 'take-right') {
@@ -79,8 +79,8 @@ export const MergeOperationHUD: React.FC<MergeOperationHUDProps> = ({ currentSte
         title: 'TAKE RIGHT',
         subtitle: `Selected ${currentStep.chosenValue} from right subarray.`,
         badge: 'TAKE RIGHT',
-        badgeClass: 'bg-[#FEF2F2] text-[#DC2626] border-[#FECDD3] dark:bg-rose-950/60 dark:text-rose-300 dark:border-rose-500/50',
-        icon: <GitMerge className="w-4 h-4 text-[#DC2626] dark:text-rose-400" />,
+        badgeClass: 'bg-[#FFF1F2] text-[#E11D48] border-[#FECDD3]',
+        icon: <GitMerge className="w-4 h-4 text-[#E11D48]" />,
       };
     }
     if (currentStep.type === 'write') {
@@ -88,8 +88,8 @@ export const MergeOperationHUD: React.FC<MergeOperationHUDProps> = ({ currentSte
         title: 'WRITE TO BUFFER',
         subtitle: `Placed value ${currentStep.chosenValue} into output buffer slot k = ${currentStep.outputPointer}.`,
         badge: `WRITE ${currentStep.chosenValue}`,
-        badgeClass: 'bg-[#F0F9FF] text-[#0369A1] border-[#BAE6FD] dark:bg-cyan-950/60 dark:text-cyan-300 dark:border-cyan-500/50',
-        icon: <ArrowDownRight className="w-4 h-4 text-[#0369A1] dark:text-cyan-400" />,
+        badgeClass: 'bg-[#F0F9FF] text-[#0284C7] border-[#BAE6FD]',
+        icon: <ArrowDownRight className="w-4 h-4 text-[#0284C7]" />,
       };
     }
     if (currentStep.type === 'compare') {
@@ -97,8 +97,8 @@ export const MergeOperationHUD: React.FC<MergeOperationHUDProps> = ({ currentSte
         title: 'COMPARING',
         subtitle: 'Compare the front elements from left and right subarrays.',
         badge: 'COMPARING',
-        badgeClass: 'bg-[#FFFBEB] text-[#B45309] border-[#FDE68A] dark:bg-amber-950/60 dark:text-amber-300 dark:border-amber-500/50',
-        icon: <GitMerge className="w-4 h-4 text-[#B45309] dark:text-amber-400" />,
+        badgeClass: 'bg-[#FFFBEB] text-[#B45309] border-[#FDE68A]',
+        icon: <GitMerge className="w-4 h-4 text-[#D97706]" />,
       };
     }
     if (currentStep.type === 'merge-start') {
@@ -106,8 +106,8 @@ export const MergeOperationHUD: React.FC<MergeOperationHUDProps> = ({ currentSte
         title: 'MERGE START',
         subtitle: `Beginning merge on range [${currentStep.mergeRange?.[0]} — ${currentStep.mergeRange?.[1]}].`,
         badge: 'START',
-        badgeClass: 'bg-[#EFF6FF] text-[#2563EB] border-[#BFDBFE] dark:bg-blue-950/60 dark:text-blue-300 dark:border-blue-500/50',
-        icon: <GitMerge className="w-4 h-4 text-[#2563EB] dark:text-blue-400" />,
+        badgeClass: 'bg-[#F4F4F5] text-[#3F3F3F] border-[#E4E4E7]',
+        icon: <GitMerge className="w-4 h-4 text-[#3F3F3F]" />,
       };
     }
     if (isBaseCase) {
@@ -115,128 +115,87 @@ export const MergeOperationHUD: React.FC<MergeOperationHUDProps> = ({ currentSte
         title: 'BASE CASE',
         subtitle: 'Subarray has 1 element. Already sorted by definition.',
         badge: 'RETURN',
-        badgeClass: 'bg-[#F0F9FF] text-[#0369A1] border-[#BAE6FD] dark:bg-cyan-950/60 dark:text-cyan-300 dark:border-cyan-500/50',
-        icon: <CheckCircle2 className="w-4 h-4 text-[#0369A1] dark:text-cyan-400" />,
+        badgeClass: 'bg-[#F4F4F5] text-[#3F3F3F] border-[#E4E4E7]',
+        icon: <CheckCircle2 className="w-4 h-4 text-[#3F3F3F]" />,
       };
     }
     if (isDivide) {
       return {
-        title: 'DIVIDING',
-        subtitle: 'Dividing active subarray at midpoint into two halves.',
+        title: 'DIVIDE',
+        subtitle: `Splitting array into halves around mid = ${currentStep.mid ?? '—'}.`,
         badge: 'DIVIDE',
-        badgeClass: 'bg-[#F3E8FF] text-[#6D28D9] border-[#C084FC] dark:bg-purple-950/60 dark:text-purple-300 dark:border-purple-500/50',
-        icon: <Split className="w-4 h-4 text-[#7C3AED] dark:text-purple-400" />,
+        badgeClass: 'bg-[#FFFBEB] text-[#B45309] border-[#FDE68A]',
+        icon: <Split className="w-4 h-4 text-[#D97706]" />,
       };
     }
     return {
-      title: 'INITIALIZING',
-      subtitle: 'Merge Sort initialized and ready to run.',
-      badge: 'READY',
-      badgeClass: 'bg-[#F1F5F9] text-[#475569] border-[#CBD5E1] dark:bg-slate-900 dark:text-slate-300 dark:border-slate-700',
-      icon: <Sparkles className="w-4 h-4 text-[#7C3AED] dark:text-purple-400" />,
+      title: 'MERGE SORT',
+      subtitle: currentStep.action || 'Executing divide-and-conquer steps.',
+      badge: 'ACTIVE',
+      badgeClass: 'bg-[#FFFBEB] text-[#B45309] border-[#FDE68A]',
+      icon: <GitMerge className="w-4 h-4 text-[#D97706]" />,
     };
   };
 
   const details = getPhaseDetails();
 
-  // Mini Current Merge State values
+  // Local pointer coordinates for HUD sub-views
   const leftStart = currentStep.leftRange ? currentStep.leftRange[0] : 0;
   const leftEnd = currentStep.leftRange ? currentStep.leftRange[1] : 0;
   const rightStart = currentStep.rightRange ? currentStep.rightRange[0] : 0;
   const rightEnd = currentStep.rightRange ? currentStep.rightRange[1] : 0;
-
   const leftSub = currentStep.leftSubarray || [];
   const rightSub = currentStep.rightSubarray || [];
   const mergedOut = currentStep.mergedOutput || [];
-  const totalSlots = currentStep.mergeRange ? currentStep.mergeRange[1] - currentStep.mergeRange[0] + 1 : 0;
-
   const leftLocalPtr = currentStep.leftPointer !== undefined ? currentStep.leftPointer : -1;
   const rightLocalPtr = currentStep.rightPointer !== undefined ? currentStep.rightPointer : -1;
+  const totalSlots = currentStep.mergeRange ? currentStep.mergeRange[1] - currentStep.mergeRange[0] + 1 : 0;
   const isLeftExhausted = leftSub.length > 0 && leftLocalPtr >= leftSub.length;
   const isRightExhausted = rightSub.length > 0 && rightLocalPtr >= rightSub.length;
 
   return (
-    <div className="flex flex-col gap-3 h-full justify-between">
-      {/* 1. Main Operation Box */}
-      <div className="bg-white dark:bg-[#0C1222] border border-[#CBD5E1] dark:border-[#192642] rounded-xl p-3.5 flex flex-col gap-2.5 shadow-sm">
-        {/* Header with Level & Merge counter */}
-        <div className="flex items-center justify-between border-b border-[#E2E8F0] dark:border-[#16213A] pb-2">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-lg bg-[#F3E8FF] dark:bg-purple-950/60 border border-[#C084FC] dark:border-purple-600/40 flex items-center justify-center text-[#7C3AED] dark:text-purple-400">
-              {details.icon}
-            </div>
-            <span className="text-[11px] font-bold text-[#0F172A] dark:text-slate-200 uppercase font-mono tracking-wider">
+    <div className="w-full bg-white border border-[#E2E8F0] rounded-xl p-4 flex flex-col gap-3 shadow-clean-card h-full justify-between">
+      {/* 1. Main Header Card */}
+      <div className="flex flex-col gap-2">
+        {/* Pass / Progress Pill */}
+        <div className="flex items-center justify-between text-[11px] font-mono pb-2 border-b border-[#E2E8F0]">
+          <span className="font-bold text-[#18181B]">{levelText}</span>
+          <span className="text-[#64748B] font-semibold">{mergeProgress}</span>
+        </div>
+
+        {/* Phase Header */}
+        <div className="flex items-start gap-2.5 pt-1">
+          <div className="w-8 h-8 rounded-lg bg-[#F8FAFC] border border-[#CBD5E1] flex items-center justify-center shrink-0 shadow-xs">
+            {details.icon}
+          </div>
+          <div className="flex flex-col flex-1">
+            <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider font-mono">
               Current Operation
             </span>
-          </div>
-
-          <div className="text-[10px] font-mono font-semibold text-[#475569] dark:text-slate-400">
-            <span className="text-[#6D28D9] dark:text-purple-300">{levelText}</span> · {mergeProgress}
+            <span className="text-sm font-bold text-[#18181B] font-mono leading-tight">
+              {details.title}
+            </span>
+            <p className="text-[11px] text-[#475569] mt-0.5 leading-relaxed font-sans">
+              {details.subtitle}
+            </p>
           </div>
         </div>
 
-        {/* Phase Title & Subtitle */}
-        <div className="flex flex-col gap-0.5">
-          <span className="text-xs font-bold text-[#0F172A] dark:text-white uppercase font-mono tracking-wide">
-            {details.title}
-          </span>
-          <span className="text-[11px] text-[#475569] dark:text-slate-400 leading-snug">
-            {details.subtitle}
-          </span>
-        </div>
-
-        {/* Dynamic Context Card based on Operation */}
+        {/* Dynamic Detail Card Based on Phase */}
         {currentStep.type === 'write' ? (
-          /* WRITE OPERATION CARD */
+          /* WRITE HUD DETAILS */
           <div className="flex flex-col gap-2 pt-1">
-            <div className="flex items-center justify-between gap-2 font-mono text-xs">
-              <div className="flex-1 bg-[#F0F9FF] dark:bg-[#07151D] border border-[#BAE6FD] dark:border-cyan-700/50 rounded-lg p-2 text-center shadow-xs">
-                <div className="text-[10px] text-[#64748B] dark:text-slate-400 font-sans">Written Value</div>
-                <div className="text-base font-bold text-[#0369A1] dark:text-cyan-300 mt-0.5">{currentStep.chosenValue}</div>
-              </div>
-              <div className="w-7 h-7 rounded-full bg-white dark:bg-[#0E202B] border border-[#CBD5E1] dark:border-cyan-800/40 flex items-center justify-center font-bold text-[#0369A1] dark:text-cyan-400 text-xs shrink-0 shadow-xs">
-                →
-              </div>
-              <div className="flex-1 bg-[#ECFDF5] dark:bg-[#07151D] border border-[#A7F3D0] dark:border-emerald-700/50 rounded-lg p-2 text-center shadow-xs">
-                <div className="text-[10px] text-[#64748B] dark:text-slate-400 font-sans">Target Position</div>
-                <div className="text-base font-bold text-[#047857] dark:text-emerald-300 mt-0.5">output[{currentStep.outputPointer}]</div>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between gap-2 bg-[#F8FAFC] dark:bg-[#090D18] border border-[#CBD5E1] dark:border-[#172238] rounded-lg px-3 py-2">
+            <div className="flex items-center justify-between bg-[#F0F9FF] border border-[#BAE6FD] rounded-lg p-2.5">
               <div className="flex flex-col">
-                <span className="text-[10px] font-mono text-[#64748B] dark:text-slate-400 uppercase">Action</span>
-                <span className="text-xs font-mono font-bold text-[#0369A1] dark:text-cyan-300">
-                  output[{currentStep.outputPointer}] = {currentStep.chosenValue}
+                <span className="text-[10px] font-mono text-[#0284C7] uppercase font-semibold">Writing Element</span>
+                <span className="text-lg font-bold font-mono text-[#0369A1]">
+                  Value: {currentStep.chosenValue}
+                </span>
+                <span className="text-[10px] text-[#0284C7] font-mono">
+                  Into slot index k = {currentStep.outputPointer}
                 </span>
               </div>
-              <div className={`px-3 py-1 rounded-lg border text-xs font-bold font-mono uppercase tracking-wider shadow-sm ${details.badgeClass}`}>
-                {details.badge}
-              </div>
-            </div>
-          </div>
-        ) : (currentStep.type === 'append-left' || currentStep.type === 'append-right') ? (
-          /* EXHAUSTED / APPEND CARD */
-          <div className="flex flex-col gap-2 pt-1">
-            <div className="bg-[#F3E8FF] dark:bg-[#120D1F] border border-[#C084FC] dark:border-purple-800/50 rounded-lg p-2.5 flex items-center justify-between">
-              <div className="flex flex-col">
-                <span className="text-[10px] text-[#6D28D9] dark:text-purple-300 uppercase font-mono font-bold">
-                  {currentStep.type === 'append-left' ? 'Right Side Exhausted' : 'Left Side Exhausted'}
-                </span>
-                <span className="text-xs font-mono text-[#0F172A] dark:text-white mt-0.5">
-                  Append {currentStep.chosenValue} from {currentStep.type === 'append-left' ? 'Left' : 'Right'}
-                </span>
-              </div>
-              <div className="text-lg font-bold font-mono text-[#6D28D9] dark:text-purple-300">
-                {currentStep.chosenValue}
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between bg-[#F8FAFC] dark:bg-[#090D18] border border-[#CBD5E1] dark:border-[#172238] rounded-lg px-3 py-2">
-              <span className="text-[11px] font-mono text-[#475569] dark:text-slate-400">
-                Direct copy remaining sorted elements
-              </span>
-              <div className={`px-2.5 py-0.5 rounded-lg border text-[11px] font-bold font-mono uppercase ${details.badgeClass}`}>
+              <div className={`px-2.5 py-1 rounded-lg border text-xs font-bold font-mono uppercase tracking-wider shadow-xs ${details.badgeClass}`}>
                 {details.badge}
               </div>
             </div>
@@ -249,21 +208,21 @@ export const MergeOperationHUD: React.FC<MergeOperationHUDProps> = ({ currentSte
               <div
                 className={`flex-1 rounded-lg p-2 text-center border shadow-xs ${
                   currentStep.chosenFrom === 'left'
-                    ? 'bg-[#ECFDF5] border-[#10B981] text-[#047857] dark:bg-emerald-950/40 dark:border-emerald-500/60'
-                    : 'bg-[#FFFBEB] border border-[#FDE68A] dark:bg-[#090F1C] dark:border-amber-600/50'
+                    ? 'bg-[#ECFDF5] border-[#10B981] text-[#047857]'
+                    : 'bg-[#FFFBEB] border border-[#FDE68A]'
                 }`}
               >
-                <div className="text-[10px] text-[#64748B] dark:text-slate-400 font-sans">
+                <div className="text-[10px] text-[#64748B] font-sans">
                   Left: arr[{leftStart + (leftLocalPtr >= 0 ? leftLocalPtr : 0)}]
                 </div>
-                <div className="text-base font-bold text-[#B45309] dark:text-amber-300 mt-0.5">
+                <div className="text-base font-bold text-[#B45309] mt-0.5">
                   {currentStep.leftValue ?? '—'}
                 </div>
-                <span className="text-[9px] text-[#64748B] dark:text-slate-400">i = {leftLocalPtr}</span>
+                <span className="text-[9px] text-[#64748B]">i = {leftLocalPtr}</span>
               </div>
 
               {/* Operator Pill */}
-              <div className="w-7 h-7 rounded-full bg-white dark:bg-[#141C30] border border-[#CBD5E1] dark:border-[#233150] flex items-center justify-center font-bold text-[#475569] dark:text-slate-300 text-xs shrink-0 shadow-xs">
+              <div className="w-7 h-7 rounded-full bg-white border border-[#CBD5E1] flex items-center justify-center font-bold text-[#475569] text-xs shrink-0 shadow-xs">
                 {currentStep.decisionLabel?.includes('<=') ? '≤' : currentStep.decisionLabel?.includes('<') ? '<' : 'vs'}
               </div>
 
@@ -271,28 +230,28 @@ export const MergeOperationHUD: React.FC<MergeOperationHUDProps> = ({ currentSte
               <div
                 className={`flex-1 rounded-lg p-2 text-center border shadow-xs ${
                   currentStep.chosenFrom === 'right'
-                    ? 'bg-[#ECFDF5] border-[#10B981] text-[#047857] dark:bg-emerald-950/40 dark:border-emerald-500/60'
-                    : 'bg-[#EFF6FF] border border-[#BFDBFE] dark:bg-[#090F1C] dark:border-blue-600/50'
+                    ? 'bg-[#ECFDF5] border-[#10B981] text-[#047857]'
+                    : 'bg-[#F4F4F5] border border-[#E4E4E7]'
                 }`}
               >
-                <div className="text-[10px] text-[#64748B] dark:text-slate-400 font-sans">
+                <div className="text-[10px] text-[#64748B] font-sans">
                   Right: arr[{rightStart + (rightLocalPtr >= 0 ? rightLocalPtr : 0)}]
                 </div>
-                <div className="text-base font-bold text-[#2563EB] dark:text-blue-300 mt-0.5">
+                <div className="text-base font-bold text-[#18181B] mt-0.5">
                   {currentStep.rightValue ?? '—'}
                 </div>
-                <span className="text-[9px] text-[#64748B] dark:text-slate-400">j = {rightLocalPtr}</span>
+                <span className="text-[9px] text-[#64748B]">j = {rightLocalPtr}</span>
               </div>
             </div>
 
-            <div className="flex items-center justify-between gap-2 bg-[#F8FAFC] dark:bg-[#090D18] border border-[#CBD5E1] dark:border-[#172238] rounded-lg px-3 py-2">
+            <div className="flex items-center justify-between gap-2 bg-[#F8FAFC] border border-[#CBD5E1] rounded-lg px-3 py-2">
               <div className="flex flex-col">
-                <span className="text-[10px] font-mono text-[#64748B] dark:text-slate-400 uppercase">Decision</span>
-                <span className="text-xs font-mono font-bold text-[#0F172A] dark:text-white">
+                <span className="text-[10px] font-mono text-[#64748B] uppercase">Decision</span>
+                <span className="text-xs font-mono font-bold text-[#18181B]">
                   {currentStep.decisionLabel || 'Evaluating candidates'}
                 </span>
               </div>
-              <div className={`px-2.5 py-1 rounded-lg border text-xs font-bold font-mono uppercase tracking-wider shadow-sm ${details.badgeClass}`}>
+              <div className={`px-2.5 py-1 rounded-lg border text-xs font-bold font-mono uppercase tracking-wider shadow-xs ${details.badgeClass}`}>
                 {details.badge}
               </div>
             </div>
@@ -300,8 +259,8 @@ export const MergeOperationHUD: React.FC<MergeOperationHUDProps> = ({ currentSte
         ) : (
           /* GENERIC STAGE CARD */
           <div className="flex flex-col gap-2 pt-1">
-            <div className="flex items-center justify-between bg-[#F8FAFC] dark:bg-[#090D18] border border-[#CBD5E1] dark:border-[#172238] rounded-lg px-3 py-2">
-              <span className="text-xs font-mono text-[#475569] dark:text-slate-300">
+            <div className="flex items-center justify-between bg-[#F8FAFC] border border-[#CBD5E1] rounded-lg px-3 py-2">
+              <span className="text-xs font-mono text-[#475569]">
                 {currentStep.action}
               </span>
               <div className={`px-2.5 py-0.5 rounded-lg border text-[11px] font-bold font-mono uppercase ${details.badgeClass}`}>
@@ -313,16 +272,16 @@ export const MergeOperationHUD: React.FC<MergeOperationHUDProps> = ({ currentSte
       </div>
 
       {/* 2. Subpanel: CURRENT MERGE STATE */}
-      <div className="bg-[#F8FAFC] dark:bg-[#090E1C] border border-[#CBD5E1] dark:border-[#18243C] rounded-xl p-3 flex flex-col gap-2 shadow-sm">
-        <div className="flex items-center justify-between border-b border-[#E2E8F0] dark:border-[#141E34] pb-1.5">
+      <div className="bg-[#F8FAFC] border border-[#CBD5E1] rounded-xl p-3 flex flex-col gap-2 shadow-xs">
+        <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-1.5">
           <div className="flex items-center gap-1.5">
-            <Layers className="w-3.5 h-3.5 text-[#2563EB] dark:text-blue-400" />
-            <span className="text-[10px] font-bold text-[#0F172A] dark:text-slate-300 uppercase font-mono tracking-wider">
+            <Layers className="w-3.5 h-3.5 text-[#3F3F3F]" />
+            <span className="text-[10px] font-bold text-[#18181B] uppercase font-mono tracking-wider">
               Current Merge State
             </span>
           </div>
           {currentStep.mergeRange && (
-            <span className="text-[10px] font-mono text-[#64748B] dark:text-slate-500">
+            <span className="text-[10px] font-mono text-[#64748B]">
               [{currentStep.mergeRange[0]} — {currentStep.mergeRange[1]}]
             </span>
           )}
@@ -333,10 +292,10 @@ export const MergeOperationHUD: React.FC<MergeOperationHUDProps> = ({ currentSte
             {/* Left Array & Right Array mini row */}
             <div className="grid grid-cols-2 gap-2">
               {/* Left Subarray */}
-              <div className="flex flex-col gap-1 p-2 rounded-lg bg-white dark:bg-[#0C1529] border border-[#CBD5E1] dark:border-[#1E2E50] shadow-xs">
-                <div className="flex items-center justify-between text-[10px] font-mono text-[#64748B] dark:text-slate-400">
+              <div className="flex flex-col gap-1 p-2 rounded-lg bg-white border border-[#CBD5E1] shadow-xs">
+                <div className="flex items-center justify-between text-[10px] font-mono text-[#64748B]">
                   <span>Left ({leftStart}-{leftEnd})</span>
-                  <span className={`font-bold ${isLeftExhausted ? 'text-[#DC2626] dark:text-rose-400' : 'text-[#B45309] dark:text-amber-400'}`}>
+                  <span className={`font-bold ${isLeftExhausted ? 'text-[#E11D48]' : 'text-[#B45309]'}`}>
                     i = {isLeftExhausted ? 'exhausted' : leftLocalPtr >= 0 ? leftLocalPtr : '—'}
                   </span>
                 </div>
@@ -346,10 +305,10 @@ export const MergeOperationHUD: React.FC<MergeOperationHUDProps> = ({ currentSte
                       key={i}
                       className={`px-1.5 py-0.5 rounded text-[11px] font-mono font-bold ${
                         i === leftLocalPtr
-                          ? 'bg-[#FFFBEB] text-[#B45309] border border-[#FDE68A] dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-500/60'
+                          ? 'bg-[#FFFBEB] text-[#B45309] border border-[#FDE68A]'
                           : i < leftLocalPtr
-                          ? 'text-[#94A3B8] dark:text-slate-600 line-through opacity-70'
-                          : 'bg-[#EFF6FF] text-[#2563EB] dark:bg-[#152345] dark:text-blue-200'
+                          ? 'text-[#94A3B8] line-through opacity-70'
+                          : 'bg-white text-[#18181B] border border-[#CBD5E1]'
                       }`}
                     >
                       {v}
@@ -359,10 +318,10 @@ export const MergeOperationHUD: React.FC<MergeOperationHUDProps> = ({ currentSte
               </div>
 
               {/* Right Subarray */}
-              <div className="flex flex-col gap-1 p-2 rounded-lg bg-white dark:bg-[#0C1529] border border-[#CBD5E1] dark:border-[#1E2E50] shadow-xs">
-                <div className="flex items-center justify-between text-[10px] font-mono text-[#64748B] dark:text-slate-400">
+              <div className="flex flex-col gap-1 p-2 rounded-lg bg-white border border-[#CBD5E1] shadow-xs">
+                <div className="flex items-center justify-between text-[10px] font-mono text-[#64748B]">
                   <span>Right ({rightStart}-{rightEnd})</span>
-                  <span className={`font-bold ${isRightExhausted ? 'text-[#DC2626] dark:text-rose-400' : 'text-[#2563EB] dark:text-blue-400'}`}>
+                  <span className={`font-bold ${isRightExhausted ? 'text-[#E11D48]' : 'text-[#3F3F3F]'}`}>
                     j = {isRightExhausted ? 'exhausted' : rightLocalPtr >= 0 ? rightLocalPtr : '—'}
                   </span>
                 </div>
@@ -372,10 +331,10 @@ export const MergeOperationHUD: React.FC<MergeOperationHUDProps> = ({ currentSte
                       key={i}
                       className={`px-1.5 py-0.5 rounded text-[11px] font-mono font-bold ${
                         i === rightLocalPtr
-                          ? 'bg-[#FFFBEB] text-[#B45309] border border-[#FDE68A] dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-500/60'
+                          ? 'bg-[#FFFBEB] text-[#B45309] border border-[#FDE68A]'
                           : i < rightLocalPtr
-                          ? 'text-[#94A3B8] dark:text-slate-600 line-through opacity-70'
-                          : 'bg-[#EFF6FF] text-[#2563EB] dark:bg-[#152345] dark:text-blue-200'
+                          ? 'text-[#94A3B8] line-through opacity-70'
+                          : 'bg-white text-[#18181B] border border-[#CBD5E1]'
                       }`}
                     >
                       {v}
@@ -386,8 +345,8 @@ export const MergeOperationHUD: React.FC<MergeOperationHUDProps> = ({ currentSte
             </div>
 
             {/* Merged Output Buffer */}
-            <div className="flex flex-col gap-1 p-2 rounded-lg bg-white dark:bg-[#07131A] border border-[#CBD5E1] dark:border-[#142C33] shadow-xs">
-              <div className="text-[10px] font-mono text-[#0369A1] dark:text-cyan-300 font-semibold">
+            <div className="flex flex-col gap-1 p-2 rounded-lg bg-white border border-[#CBD5E1] shadow-xs">
+              <div className="text-[10px] font-mono text-[#0284C7] font-semibold">
                 Merged Output ({currentStep.mergeRange ? `${currentStep.mergeRange[0]}-${currentStep.mergeRange[1]}` : ''})
               </div>
               <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-0.5">
@@ -399,8 +358,8 @@ export const MergeOperationHUD: React.FC<MergeOperationHUDProps> = ({ currentSte
                       key={slotIdx}
                       className={`px-2 py-0.5 rounded text-[11px] font-mono font-bold ${
                         hasVal
-                          ? 'bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0] dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-600/40'
-                          : 'border border-dashed border-[#CBD5E1] text-[#94A3B8] px-2 dark:border-[#1E2E48] dark:text-slate-600'
+                          ? 'bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0]'
+                          : 'border border-dashed border-[#CBD5E1] text-[#94A3B8] px-2'
                       }`}
                     >
                       {hasVal ? val : '·'}
@@ -411,7 +370,7 @@ export const MergeOperationHUD: React.FC<MergeOperationHUDProps> = ({ currentSte
             </div>
           </div>
         ) : (
-          <div className="text-[11px] font-mono text-[#64748B] dark:text-slate-500 py-1 text-center">
+          <div className="text-[11px] font-mono text-[#64748B] py-1 text-center">
             {currentStep.activeRange
               ? isDivide
                 ? `Dividing range [${currentStep.activeRange[0]} — ${currentStep.activeRange[1]}]`

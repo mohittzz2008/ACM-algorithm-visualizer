@@ -260,7 +260,7 @@ export const MergeTreeVisualizer: React.FC<MergeTreeVisualizerProps> = ({
   };
 
   return (
-    <div className="w-full overflow-x-auto scrollbar-thin scrollbar-thumb-[#CBD5E1] dark:scrollbar-thumb-purple-900/40 py-1">
+    <div className="w-full overflow-x-auto scrollbar-thin scrollbar-thumb-[#CBD5E1] py-1">
       <svg
         viewBox={`0 0 ${svgWidth} ${svgHeight}`}
         className="w-full min-w-[640px] h-auto select-none"
@@ -304,7 +304,7 @@ export const MergeTreeVisualizer: React.FC<MergeTreeVisualizerProps> = ({
                 stroke={strokeColor}
                 strokeWidth={c.isActive ? 2 : 1.25}
                 strokeDasharray={c.status === 'inactive' ? '3 3' : 'none'}
-                className="transition-all duration-200"
+                className="transition-[stroke,opacity] duration-200"
               />
             );
           })}
@@ -320,7 +320,7 @@ export const MergeTreeVisualizer: React.FC<MergeTreeVisualizerProps> = ({
             const startY = node.y - node.height / 2;
 
             return (
-              <g key={node.id} className="transition-all duration-200 cursor-default">
+              <g key={node.id} className="transition-[opacity] duration-200 cursor-default">
                 {/* Node Outer Background */}
                 <rect
                   x={startX}

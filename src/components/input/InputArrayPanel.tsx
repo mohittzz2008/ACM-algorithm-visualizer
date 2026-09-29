@@ -79,15 +79,15 @@ export const InputArrayPanel: React.FC = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-[#0C1120] border border-[#CBD5E1] dark:border-[#18233C] rounded-2xl p-3.5 flex flex-col gap-3 shadow-sm">
+    <div className="bg-white border border-[#E2E8F0] rounded-2xl p-3.5 flex flex-col gap-3 shadow-clean-card">
       {/* Header Row for Non-Binary Search (Bubble Sort & Merge Sort) */}
       {!isBinarySearch && (
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-[#0F172A] dark:text-slate-200 uppercase tracking-wide font-mono">
+            <span className="text-xs font-bold text-[#18181B] uppercase tracking-wide font-mono">
               Input Array
             </span>
-            <span className="text-[11px] text-[#64748B] dark:text-slate-400 font-normal">
+            <span className="text-[11px] text-[#64748B] font-normal">
               (Enter custom numbers or select a preset pattern)
             </span>
           </div>
@@ -95,12 +95,12 @@ export const InputArrayPanel: React.FC = () => {
           {/* Array Size Slider */}
           <div className="flex items-center gap-2.5">
             <div className="flex items-center gap-1.5 text-xs">
-              <span className="text-[#475569] dark:text-slate-400 font-medium">Array Size:</span>
-              <span className="font-mono font-bold text-[#6D28D9] dark:text-purple-400">{arraySize}</span>
+              <span className="text-[#475569] font-medium">Array Size:</span>
+              <span className="font-mono font-bold text-[#B45309]">{arraySize}</span>
             </div>
 
             <div className="flex items-center gap-2 w-28 sm:w-36">
-              <span className="text-[10px] text-[#64748B] dark:text-slate-500 font-mono">
+              <span className="text-[10px] text-[#64748B] font-mono">
                 {activeAlgorithmId === 'merge-sort' ? '4' : '5'}
               </span>
               <input
@@ -109,9 +109,9 @@ export const InputArrayPanel: React.FC = () => {
                 max={activeAlgorithmId === 'merge-sort' ? 20 : 30}
                 value={arraySize}
                 onChange={(e) => setArraySize(Number(e.target.value))}
-                className="w-full h-1.5 bg-[#E2E8F0] dark:bg-[#17223A] rounded-lg appearance-none cursor-pointer accent-[#7C3AED]"
+                className="w-full h-1.5 bg-[#E2E8F0] rounded-lg appearance-none cursor-pointer accent-[#3F3F3F]"
               />
-              <span className="text-[10px] text-[#64748B] dark:text-slate-500 font-mono">
+              <span className="text-[10px] text-[#64748B] font-mono">
                 {activeAlgorithmId === 'merge-sort' ? '20' : '30'}
               </span>
             </div>
@@ -121,16 +121,16 @@ export const InputArrayPanel: React.FC = () => {
 
       {/* Unsorted Array Warning for Binary Search */}
       {isBinarySearch && !isSorted && (
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-2.5 rounded-xl bg-[#FFFBEB] dark:bg-amber-950/40 border border-[#FDE68A] dark:border-amber-600/50 text-[#B45309] dark:text-amber-200 text-xs shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-2.5 rounded-xl bg-[#FFFBEB] border border-[#FDE68A] text-[#B45309] text-xs shadow-xs">
           <div className="flex items-center gap-2">
-            <AlertCircle className="w-4 h-4 text-[#B45309] dark:text-amber-400 shrink-0" />
+            <AlertCircle className="w-4 h-4 text-[#D97706] shrink-0" />
             <span>
               <strong>Sorted Array Required:</strong> Binary Search requires monotonic data to eliminate half the search space.
             </span>
           </div>
           <button
             onClick={sortCurrentArray}
-            className="px-3 py-1 rounded-lg bg-[#B45309] hover:bg-[#92400E] text-white font-bold text-xs transition-colors shrink-0 shadow cursor-pointer self-start sm:self-auto"
+            className="px-3 py-1 rounded-lg bg-[#3F3F3F] hover:bg-[#18181B] text-white font-bold text-xs transition-colors shrink-0 shadow-xs cursor-pointer self-start sm:self-auto"
           >
             Sort Array Now
           </button>
@@ -155,48 +155,48 @@ export const InputArrayPanel: React.FC = () => {
                   if (e.key === 'Escape') setIsEditing(false);
                 }}
                 placeholder="Enter numbers separated by commas or spaces, e.g. 5, 12, 18, 25, 31, 43"
-                className="w-full bg-white dark:bg-[#070B16] border-2 border-[#7C3AED] dark:border-purple-500/70 rounded-xl px-3.5 py-2 text-sm text-[#0F172A] dark:text-white font-mono placeholder:text-[#64748B] dark:placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-[#C084FC] shadow-inner"
+                className="w-full bg-[#FAFAFA] border-2 border-[#3F3F3F] rounded-xl px-3.5 py-2 text-sm text-[#18181B] font-mono placeholder:text-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-[#FFC107] shadow-inner"
                 autoFocus
               />
             </div>
             <button
               onClick={handleApplyCustomArray}
-              className="px-4 py-2 rounded-xl bg-[#6D28D9] hover:bg-[#7C3AED] text-white font-semibold text-xs transition-colors flex items-center gap-1.5 shadow-md shadow-purple-900/20 shrink-0 cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-[#3F3F3F] hover:bg-[#18181B] text-white font-semibold text-xs transition-colors flex items-center gap-1.5 shadow-xs shrink-0 cursor-pointer"
             >
-              <Check className="w-4 h-4" />
+              <Check className="w-4 h-4 text-[#FFC107]" />
               <span>Apply Array</span>
             </button>
             <button
               onClick={() => setIsEditing(false)}
-              className="px-3.5 py-2 rounded-xl bg-white dark:bg-[#131B2F] hover:bg-[#F8FAFC] dark:hover:bg-[#1C2742] text-[#475569] hover:text-[#0F172A] dark:text-slate-400 dark:hover:text-white text-xs font-medium transition-colors shrink-0 cursor-pointer border border-[#CBD5E1] dark:border-[#202E4E]"
+              className="px-3.5 py-2 rounded-xl bg-white hover:bg-[#F8FAFC] text-[#475569] hover:text-[#18181B] text-xs font-medium transition-colors shrink-0 cursor-pointer border border-[#CBD5E1]"
             >
               Cancel
             </button>
           </div>
 
           {errorMessage && (
-            <div className="flex items-center gap-1.5 text-xs text-[#DC2626] bg-[#FEF2F2] dark:bg-rose-950/30 border border-[#DC2626]/40 dark:border-rose-800/40 px-3 py-1.5 rounded-lg">
+            <div className="flex items-center gap-1.5 text-xs text-[#DC2626] bg-[#FEF2F2] border border-[#DC2626]/40 px-3 py-1.5 rounded-lg">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{errorMessage}</span>
             </div>
           )}
           {warningMessage && (
-            <div className="flex items-center gap-1.5 text-xs text-[#B45309] bg-[#FFFBEB] dark:bg-amber-950/30 border border-[#FDE68A] dark:border-amber-800/40 px-3 py-1.5 rounded-lg">
+            <div className="flex items-center gap-1.5 text-xs text-[#B45309] bg-[#FFFBEB] border border-[#FDE68A] px-3 py-1.5 rounded-lg">
               <HelpCircle className="w-4 h-4 shrink-0" />
               <span>{warningMessage}</span>
             </div>
           )}
         </div>
       ) : isBinarySearch ? (
-        /* Binary Search: 4 Clean Sub-Panels Matching Reference Layout */
+        /* Binary Search: 4 Clean Sub-Panels */
         <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-stretch">
           {/* Sub-Panel 1: Input Sorted Array */}
-          <div className="md:col-span-5 lg:col-span-4 flex flex-col justify-between p-2.5 rounded-xl bg-[#F8FAFC] dark:bg-[#080D1A] border border-[#CBD5E1] dark:border-[#16213B]">
+          <div className="md:col-span-5 lg:col-span-4 flex flex-col justify-between p-2.5 rounded-xl bg-[#F8FAFC] border border-[#CBD5E1]">
             <div className="flex items-center justify-between gap-1 mb-1.5">
-              <span className="text-[11px] font-bold text-[#0F172A] dark:text-slate-200 font-mono tracking-tight uppercase">
+              <span className="text-[11px] font-bold text-[#18181B] font-mono tracking-tight uppercase">
                 Input — Sorted Array
               </span>
-              <span className="text-[10px] text-[#64748B] dark:text-slate-400 hidden xl:inline truncate">
+              <span className="text-[10px] text-[#64748B] hidden xl:inline truncate">
                 Enter sorted numbers or select a preset
               </span>
             </div>
@@ -207,10 +207,10 @@ export const InputArrayPanel: React.FC = () => {
                   key={idx}
                   onClick={handleOpenEdit}
                   title="Click to edit array manually"
-                  className={`px-2 py-1 rounded-lg border text-xs font-mono font-medium shrink-0 transition-all select-none cursor-pointer ${
+                  className={`px-2 py-1 rounded-lg border text-xs font-mono font-medium shrink-0 transition-colors select-none cursor-pointer ${
                     val === targetValue
-                      ? 'bg-[#ECFDF5] border-[#10B981] text-[#047857] font-bold shadow-sm ring-1 ring-[#10B981]/50 dark:bg-emerald-950/80 dark:border-emerald-400 dark:text-emerald-300'
-                      : 'bg-[#F1F5F9] dark:bg-[#10172A] border-[#CBD5E1] dark:border-[#1E2B48] hover:border-[#C084FC] dark:hover:border-purple-500/60 text-[#0F172A] dark:text-slate-200'
+                      ? 'bg-[#ECFDF5] border-[#10B981] text-[#047857] font-bold shadow-xs ring-1 ring-[#10B981]/50'
+                      : 'bg-white border-[#CBD5E1] hover:border-[#3F3F3F] text-[#18181B]'
                   }`}
                 >
                   {val}
@@ -219,24 +219,24 @@ export const InputArrayPanel: React.FC = () => {
 
               <button
                 onClick={handleOpenEdit}
-                className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#F3E8FF] hover:bg-[#E9D5FF] text-[#6D28D9] border border-[#C084FC] dark:bg-purple-600/20 dark:hover:bg-purple-600/30 dark:text-purple-200 dark:border-purple-500/50 text-xs font-semibold transition-all shrink-0 cursor-pointer shadow-sm active:scale-95 ml-1"
+                className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#FFFBEB] hover:bg-[#FEF3C7] text-[#B45309] border border-[#FDE68A] text-xs font-semibold transition-colors shrink-0 cursor-pointer shadow-xs active:scale-95 ml-1"
                 title="Enter custom array numbers"
               >
-                <Edit3 className="w-3 h-3 text-[#7C3AED] dark:text-purple-400" />
+                <Edit3 className="w-3 h-3 text-[#D97706]" />
                 <span>Edit</span>
               </button>
             </div>
           </div>
 
           {/* Sub-Panel 2: Target Value Stepper */}
-          <div className="md:col-span-3 lg:col-span-2 flex flex-col justify-between p-2.5 rounded-xl bg-[#F8FAFC] dark:bg-[#080D1A] border border-[#CBD5E1] dark:border-[#16213B]">
-            <span className="text-[11px] font-bold text-[#0F172A] dark:text-slate-200 font-mono mb-1.5">
+          <div className="md:col-span-3 lg:col-span-2 flex flex-col justify-between p-2.5 rounded-xl bg-[#F8FAFC] border border-[#CBD5E1]">
+            <span className="text-[11px] font-bold text-[#18181B] font-mono mb-1.5">
               Target Value
             </span>
             <div className="flex items-center gap-1">
               <button
                 onClick={() => setTargetValue(targetValue - 1)}
-                className="w-7 h-7 rounded-lg bg-[#F3E8FF] hover:bg-[#E9D5FF] border border-[#C084FC] text-[#6D28D9] dark:bg-purple-600/30 dark:hover:bg-purple-600/50 dark:border-purple-500/50 dark:text-purple-200 flex items-center justify-center font-bold text-xs transition-colors cursor-pointer"
+                className="w-7 h-7 rounded-lg bg-white hover:bg-[#F1F5F9] border border-[#CBD5E1] text-[#3F3F3F] flex items-center justify-center font-bold text-xs transition-colors cursor-pointer"
                 title="Decrement target"
               >
                 -
@@ -245,11 +245,11 @@ export const InputArrayPanel: React.FC = () => {
                 type="number"
                 value={targetValue}
                 onChange={(e) => setTargetValue(Number(e.target.value))}
-                className="w-14 bg-white dark:bg-[#070B16] border border-[#CBD5E1] dark:border-[#233355] rounded-lg px-2 py-1 text-center font-mono font-bold text-xs text-[#0F172A] dark:text-white focus:outline-none focus:border-[#7C3AED]"
+                className="w-14 bg-white border border-[#CBD5E1] rounded-lg px-2 py-1 text-center font-mono font-bold text-xs text-[#18181B] focus:outline-none focus:border-[#3F3F3F]"
               />
               <button
                 onClick={() => setTargetValue(targetValue + 1)}
-                className="w-7 h-7 rounded-lg bg-[#F3E8FF] hover:bg-[#E9D5FF] border border-[#C084FC] text-[#6D28D9] dark:bg-purple-600/30 dark:hover:bg-purple-600/50 dark:border-purple-500/50 dark:text-purple-200 flex items-center justify-center font-bold text-xs transition-colors cursor-pointer"
+                className="w-7 h-7 rounded-lg bg-white hover:bg-[#F1F5F9] border border-[#CBD5E1] text-[#3F3F3F] flex items-center justify-center font-bold text-xs transition-colors cursor-pointer"
                 title="Increment target"
               >
                 +
@@ -258,8 +258,8 @@ export const InputArrayPanel: React.FC = () => {
           </div>
 
           {/* Sub-Panel 3: Quick Target Options */}
-          <div className="md:col-span-4 lg:col-span-3 flex flex-col justify-between p-2.5 rounded-xl bg-[#F8FAFC] dark:bg-[#080D1A] border border-[#CBD5E1] dark:border-[#16213B]">
-            <span className="text-[11px] font-bold text-[#0F172A] dark:text-slate-200 font-mono mb-1.5">
+          <div className="md:col-span-4 lg:col-span-3 flex flex-col justify-between p-2.5 rounded-xl bg-[#F8FAFC] border border-[#CBD5E1]">
+            <span className="text-[11px] font-bold text-[#18181B] font-mono mb-1.5">
               Quick Target:
             </span>
             <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-0.5">
@@ -273,10 +273,10 @@ export const InputArrayPanel: React.FC = () => {
                 <button
                   key={qIdx}
                   onClick={() => setTargetValue(qVal)}
-                  className={`px-2 py-1 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                  className={`px-2 py-1 rounded-lg text-xs font-mono font-bold transition-colors cursor-pointer ${
                     targetValue === qVal
-                      ? 'bg-[#047857] text-white shadow-sm ring-1 ring-[#10B981] dark:bg-emerald-600'
-                      : 'bg-white dark:bg-[#11172A] hover:bg-[#F1F5F9] dark:hover:bg-[#1B2542] border border-[#CBD5E1] dark:border-[#1E2B48] text-[#334155] dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white'
+                      ? 'bg-[#047857] text-white shadow-xs ring-1 ring-[#10B981]'
+                      : 'bg-white hover:bg-[#F1F5F9] border border-[#CBD5E1] text-[#3F3F3F] hover:text-[#18181B]'
                   }`}
                 >
                   {qVal}
@@ -286,19 +286,19 @@ export const InputArrayPanel: React.FC = () => {
           </div>
 
           {/* Sub-Panel 4: Array Size Slider & Actions */}
-          <div className="md:col-span-12 lg:col-span-3 flex flex-col justify-between gap-1.5 p-2.5 rounded-xl bg-[#F8FAFC] dark:bg-[#080D1A] border border-[#CBD5E1] dark:border-[#16213B]">
+          <div className="md:col-span-12 lg:col-span-3 flex flex-col justify-between gap-1.5 p-2.5 rounded-xl bg-[#F8FAFC] border border-[#CBD5E1]">
             {/* Top: Array Size */}
             <div className="flex items-center justify-between text-xs">
-              <span className="text-[#475569] dark:text-slate-400 font-medium">Array Size:</span>
+              <span className="text-[#475569] font-medium">Array Size:</span>
               <div className="flex items-center gap-2">
-                <span className="font-mono font-bold text-[#6D28D9] dark:text-purple-400 text-xs">{arraySize}</span>
+                <span className="font-mono font-bold text-[#B45309] text-xs">{arraySize}</span>
                 <input
                   type="range"
                   min={3}
                   max={20}
                   value={arraySize}
                   onChange={(e) => setArraySize(Number(e.target.value))}
-                  className="w-20 h-1.5 bg-[#CBD5E1] dark:bg-[#17223A] rounded-lg appearance-none cursor-pointer accent-[#7C3AED]"
+                  className="w-20 h-1.5 bg-[#CBD5E1] rounded-lg appearance-none cursor-pointer accent-[#3F3F3F]"
                 />
               </div>
             </div>
@@ -307,15 +307,15 @@ export const InputArrayPanel: React.FC = () => {
             <div className="flex items-center gap-1.5 pt-0.5">
               <button
                 onClick={generateSorted}
-                className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold text-xs transition-all shadow-sm active:scale-95 cursor-pointer shrink-0"
+                className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#3F3F3F] hover:bg-[#18181B] text-white font-semibold text-xs transition-colors shadow-xs active:scale-95 cursor-pointer shrink-0"
               >
-                <Sparkles className="w-3 h-3" />
+                <Sparkles className="w-3 h-3 text-[#FFC107]" />
                 <span>Generate Sorted</span>
               </button>
 
               <button
                 onClick={shuffle}
-                className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white dark:bg-[#11182B] hover:bg-[#F8FAFC] dark:hover:bg-[#18233D] text-[#334155] dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white border border-[#CBD5E1] dark:border-[#212E4D] font-medium text-xs transition-colors shrink-0 cursor-pointer"
+                className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white hover:bg-[#F8FAFC] text-[#3F3F3F] hover:text-[#18181B] border border-[#CBD5E1] font-medium text-xs transition-colors shrink-0 cursor-pointer"
                 title="Shuffle elements"
               >
                 <Shuffle className="w-3 h-3" />
@@ -324,10 +324,10 @@ export const InputArrayPanel: React.FC = () => {
 
               <button
                 onClick={handleResetBinarySearch}
-                className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white dark:bg-[#11182B] hover:bg-[#F8FAFC] dark:hover:bg-[#18233D] text-[#334155] dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white border border-[#CBD5E1] dark:border-[#212E4D] font-medium text-xs transition-colors shrink-0 cursor-pointer"
+                className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white hover:bg-[#F8FAFC] text-[#3F3F3F] hover:text-[#18181B] border border-[#CBD5E1] font-medium text-xs transition-colors shrink-0 cursor-pointer"
                 title="Reset to default example"
               >
-                <RotateCcw className="w-3 h-3 text-[#DC2626] dark:text-rose-400" />
+                <RotateCcw className="w-3 h-3 text-[#DC2626]" />
                 <span>Reset</span>
               </button>
             </div>
@@ -335,15 +335,15 @@ export const InputArrayPanel: React.FC = () => {
         </div>
       ) : (
         /* Bubble Sort & Merge Sort Actions Row */
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-0.5">
-          <div className="flex items-center gap-2 overflow-x-auto scrollbar-thin py-1 flex-1">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-0.5 min-w-0">
+          <div className="flex items-center gap-2 overflow-x-auto scrollbar-thin py-1 flex-1 min-w-0">
             <div className="flex items-center gap-1.5 shrink-0">
               <button
                 onClick={handleOpenEdit}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#F3E8FF] hover:bg-[#E9D5FF] text-[#6D28D9] border border-[#C084FC] dark:bg-purple-600/20 dark:hover:bg-purple-600/30 dark:text-purple-200 dark:border-purple-500/50 text-xs font-semibold transition-all shrink-0 cursor-pointer shadow-sm active:scale-95"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#FFFBEB] hover:bg-[#FEF3C7] text-[#B45309] border border-[#FDE68A] text-xs font-semibold transition-colors shrink-0 cursor-pointer shadow-xs active:scale-95"
                 title="Enter custom array numbers"
               >
-                <Edit3 className="w-3.5 h-3.5 text-[#7C3AED] dark:text-purple-400" />
+                <Edit3 className="w-3.5 h-3.5 text-[#D97706]" />
                 <span>Edit Manually</span>
               </button>
 
@@ -352,7 +352,7 @@ export const InputArrayPanel: React.FC = () => {
                   key={idx}
                   onClick={handleOpenEdit}
                   title="Click to edit array manually"
-                  className="px-2.5 py-1.5 rounded-lg border text-xs font-mono font-medium shrink-0 transition-colors shadow-sm select-none cursor-pointer bg-[#F1F5F9] dark:bg-[#11172A] border-[#CBD5E1] dark:border-[#202E4E] hover:border-[#C084FC] dark:hover:border-purple-500/60 text-[#0F172A] dark:text-slate-200"
+                  className="px-2.5 py-1.5 rounded-lg border text-xs font-mono font-medium shrink-0 transition-colors shadow-xs select-none cursor-pointer bg-[#F8FAFC] border-[#CBD5E1] hover:border-[#3F3F3F] text-[#18181B]"
                 >
                   {val}
                 </div>
@@ -360,18 +360,18 @@ export const InputArrayPanel: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 shrink-0">
+          <div className="flex flex-wrap items-center gap-2 min-w-0">
             <button
               onClick={generateRandom}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold text-xs transition-all shadow-sm active:scale-95 shrink-0 cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#3F3F3F] hover:bg-[#18181B] text-white font-semibold text-xs transition-colors shadow-xs active:scale-95 shrink-0 cursor-pointer"
             >
-              <Dice5 className="w-3.5 h-3.5" />
+              <Dice5 className="w-3.5 h-3.5 text-[#FFC107]" />
               <span>Generate Random</span>
             </button>
 
             <button
               onClick={shuffle}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-[#11182B] hover:bg-[#F8FAFC] dark:hover:bg-[#18233D] text-[#334155] dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white border border-[#CBD5E1] dark:border-[#212E4D] font-medium text-xs transition-colors shrink-0 cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-[#F8FAFC] text-[#3F3F3F] hover:text-[#18181B] border border-[#CBD5E1] font-medium text-xs transition-colors shrink-0 cursor-pointer"
             >
               <Shuffle className="w-3.5 h-3.5" />
               <span>Shuffle</span>
@@ -379,7 +379,7 @@ export const InputArrayPanel: React.FC = () => {
 
             <button
               onClick={nearlySorted}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-[#11182B] hover:bg-[#F8FAFC] dark:hover:bg-[#18233D] text-[#334155] dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white border border-[#CBD5E1] dark:border-[#212E4D] font-medium text-xs transition-colors shrink-0 cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-[#F8FAFC] text-[#3F3F3F] hover:text-[#18181B] border border-[#CBD5E1] font-medium text-xs transition-colors shrink-0 cursor-pointer"
             >
               <BarChart2 className="w-3.5 h-3.5" />
               <span>Nearly Sorted</span>
@@ -387,7 +387,7 @@ export const InputArrayPanel: React.FC = () => {
 
             <button
               onClick={reverse}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-[#11182B] hover:bg-[#F8FAFC] dark:hover:bg-[#18233D] text-[#334155] dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white border border-[#CBD5E1] dark:border-[#212E4D] font-medium text-xs transition-colors shrink-0 cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-[#F8FAFC] text-[#3F3F3F] hover:text-[#18181B] border border-[#CBD5E1] font-medium text-xs transition-colors shrink-0 cursor-pointer"
             >
               <RotateCw className="w-3.5 h-3.5" />
               <span>Reverse</span>
@@ -395,7 +395,7 @@ export const InputArrayPanel: React.FC = () => {
 
             <button
               onClick={handleClear}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-[#FEF2F2] dark:bg-[#181120] hover:bg-[#FEE2E2] dark:hover:bg-rose-950/60 text-[#DC2626] dark:text-rose-400 border border-[#DC2626]/40 dark:border-rose-900/50 font-medium text-xs transition-colors shrink-0 cursor-pointer"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-[#FEF2F2] hover:bg-[#FEE2E2] text-[#DC2626] border border-[#DC2626]/40 font-medium text-xs transition-colors shrink-0 cursor-pointer"
               title="Clear or open full array dialog"
             >
               <Trash2 className="w-3.5 h-3.5" />
@@ -407,10 +407,10 @@ export const InputArrayPanel: React.FC = () => {
 
       {/* Preset Scenarios: 3 Distinct Bordered Card Boxes */}
       {isBinarySearch && !isEditing && (
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-3 pt-1 border-t border-[#CBD5E1] dark:border-[#141B2D]">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-3 pt-1 border-t border-[#E2E8F0]">
           {/* Box 1: FOUND (Quick Scenarios) */}
-          <div className="md:col-span-4 p-2 rounded-xl bg-[#F8FAFC] dark:bg-[#080D1A] border border-[#CBD5E1] dark:border-[#16213B] flex flex-col gap-1.5">
-            <span className="text-[10px] font-mono text-[#047857] dark:text-emerald-400 font-bold uppercase tracking-wider px-1">
+          <div className="md:col-span-4 p-2 rounded-xl bg-[#F8FAFC] border border-[#CBD5E1] flex flex-col gap-1.5">
+            <span className="text-[10px] font-mono text-[#047857] font-bold uppercase tracking-wider px-1">
               FOUND (QUICK SCENARIOS)
             </span>
             <div className="flex items-center gap-1.5 flex-wrap">
@@ -427,10 +427,10 @@ export const InputArrayPanel: React.FC = () => {
                       setBinarySearchInput(preset.array, preset.target);
                     }}
                     title={preset.description}
-                    className={`px-2.5 py-1 rounded-lg border text-[11px] font-medium transition-all cursor-pointer ${
+                    className={`px-2.5 py-1 rounded-lg border text-[11px] font-medium transition-colors cursor-pointer ${
                       isActive
-                        ? 'bg-[#F3E8FF] border-[#C084FC] text-[#6D28D9] font-bold ring-1 ring-[#C084FC]/50 dark:bg-purple-950/80 dark:border-purple-500 dark:text-purple-200'
-                        : 'bg-white dark:bg-[#0F172A] hover:bg-[#F1F5F9] dark:hover:bg-[#18233C] border-[#CBD5E1] dark:border-[#1C2944] text-[#334155] dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white'
+                        ? 'bg-[#FFFBEB] border-[#FDE68A] text-[#B45309] font-bold ring-1 ring-[#FFC107]'
+                        : 'bg-white hover:bg-[#F1F5F9] border-[#CBD5E1] text-[#3F3F3F] hover:text-[#18181B]'
                     }`}
                   >
                     {preset.label}
@@ -441,8 +441,8 @@ export const InputArrayPanel: React.FC = () => {
           </div>
 
           {/* Box 2: Not Found */}
-          <div className="md:col-span-3 p-2 rounded-xl bg-[#F8FAFC] dark:bg-[#080D1A] border border-[#CBD5E1] dark:border-[#16213B] flex flex-col gap-1.5">
-            <span className="text-[10px] font-mono text-[#B45309] dark:text-amber-400 font-bold uppercase tracking-wider px-1">
+          <div className="md:col-span-3 p-2 rounded-xl bg-[#F8FAFC] border border-[#CBD5E1] flex flex-col gap-1.5">
+            <span className="text-[10px] font-mono text-[#B45309] font-bold uppercase tracking-wider px-1">
               Not Found
             </span>
             <div className="flex items-center gap-1.5 flex-wrap">
@@ -459,10 +459,10 @@ export const InputArrayPanel: React.FC = () => {
                       setBinarySearchInput(preset.array, preset.target);
                     }}
                     title={preset.description}
-                    className={`px-2.5 py-1 rounded-lg border text-[11px] font-medium transition-all cursor-pointer ${
+                    className={`px-2.5 py-1 rounded-lg border text-[11px] font-medium transition-colors cursor-pointer ${
                       isActive
-                        ? 'bg-[#F3E8FF] border-[#C084FC] text-[#6D28D9] font-bold ring-1 ring-[#C084FC]/50 dark:bg-purple-950/80 dark:border-purple-500 dark:text-purple-200'
-                        : 'bg-white dark:bg-[#0F172A] hover:bg-[#F1F5F9] dark:hover:bg-[#18233C] border-[#CBD5E1] dark:border-[#1C2944] text-[#334155] dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white'
+                        ? 'bg-[#FFFBEB] border-[#FDE68A] text-[#B45309] font-bold ring-1 ring-[#FFC107]'
+                        : 'bg-white hover:bg-[#F1F5F9] border-[#CBD5E1] text-[#3F3F3F] hover:text-[#18181B]'
                     }`}
                   >
                     {preset.label}
@@ -473,8 +473,8 @@ export const InputArrayPanel: React.FC = () => {
           </div>
 
           {/* Box 3: Special Cases */}
-          <div className="md:col-span-5 p-2 rounded-xl bg-[#F8FAFC] dark:bg-[#080D1A] border border-[#CBD5E1] dark:border-[#16213B] flex flex-col gap-1.5">
-            <span className="text-[10px] font-mono text-[#6D28D9] dark:text-purple-400 font-bold uppercase tracking-wider px-1">
+          <div className="md:col-span-5 p-2 rounded-xl bg-[#F8FAFC] border border-[#CBD5E1] flex flex-col gap-1.5">
+            <span className="text-[10px] font-mono text-[#18181B] font-bold uppercase tracking-wider px-1">
               Special Cases
             </span>
             <div className="flex items-center gap-1.5 flex-wrap">
@@ -491,10 +491,10 @@ export const InputArrayPanel: React.FC = () => {
                       setBinarySearchInput(preset.array, preset.target);
                     }}
                     title={preset.description}
-                    className={`px-2.5 py-1 rounded-lg border text-[11px] font-medium transition-all cursor-pointer ${
+                    className={`px-2.5 py-1 rounded-lg border text-[11px] font-medium transition-colors cursor-pointer ${
                       isActive
-                        ? 'bg-[#F3E8FF] border-[#C084FC] text-[#6D28D9] font-bold ring-1 ring-[#C084FC]/50 dark:bg-purple-950/80 dark:border-purple-500 dark:text-purple-200'
-                        : 'bg-white dark:bg-[#0F172A] hover:bg-[#F1F5F9] dark:hover:bg-[#18233C] border-[#CBD5E1] dark:border-[#1C2944] text-[#334155] dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white'
+                        ? 'bg-[#FFFBEB] border-[#FDE68A] text-[#B45309] font-bold ring-1 ring-[#FFC107]'
+                        : 'bg-white hover:bg-[#F1F5F9] border-[#CBD5E1] text-[#3F3F3F] hover:text-[#18181B]'
                     }`}
                   >
                     {preset.label}

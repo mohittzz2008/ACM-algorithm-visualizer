@@ -40,7 +40,7 @@ export const PseudocodePanel: React.FC = () => {
       // Keywords
       if (/^(def|function|void|public|static|return|for|while|elif|else|in|if|let|const|int|vector|not|and|or|class|break|continue|new|this|self)$/.test(part)) {
         return (
-          <span key={idx} className="text-[#7C3AED] dark:text-pink-400 font-semibold">
+          <span key={idx} className="text-[#3F3F3F] font-bold">
             {part}
           </span>
         );
@@ -48,7 +48,7 @@ export const PseudocodePanel: React.FC = () => {
       // Built-in functions / types
       if (/^(range|std::swap|merge_sort|mergeSort|merge|binary_search|binarySearch|floor|Math|bfs|dfs|queue|stack|visited|append|pop|push|shift|add|set|list|deque|len)$/.test(part)) {
         return (
-          <span key={idx} className="text-[#2563EB] dark:text-cyan-400 font-semibold">
+          <span key={idx} className="text-[#B45309] font-semibold">
             {part}
           </span>
         );
@@ -56,7 +56,7 @@ export const PseudocodePanel: React.FC = () => {
       // Boolean / None literals
       if (/^(true|false|True|False|None|null)$/.test(part)) {
         return (
-          <span key={idx} className="text-[#D97706] dark:text-orange-300 font-semibold">
+          <span key={idx} className="text-[#D97706] font-semibold">
             {part}
           </span>
         );
@@ -64,7 +64,7 @@ export const PseudocodePanel: React.FC = () => {
       // Operators
       if (/^[-+><=]$/.test(part)) {
         return (
-          <span key={idx} className="text-[#E11D48] dark:text-purple-300">
+          <span key={idx} className="text-[#E11D48] font-bold">
             {part}
           </span>
         );
@@ -72,7 +72,7 @@ export const PseudocodePanel: React.FC = () => {
       // Numeric literals
       if (/^\d+$/.test(part)) {
         return (
-          <span key={idx} className="text-[#D97706] dark:text-amber-300 font-mono">
+          <span key={idx} className="text-[#B45309] font-mono font-bold">
             {part}
           </span>
         );
@@ -80,7 +80,7 @@ export const PseudocodePanel: React.FC = () => {
       // String literals
       if (/^["'].*["']$/.test(part)) {
         return (
-          <span key={idx} className="text-[#059669] dark:text-green-400">
+          <span key={idx} className="text-[#059669]">
             {part}
           </span>
         );
@@ -88,13 +88,13 @@ export const PseudocodePanel: React.FC = () => {
       // Comments
       if (part.startsWith('#') || part.startsWith('//')) {
         return (
-          <span key={idx} className="text-[#64748B] dark:text-slate-500 italic">
+          <span key={idx} className="text-[#94A3B8] italic">
             {part}
           </span>
         );
       }
       return (
-        <span key={idx} className="text-[#0F172A] dark:text-slate-200">
+        <span key={idx} className="text-[#18181B]">
           {part}
         </span>
       );
@@ -102,18 +102,18 @@ export const PseudocodePanel: React.FC = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-[#0C1120] border border-[#CBD5E1] dark:border-[#19243C] rounded-2xl p-4 flex flex-col justify-between shadow-sm h-full">
+    <div className="bg-white border border-[#E2E8F0] rounded-2xl p-4 flex flex-col justify-between shadow-clean-card h-full">
       {/* Header with Title and Language Selector */}
-      <div className="flex items-center justify-between pb-3 border-b border-[#E2E8F0] dark:border-[#17223A]">
+      <div className="flex items-center justify-between pb-3 border-b border-[#E2E8F0]">
         <div className="flex items-center gap-2">
-          <Code2 className="w-4 h-4 text-[#7C3AED] dark:text-purple-400" />
-          <span className="text-xs font-bold text-[#0F172A] dark:text-white tracking-wide uppercase font-mono">
+          <Code2 className="w-4 h-4 text-[#D97706]" />
+          <span className="text-xs font-bold text-[#18181B] tracking-wide uppercase font-mono">
             Pseudocode
           </span>
         </div>
 
         {/* Language pill tabs */}
-        <div className="flex items-center gap-0.5 bg-[#F1F5F9] dark:bg-[#0e1628] border border-[#CBD5E1] dark:border-[#1b2742] p-0.5 rounded-lg" role="tablist" aria-label="Programming Language">
+        <div className="flex items-center gap-0.5 bg-[#F4F4F5] border border-[#E4E4E7] p-0.5 rounded-lg" role="tablist" aria-label="Programming Language">
           {(
             [
               { id: 'python', label: 'Python' },
@@ -129,10 +129,10 @@ export const PseudocodePanel: React.FC = () => {
                 onClick={() => setSelectedLanguage(lang.id)}
                 role="tab"
                 aria-selected={isActive}
-                className={`px-2 py-0.5 rounded-md text-[10px] font-mono transition-all cursor-pointer ${
+                className={`px-2 py-0.5 rounded-md text-[10px] font-mono transition-colors cursor-pointer ${
                   isActive
-                    ? 'bg-[#7C3AED] text-white font-bold shadow-sm'
-                    : 'text-[#334155] dark:text-slate-400 hover:text-[#0F172A] dark:hover:text-slate-200 hover:bg-white dark:hover:bg-[#182038]'
+                    ? 'bg-[#3F3F3F] text-white font-bold shadow-xs'
+                    : 'text-[#475569] hover:text-[#18181B] hover:bg-white'
                 }`}
               >
                 {lang.label}
@@ -149,17 +149,17 @@ export const PseudocodePanel: React.FC = () => {
           return (
             <div
               key={line.lineNumber}
-              className={`flex items-center gap-3 px-2.5 py-1.5 rounded-lg transition-all font-mono ${
+              className={`flex items-center gap-3 px-2.5 py-1.5 rounded-lg transition-colors font-mono ${
                 isActive
-                  ? 'bg-[#F3E8FF] dark:bg-purple-950/70 text-[#0F172A] dark:text-purple-200 border-l-[3px] border-l-[#A855F7] border border-[#E9D5FF] dark:border-purple-800/40 shadow-sm'
-                  : 'text-[#334155] dark:text-slate-400 hover:text-[#0F172A] dark:hover:text-slate-200 hover:bg-[#F8FAFC] dark:hover:bg-[#0E1628]/50'
+                  ? 'bg-[#FFFBEB] text-[#18181B] border-l-[3.5px] border-l-[#FFC107] border border-[#FDE68A] shadow-xs'
+                  : 'text-[#3F3F3F] hover:text-[#18181B] hover:bg-[#F8FAFC]'
               }`}
               aria-current={isActive ? 'step' : undefined}
             >
               {/* Line Number */}
               <span
                 className={`w-5 text-right text-[11px] select-none ${
-                  isActive ? 'text-[#7C3AED] dark:text-purple-400 font-bold' : 'text-[#64748B] dark:text-slate-600'
+                  isActive ? 'text-[#B45309] font-bold' : 'text-[#94A3B8]'
                 }`}
               >
                 {line.lineNumber}

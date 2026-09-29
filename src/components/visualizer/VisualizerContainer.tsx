@@ -40,8 +40,8 @@ export const VisualizerContainer: React.FC = () => {
         opMain: 'READY',
         opDetail: 'Press PLAY or NEXT to begin sorting',
         badge: 'READY',
-        badgeClass: 'bg-[#F3E8FF] text-[#7C3AED] border-[#C084FC] dark:bg-purple-950/40 dark:text-purple-300 dark:border-purple-800/40',
-        icon: <Sparkles className="w-4 h-4 text-[#7C3AED] dark:text-purple-400" />,
+        badgeClass: 'bg-[#FFFBEB] text-[#B45309] border-[#FDE68A]',
+        icon: <Sparkles className="w-4 h-4 text-[#D97706]" />,
       };
     }
 
@@ -55,8 +55,8 @@ export const VisualizerContainer: React.FC = () => {
         opMain: 'PASS COMPLETE',
         opDetail: 'Largest remaining element reached its final position.',
         badge: 'PASS COMPLETE',
-        badgeClass: 'bg-[#ECFDF5] text-[#059669] border-[#A7F3D0] dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-700/50',
-        icon: <CheckCircle2 className="w-4 h-4 text-[#059669] dark:text-emerald-400" />,
+        badgeClass: 'bg-[#ECFDF5] text-[#059669] border-[#A7F3D0]',
+        icon: <CheckCircle2 className="w-4 h-4 text-[#059669]" />,
       };
     }
 
@@ -74,8 +74,8 @@ export const VisualizerContainer: React.FC = () => {
         opMain: 'SWAPPING',
         opDetail: `${valA} ↔ ${valB}`,
         badge: 'SWAPPING',
-        badgeClass: 'bg-[#FFF1F2] text-[#E11D48] border-[#FECDD3] dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800/50',
-        icon: <ArrowRightLeft className="w-4 h-4 text-[#E11D48] dark:text-rose-400" />,
+        badgeClass: 'bg-[#FFF1F2] text-[#E11D48] border-[#FECDD3]',
+        icon: <ArrowRightLeft className="w-4 h-4 text-[#E11D48]" />,
       };
     }
 
@@ -96,9 +96,9 @@ export const VisualizerContainer: React.FC = () => {
         opDetail: needsSwap ? `${valA} > ${valB}` : `${valA} ≤ ${valB}`,
         badge: needsSwap ? 'SWAP REQUIRED' : 'NO SWAP',
         badgeClass: needsSwap
-          ? 'bg-[#FFFBEB] text-[#D97706] border-[#FDE68A] dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800/50'
-          : 'bg-[#F0F9FF] text-[#0284C7] border-[#BAE6FD] dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-800/50',
-        icon: <Sparkles className={`w-4 h-4 ${needsSwap ? 'text-[#D97706] dark:text-amber-400' : 'text-[#0284C7] dark:text-blue-400'}`} />,
+          ? 'bg-[#FFFBEB] text-[#B45309] border-[#FDE68A]'
+          : 'bg-[#F4F4F5] text-[#3F3F3F] border-[#E4E4E7]',
+        icon: <Sparkles className={`w-4 h-4 ${needsSwap ? 'text-[#D97706]' : 'text-[#3F3F3F]'}`} />,
       };
     }
 
@@ -109,25 +109,22 @@ export const VisualizerContainer: React.FC = () => {
       opMain: currentStep.action,
       opDetail: currentStep.valuesLabel,
       badge: currentStep.action.toUpperCase(),
-      badgeClass: 'bg-[#F3E8FF] text-[#7C3AED] border-[#C084FC] dark:bg-purple-950/40 dark:text-purple-300 dark:border-purple-800/40',
-      icon: <Sparkles className="w-4 h-4 text-[#7C3AED] dark:text-purple-400" />,
+      badgeClass: 'bg-[#FFFBEB] text-[#B45309] border-[#FDE68A]',
+      icon: <Sparkles className="w-4 h-4 text-[#D97706]" />,
     };
   };
 
   const hud = getOperationHudData();
 
   return (
-    <div className="relative w-full bg-white dark:bg-[#0B0F19] border border-[#CBD5E1] dark:border-[#19243C] rounded-2xl p-4 sm:p-5 shadow-sm dark:shadow-2xl flex flex-col justify-between overflow-hidden">
-      {/* Background ambient lighting in dark mode */}
-      <div className="hidden dark:block absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-24 bg-purple-600/10 blur-3xl pointer-events-none" />
-
+    <div className="relative w-full bg-white border border-[#E2E8F0] rounded-2xl p-4 sm:p-5 shadow-clean-elevated flex flex-col justify-between overflow-hidden">
       {/* Top Header inside Visualizer: Title on left, Legend on right */}
-      <div className="flex items-center justify-between z-10 w-full mb-3 pb-2 border-b border-[#E2E8F0] dark:border-[#141B2D]">
+      <div className="flex items-center justify-between z-10 w-full mb-3 pb-2 border-b border-[#E2E8F0]">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-lg bg-[#F3E8FF] dark:bg-purple-600/20 border border-[#C084FC] dark:border-purple-500/30 flex items-center justify-center">
-            <Box className="w-3.5 h-3.5 text-[#7C3AED] dark:text-purple-400" />
+          <div className="w-6 h-6 rounded-lg bg-[#FFFBEB] border border-[#FDE68A] flex items-center justify-center">
+            <Box className="w-3.5 h-3.5 text-[#B45309]" />
           </div>
-          <span className="text-xs sm:text-sm font-bold text-[#0F172A] dark:text-white tracking-wide font-mono uppercase">
+          <span className="text-xs sm:text-sm font-bold text-[#18181B] tracking-wide font-mono uppercase">
             Visualization
           </span>
         </div>
@@ -142,16 +139,16 @@ export const VisualizerContainer: React.FC = () => {
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25 }}
-          className="z-10 w-full mb-2 bg-[#ECFDF5] dark:bg-[#0A161E]/90 border border-[#A7F3D0] dark:border-emerald-700/50 rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm"
+          className="z-10 w-full mb-2 bg-[#ECFDF5] border border-[#A7F3D0] rounded-xl px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs"
         >
           {/* Left: Completion Badge & Final Sorted Array */}
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
-              <span className="px-2.5 py-0.5 rounded-lg border text-[11px] font-bold tracking-wider uppercase bg-white dark:bg-emerald-950/50 text-[#047857] dark:text-emerald-300 border-[#A7F3D0] dark:border-emerald-600/50 flex items-center gap-1.5 shadow-sm">
-                <Check className="w-3.5 h-3.5 text-[#047857] dark:text-emerald-400" />
+              <span className="px-2.5 py-0.5 rounded-lg border text-[11px] font-bold tracking-wider uppercase bg-white text-[#047857] border-[#A7F3D0] flex items-center gap-1.5 shadow-xs">
+                <Check className="w-3.5 h-3.5 text-[#047857]" />
                 SORTING COMPLETE
               </span>
-              <span className="text-xs text-[#064E3B] dark:text-slate-300 font-medium">Final sorted array:</span>
+              <span className="text-xs text-[#064E3B] font-medium">Final sorted array:</span>
             </div>
 
             {/* Final Sorted Array Chips */}
@@ -159,7 +156,7 @@ export const VisualizerContainer: React.FC = () => {
               {currentStep.array.map((val, idx) => (
                 <span
                   key={idx}
-                  className="px-2 py-0.5 rounded-md bg-white dark:bg-[#0D2422] border border-[#A7F3D0] dark:border-emerald-600/40 text-[#047857] dark:text-emerald-200 text-xs font-mono font-semibold"
+                  className="px-2 py-0.5 rounded-md bg-white border border-[#A7F3D0] text-[#047857] text-xs font-mono font-semibold"
                 >
                   {val}
                 </span>
@@ -169,28 +166,28 @@ export const VisualizerContainer: React.FC = () => {
 
           {/* Right: Key Summary Statistics & Replay */}
           <div className="flex items-center gap-3 shrink-0 flex-wrap sm:flex-nowrap">
-            <div className="grid grid-cols-4 gap-2 text-center bg-white dark:bg-[#07131A] border border-[#CBD5E1] dark:border-[#142C33] rounded-lg px-3 py-1.5 shadow-sm">
+            <div className="grid grid-cols-4 gap-2 text-center bg-white border border-[#CBD5E1] rounded-lg px-3 py-1.5 shadow-xs">
               <div className="flex flex-col">
-                <span className="text-[10px] text-[#475569] dark:text-slate-400 uppercase font-mono">Comparisons</span>
-                <span className="text-xs font-bold text-[#B45309] dark:text-amber-300 font-mono">
+                <span className="text-[10px] text-[#64748B] uppercase font-mono">Comparisons</span>
+                <span className="text-xs font-bold text-[#B45309] font-mono">
                   {currentStep.comparisonCount}
                 </span>
               </div>
-              <div className="flex flex-col border-l border-[#CBD5E1] dark:border-[#142C33] pl-2">
-                <span className="text-[10px] text-[#475569] dark:text-slate-400 uppercase font-mono">Swaps</span>
-                <span className="text-xs font-bold text-[#DC2626] dark:text-rose-300 font-mono">
+              <div className="flex flex-col border-l border-[#CBD5E1] pl-2">
+                <span className="text-[10px] text-[#64748B] uppercase font-mono">Swaps</span>
+                <span className="text-xs font-bold text-[#E11D48] font-mono">
                   {currentStep.swapCount}
                 </span>
               </div>
-              <div className="flex flex-col border-l border-[#CBD5E1] dark:border-[#142C33] pl-2">
-                <span className="text-[10px] text-[#475569] dark:text-slate-400 uppercase font-mono">Passes</span>
-                <span className="text-xs font-bold text-[#0369A1] dark:text-cyan-300 font-mono">
+              <div className="flex flex-col border-l border-[#CBD5E1] pl-2">
+                <span className="text-[10px] text-[#64748B] uppercase font-mono">Passes</span>
+                <span className="text-xs font-bold text-[#3F3F3F] font-mono">
                   {currentStep.totalPasses}
                 </span>
               </div>
-              <div className="flex flex-col border-l border-[#CBD5E1] dark:border-[#142C33] pl-2">
-                <span className="text-[10px] text-[#475569] dark:text-slate-400 uppercase font-mono">Total Steps</span>
-                <span className="text-xs font-bold text-[#6D28D9] dark:text-purple-300 font-mono">
+              <div className="flex flex-col border-l border-[#CBD5E1] pl-2">
+                <span className="text-[10px] text-[#64748B] uppercase font-mono">Total Steps</span>
+                <span className="text-xs font-bold text-[#18181B] font-mono">
                   {steps.length}
                 </span>
               </div>
@@ -201,7 +198,7 @@ export const VisualizerContainer: React.FC = () => {
                 reset();
                 play();
               }}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#047857] hover:bg-[#065F46] dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider transition-colors shrink-0 shadow-sm cursor-pointer"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#047857] hover:bg-[#065F46] text-white font-bold text-xs uppercase tracking-wider transition-colors shrink-0 shadow-xs cursor-pointer"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>REPLAY</span>
@@ -210,28 +207,28 @@ export const VisualizerContainer: React.FC = () => {
         </motion.div>
       ) : (
         /* Compact Current Operation HUD */
-        <div className="z-10 w-full mb-2 bg-[#F8FAFC] dark:bg-[#0F162A]/90 border border-[#CBD5E1] dark:border-[#1E2C48] rounded-xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+        <div className="z-10 w-full mb-2 bg-[#F8FAFC] border border-[#CBD5E1] rounded-xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 shadow-xs">
           {/* Left: Dynamic Pass Storytelling */}
           <div className="flex flex-col min-w-[150px]">
-            <span className="text-xs font-bold font-mono text-[#0F172A] dark:text-slate-200 tracking-wide">
+            <span className="text-xs font-bold font-mono text-[#18181B] tracking-wide">
               {hud.passLabel}
             </span>
-            <span className="text-[11px] font-mono text-[#475569] dark:text-slate-400 truncate max-w-[220px]">
+            <span className="text-[11px] font-mono text-[#475569] truncate max-w-[220px]">
               {hud.passSub}
             </span>
           </div>
 
           {/* Center: Current Operation Details */}
           <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded-lg bg-white dark:bg-[#192038] border border-[#CBD5E1] dark:border-[#273556] flex items-center justify-center shrink-0 shadow-sm">
+            <div className="w-7 h-7 rounded-lg bg-white border border-[#CBD5E1] flex items-center justify-center shrink-0 shadow-xs">
               {hud.icon}
             </div>
             <div className="flex flex-col">
-              <span className="text-[10px] font-bold text-[#475569] dark:text-slate-400 uppercase tracking-wider">
+              <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">
                 {hud.opHeader}
               </span>
-              <span className="text-xs font-bold text-[#0F172A] dark:text-white font-mono">{hud.opMain}</span>
-              <span className="text-[11px] font-mono font-medium text-[#475569] dark:text-slate-300">
+              <span className="text-xs font-bold text-[#18181B] font-mono">{hud.opMain}</span>
+              <span className="text-[11px] font-mono font-medium text-[#475569]">
                 {hud.opDetail}
               </span>
             </div>
@@ -239,11 +236,11 @@ export const VisualizerContainer: React.FC = () => {
 
           {/* Right: Current Operation Status Badge */}
           <div className="flex flex-col items-end min-w-[130px]">
-            <span className="text-[9px] font-bold text-[#475569] dark:text-slate-400 uppercase tracking-wider mb-0.5">
+            <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-wider mb-0.5">
               Status
             </span>
             <span
-              className={`px-2.5 py-0.5 rounded-lg border text-[11px] font-bold tracking-wide shadow-sm ${hud.badgeClass}`}
+              className={`px-2.5 py-0.5 rounded-lg border text-[11px] font-bold tracking-wide shadow-xs ${hud.badgeClass}`}
             >
               {hud.badge}
             </span>
@@ -251,13 +248,13 @@ export const VisualizerContainer: React.FC = () => {
         </div>
       )}
 
-      {/* Visualizer Canvas: Vertical Bars with clean background */}
-      <div className="w-full flex items-end justify-center my-1 bg-[#F8FAFC] dark:bg-transparent rounded-xl p-2 sm:p-3 border border-[#E2E8F0] dark:border-transparent">
+      {/* Visualizer Canvas: Vertical Bars with clean light background */}
+      <div className="w-full flex items-end justify-center my-1 bg-[#FAFAFA] rounded-xl p-2 sm:p-3 border border-[#F1F5F9]">
         <BarVisualizer />
       </div>
 
       {/* Integrated Playback Controls at bottom of Visualizer Card */}
-      <div className="w-full pt-3 mt-1 border-t border-[#E2E8F0] dark:border-[#141B2D]">
+      <div className="w-full pt-3 mt-1 border-t border-[#E2E8F0]">
         <PlaybackControls />
       </div>
     </div>

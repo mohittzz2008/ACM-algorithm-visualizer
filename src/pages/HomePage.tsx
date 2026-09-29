@@ -23,6 +23,7 @@ import { ACMLogo } from '../components/branding/AlgoVistaLogo';
 import studentStudyingImg from '../assets/student-studying-desk.jpg';
 import studentDiscoversImg from '../assets/student-discovers-acm.jpg';
 import heroBgLandscapeImg from '../assets/hero-bg-landscape.jpg';
+import { GeometricCanvasBackground } from '../components/layout/GeometricCanvasBackground';
 import './HomePage.css';
 
 // ─────────────────────────────────────────────────────────────
@@ -139,6 +140,9 @@ interface OrbitalSystemProps {
   compact?: boolean;
   onCardClick?: (categoryName: string) => void;
   onOrbClick?: () => void;
+  cardOpacityMultiplier?: number;
+  yellowRingOpacity?: number;
+  yellowRingAngle?: number;
 }
 
 const OrbitalSystem: React.FC<OrbitalSystemProps> = ({
@@ -147,6 +151,9 @@ const OrbitalSystem: React.FC<OrbitalSystemProps> = ({
   compact = false,
   onCardClick,
   onOrbClick,
+  cardOpacityMultiplier = 1,
+  yellowRingOpacity = 0,
+  yellowRingAngle = 0,
 }) => {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([null, null, null, null]);
   const particleRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -174,7 +181,7 @@ const OrbitalSystem: React.FC<OrbitalSystemProps> = ({
 
         const scale = 0.7 + (depth + 1) * 0.22;
         const zIndex = Math.round((depth + 1) * 50) + 10;
-        const opacity = 0.65 + (depth + 1) * 0.175;
+        const opacity = (0.65 + (depth + 1) * 0.175) * cardOpacityMultiplier;
         const blurPx = depth < -0.4 ? Math.abs(depth + 0.4) * 1.5 : 0;
 
         const el = cardRefs.current[i];
@@ -193,7 +200,7 @@ const OrbitalSystem: React.FC<OrbitalSystemProps> = ({
         const px = Math.cos(pRad) * (radiusX + 16);
         const py = Math.sin(pRad) * (radiusY + 10);
         const pDepth = Math.sin(pRad);
-        const pOpacity = 0.25 + (pDepth + 1) * 0.35;
+        const pOpacity = (0.25 + (pDepth + 1) * 0.35) * cardOpacityMultiplier;
         const pScale = 0.5 + (pDepth + 1) * 0.4;
         el.style.transform = `translate3d(${px}px, ${py}px, 0px) scale(${pScale})`;
         el.style.opacity = String(Math.min(pOpacity, 0.9));
@@ -207,7 +214,7 @@ const OrbitalSystem: React.FC<OrbitalSystemProps> = ({
         const depth = Math.sin(rad);
         line.setAttribute('x2', String(x));
         line.setAttribute('y2', String(y));
-        line.style.opacity = String(0.1 + (depth + 1) * 0.12);
+        line.style.opacity = String((0.1 + (depth + 1) * 0.12) * cardOpacityMultiplier);
       });
 
       frameRef.current = requestAnimationFrame(animate);
@@ -215,7 +222,7 @@ const OrbitalSystem: React.FC<OrbitalSystemProps> = ({
 
     frameRef.current = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(frameRef.current);
-  }, [visible, speedMultiplier, radiusX, radiusY]);
+  }, [visible, speedMultiplier, radiusX, radiusY, cardOpacityMultiplier]);
 
   if (!visible) return null;
 
@@ -247,10 +254,10 @@ const OrbitalSystem: React.FC<OrbitalSystemProps> = ({
             y1={0}
             x2={0}
             y2={0}
-            stroke="#2563EB"
+            stroke="#CBD5E1"
             strokeWidth={1.2}
             strokeDasharray="4 4"
-            opacity={0.12}
+            opacity={0.16}
           />
         ))}
       </svg>
@@ -264,10 +271,58 @@ const OrbitalSystem: React.FC<OrbitalSystemProps> = ({
         style={{ cursor: onOrbClick ? 'pointer' : 'default' }}
       >
         <div className="flex flex-col items-center leading-none z-10">
-          <span className="font-black text-2xl tracking-widest text-white drop-shadow-sm">ACM</span>
-          <span className="text-[9px] font-bold tracking-wider text-blue-100 uppercase opacity-95 mt-0.5">Visualizer</span>
+          <span className="font-black text-2xl tracking-widest text-[#FFC107] drop-shadow-sm">ACM</span>
+          <span className="text-[9px] font-bold tracking-wider text-slate-300 uppercase opacity-95 mt-0.5">Visualizer</span>
         </div>
       </div>
+
+      {/* Synchronized Dynamic ACM-Yellow (#FFC107) Rotating Accent Ring */}
+      {yellowRingOpacity > 0.01 && (
+        <div
+          className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
+          style={{
+            width: 172,
+            height: 172,
+            opacity: yellowRingOpacity,
+            zIndex: 55,
+          }}
+        >
+          <svg
+            className="w-full h-full"
+            viewBox="0 0 172 172"
+            style={{
+              transform: `rotate(${yellowRingAngle}deg)`,
+              filter: `drop-shadow(0 0 12px rgba(255, 193, 7, ${0.65 * yellowRingOpacity})) drop-shadow(0 0 24px rgba(255, 193, 7, ${0.4 * yellowRingOpacity}))`,
+            }}
+          >
+            {/* Primary Sharp Yellow Ring */}
+            <circle
+              cx="86"
+              cy="86"
+              r="78"
+              fill="none"
+              stroke="#FFC107"
+              strokeWidth="2.8"
+              strokeDasharray="95 35 45 25"
+              strokeLinecap="round"
+            />
+            {/* Secondary Outer Concentric Accent Ring */}
+            <circle
+              cx="86"
+              cy="86"
+              r="83"
+              fill="none"
+              stroke="#FFC107"
+              strokeWidth="1.2"
+              strokeDasharray="16 16"
+              opacity="0.8"
+            />
+            {/* Synchronized Orbiting Accent Dots */}
+            <circle cx="86" cy="8" r="3.5" fill="#FFC107" />
+            <circle cx="86" cy="164" r="2.5" fill="#FFC107" />
+          </svg>
+        </div>
+      )}
 
       {/* Particles */}
       {Array.from({ length: particleCount }).map((_, i) => (
@@ -283,13 +338,20 @@ const OrbitalSystem: React.FC<OrbitalSystemProps> = ({
         <div
           key={cat.name}
           ref={(el) => { cardRefs.current[i] = el; }}
-          className="orbital-card orbital-card--light group hover:border-blue-400 hover:shadow-xl transition-all"
+          className="orbital-card orbital-card--light group hover:border-[#FFC107] hover:shadow-xl transition-all"
           onClick={() => onCardClick?.(cat.name)}
           title={`Explore ${cat.name}`}
         >
           <div className="flex items-center gap-1.5 mb-1">
             {cat.icon}
-            <span className="text-[10px] font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-100">
+            <span
+              className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded border"
+              style={{
+                color: cat.color,
+                backgroundColor: `${cat.color}14`,
+                borderColor: `${cat.color}30`,
+              }}
+            >
               {cat.name.split(' ')[0]}
             </span>
           </div>
@@ -298,11 +360,11 @@ const OrbitalSystem: React.FC<OrbitalSystemProps> = ({
             <cat.VizComponent />
           </div>
 
-          <div className="orbital-card__title text-slate-900 font-bold">
+          <div className="orbital-card__title text-[#18181B] font-bold">
             {cat.name}
           </div>
 
-          <div className="orbital-card__subtitle text-slate-500 font-medium text-[10px]">
+          <div className="orbital-card__subtitle text-[#64748B] font-medium text-[10px]">
             {cat.subtitle}
           </div>
         </div>
@@ -311,153 +373,11 @@ const OrbitalSystem: React.FC<OrbitalSystemProps> = ({
   );
 };
 
-// ─────────────────────────────────────────────────────────────
-// Interactive Watch Demo Modal
-// ─────────────────────────────────────────────────────────────
-
-interface DemoModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onLaunchVisualizer: () => void;
-}
-
-const WatchDemoModal: React.FC<DemoModalProps> = ({ isOpen, onClose, onLaunchVisualizer }) => {
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [step, setStep] = useState(1);
-  const [activeArray, setActiveArray] = useState([42, 18, 65, 27, 89, 34]);
-  const [comparing, setComparing] = useState<[number, number] | null>([0, 1]);
-
-  useEffect(() => {
-    if (!isOpen || !isPlaying) return;
-
-    const interval = setInterval(() => {
-      setStep((prevStep) => {
-        const nextStep = prevStep >= 6 ? 1 : prevStep + 1;
-        if (nextStep === 1) {
-          setActiveArray([42, 18, 65, 27, 89, 34]);
-          setComparing([0, 1]);
-        } else if (nextStep === 2) {
-          setActiveArray([18, 42, 65, 27, 89, 34]);
-          setComparing([1, 2]);
-        } else if (nextStep === 3) {
-          setActiveArray([18, 42, 65, 27, 89, 34]);
-          setComparing([2, 3]);
-        } else if (nextStep === 4) {
-          setActiveArray([18, 42, 27, 65, 89, 34]);
-          setComparing([3, 4]);
-        } else if (nextStep === 5) {
-          setActiveArray([18, 42, 27, 65, 34, 89]);
-          setComparing([4, 5]);
-        } else {
-          setActiveArray([18, 27, 34, 42, 65, 89]);
-          setComparing(null);
-        }
-        return nextStep;
-      });
-    }, 1400);
-
-    return () => clearInterval(interval);
-  }, [isOpen, isPlaying]);
-
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md">
-      <motion.div
-        className="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-xl w-full p-6 relative overflow-hidden"
-        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-      >
-        <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600">
-              <Sparkles className="w-4 h-4" />
-            </div>
-            <div>
-              <h3 className="text-base font-bold text-slate-900">ACM Visualizer — Live Interactive Demo</h3>
-              <p className="text-xs text-slate-500 font-medium">Real-time Step-by-Step Bubble Sort Trace</p>
-            </div>
-          </div>
-          <button
-            onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-
-        <div className="my-6 bg-slate-50 border border-slate-200 rounded-xl p-6">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-semibold uppercase tracking-wider text-blue-700 bg-blue-100/80 px-2.5 py-1 rounded-full border border-blue-200">
-              {step === 6 ? 'Pass Complete' : `Comparing arr[${comparing?.[0] ?? 0}] & arr[${comparing?.[1] ?? 1}]`}
-            </span>
-            <span className="text-xs font-mono font-bold text-slate-600">
-              Step {step} / 6
-            </span>
-          </div>
-
-          <div className="h-44 flex items-end justify-center gap-3 pt-4 border-b border-slate-200 pb-2">
-            {activeArray.map((val, idx) => {
-              const isComp = comparing && (idx === comparing[0] || idx === comparing[1]);
-              return (
-                <div key={idx} className="flex flex-col items-center gap-1.5 flex-1 max-w-[50px]">
-                  <span className={`text-[11px] font-bold font-mono ${isComp ? 'text-blue-700' : 'text-slate-600'}`}>
-                    {val}
-                  </span>
-                  <div
-                    className={`w-full rounded-t-md transition-all duration-500 ${
-                      isComp
-                        ? 'bg-gradient-to-t from-blue-600 to-blue-400 shadow-md shadow-blue-500/30 ring-2 ring-blue-300'
-                        : 'bg-slate-300'
-                    }`}
-                    style={{ height: `${val * 1.5}px` }}
-                  />
-                  <span className="text-[9px] font-mono text-slate-400">[{idx}]</span>
-                </div>
-              );
-            })}
-          </div>
-
-          <p className="mt-4 text-xs font-medium text-slate-600 text-center italic">
-            {step === 1 && 'Comparing 42 and 18. Since 42 > 18, swap elements.'}
-            {step === 2 && 'Comparing 42 and 65. Since 42 < 65, maintain order.'}
-            {step === 3 && 'Comparing 65 and 27. Since 65 > 27, swap elements.'}
-            {step === 4 && 'Comparing 65 and 89. Since 65 < 89, maintain order.'}
-            {step === 5 && 'Comparing 89 and 34. Since 89 > 34, swap elements.'}
-            {step === 6 && 'First pass complete! 89 is in its correct sorted position.'}
-          </p>
-        </div>
-
-        <div className="flex items-center justify-between gap-3 pt-2">
-          <button
-            onClick={() => setIsPlaying(!isPlaying)}
-            className="flex items-center gap-2 text-xs font-semibold px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
-          >
-            {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-            <span>{isPlaying ? 'Pause Demo' : 'Play Demo'}</span>
-          </button>
-
-          <button
-            onClick={onLaunchVisualizer}
-            className="flex items-center gap-2 text-xs font-bold px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-md shadow-blue-500/20 transition-all cursor-pointer"
-          >
-            <span>Launch Full Visualizer</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
-        </div>
-      </motion.div>
-    </div>
-  );
-};
-
-
-
 const STATS = [
-  { icon: <BookOpen className="w-4 h-4 text-blue-600" />, value: '30+', label: 'Algorithms' },
-  { icon: <Zap className="w-4 h-4 text-blue-600" />, value: '100%', label: 'Interactive' },
-  { icon: <Box className="w-4 h-4 text-blue-600" />, value: '3D', label: 'Visualization' },
-  { icon: <GraduationCap className="w-4 h-4 text-blue-600" />, value: 'Step-by-Step', label: 'Learning' },
+  { icon: <BookOpen className="w-4 h-4 text-[#D97706]" />, value: '30+', label: 'Algorithms' },
+  { icon: <Zap className="w-4 h-4 text-[#D97706]" />, value: '100%', label: 'Interactive' },
+  { icon: <Box className="w-4 h-4 text-[#3F3F3F]" />, value: '3D', label: 'Visualization' },
+  { icon: <GraduationCap className="w-4 h-4 text-[#3F3F3F]" />, value: 'Step-by-Step', label: 'Learning' },
 ];
 
 // ─────────────────────────────────────────────────────────────
@@ -500,78 +420,159 @@ export const HomePage: React.FC = () => {
   const skipIntroOnNextHome = useVisualizerStore((s) => s.skipIntroOnNextHome);
   const setSkipIntroOnNextHome = useVisualizerStore((s) => s.setSkipIntroOnNextHome);
 
-  // Intro Panels: 1 = Struggling Student, 2 = Discovery, 3 = Pure ACM Rapid Acceleration, 4 = Final Landing Page
-  const [panel, setPanel] = useState<number>(() => (skipIntroOnNextHome ? 4 : 1));
+  // Unified Continuous 3-Stage Cinematic Intro Animation State
+  const [introActive, setIntroActive] = useState<boolean>(() => !skipIntroOnNextHome);
   const [questionsCount, setQuestionsCount] = useState<number>(0);
-  const [orbitalSpeed, setOrbitalSpeed] = useState<number>(1);
+
+  // Layer 1 (Struggling Student) Transform States
+  const [layer1Opacity, setLayer1Opacity] = useState<number>(1);
+  const [layer1Scale, setLayer1Scale] = useState<number>(1);
+  const [layer1RotateX, setLayer1RotateX] = useState<number>(0);
+  const [layer1Blur, setLayer1Blur] = useState<number>(0);
+
+  // Golden Luminous Transformation Bridge between Stage 1 and Stage 2
+  const [bridgeGlowOpacity, setBridgeGlowOpacity] = useState<number>(0);
+
+  // Layer 2 (Student Discovers ACM) Transform States
+  const [layer2Opacity, setLayer2Opacity] = useState<number>(0);
+  const [layer2Scale, setLayer2Scale] = useState<number>(0.94);
+  const [layer2RotateX, setLayer2RotateX] = useState<number>(-2);
+
+  // Layer 3 (Unique Pure ACM Rotation with Synchronized Yellow Ring)
+  const [layer3Opacity, setLayer3Opacity] = useState<number>(0);
+  const [orbitalSpeed, setOrbitalSpeed] = useState<number>(0.8);
+  const [yellowRingOpacity, setYellowRingOpacity] = useState<number>(0);
+  const [yellowRingAngle, setYellowRingAngle] = useState<number>(0);
+  const ringAngleRef = useRef<number>(0);
+
   const [transitioning, setTransitioning] = useState<boolean>(false);
   const [ripple, setRipple] = useState<{ x: number; y: number } | null>(null);
-  const [demoModalOpen, setDemoModalOpen] = useState<boolean>(false);
 
   // Consume in-app navigation skip flag on mount if set
   useEffect(() => {
     if (skipIntroOnNextHome) {
+      setIntroActive(false);
       setSkipIntroOnNextHome(false);
     }
   }, []);
 
-  // Automatic panel progression timeline matching the user's exact cinematic choreography
+  // Continuous Single-Timeline Cinematic Orchestration (0s to 7.8s)
+  // Stage 1 -> Transformation with Depth & Tilt -> Stage 2 -> Emergence -> Stage 3 (Slow -> Continuous 1.4s Acceleration + Yellow Spinning Ring -> Immediate Seamless Reveal)
   useEffect(() => {
-    if (panel >= 4) return;
+    if (!introActive) return;
 
-    // Panel 1 question sequence
-    const tq1 = setTimeout(() => setQuestionsCount(1), 1000);
-    const tq2 = setTimeout(() => setQuestionsCount(2), 1800);
-    const tq3 = setTimeout(() => setQuestionsCount(3), 2600);
-    const tq4 = setTimeout(() => setQuestionsCount(4), 3400);
+    const startTime = performance.now();
+    let frameId: number;
 
-    // Transition to Panel 2 (ACM Discovery) at 4.2s
-    const p2 = setTimeout(() => setPanel(2), 4200);
+    const tick = (now: number) => {
+      const elapsed = now - startTime;
 
-    // Transition to Panel 3 (ACM Rapid Acceleration) at 6.8s
-    const p3 = setTimeout(() => {
-      setPanel(3);
-      setOrbitalSpeed(1.5);
-    }, 6800);
-
-    return () => {
-      clearTimeout(tq1);
-      clearTimeout(tq2);
-      clearTimeout(tq3);
-      clearTimeout(tq4);
-      clearTimeout(p2);
-      clearTimeout(p3);
-    };
-  }, [panel]);
-
-  // Smooth continuous exponential acceleration during Panel 3 (ACM Rapid Rotation Transition)
-  useEffect(() => {
-    if (panel !== 3) return;
-
-    const startTime = Date.now();
-    const duration = 2600; // 2.6 seconds continuous rotation acceleration
-
-    const interval = setInterval(() => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / duration, 1.0);
-
-      // Continuous exponential speed acceleration: 1.5 -> 42.0
-      const currentSpeed = 1.5 + Math.pow(progress, 2.5) * 40.5;
-      setOrbitalSpeed(currentSpeed);
-
-      if (progress >= 1.0) {
-        clearInterval(interval);
-        setPanel(4);
-        setOrbitalSpeed(1.0);
+      // ─── Stage 1 Thought Questions Timeline ───
+      if (elapsed < 700) {
+        setQuestionsCount(0);
+      } else if (elapsed < 1400) {
+        setQuestionsCount(1);
+      } else if (elapsed < 2100) {
+        setQuestionsCount(2);
+      } else if (elapsed < 2800) {
+        setQuestionsCount(3);
+      } else if (elapsed < 3200) {
+        setQuestionsCount(4);
       }
-    }, 16);
 
-    return () => clearInterval(interval);
-  }, [panel]);
+      // ─── Stage 1: 0ms to 3200ms (Late night study struggle) ───
+      if (elapsed < 3200) {
+        setLayer1Opacity(1);
+        setLayer1Scale(1);
+        setLayer1RotateX(0);
+        setLayer1Blur(0);
+        setBridgeGlowOpacity(0);
+        setLayer2Opacity(0);
+        setLayer2Scale(0.94);
+        setLayer2RotateX(-2);
+        setLayer3Opacity(0);
+      }
+      // ─── Transition 1 → 2: 3200ms to 4400ms (Natural 3D Emergence with depth, rotation, scaling & easing) ───
+      else if (elapsed >= 3200 && elapsed < 4400) {
+        const t = (elapsed - 3200) / 1200;
+        // EaseInOutCubic
+        const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+        // Layer 1 smoothly pushes deeper with subtle rotation and focal blur
+        setLayer1Opacity(1 - ease);
+        setLayer1Scale(1.0 + ease * 0.06);
+        setLayer1RotateX(ease * 2.2);
+        setLayer1Blur(ease * 3.5);
+
+        // Warm golden light bridge emerges from open book
+        const glowProg = Math.sin(t * Math.PI);
+        setBridgeGlowOpacity(glowProg * 0.85);
+
+        // Layer 2 naturally emerges from depth with 3D perspective
+        setLayer2Opacity(ease);
+        setLayer2Scale(0.94 + ease * 0.06);
+        setLayer2RotateX(-2 * (1 - ease));
+        setLayer3Opacity(0);
+      }
+      // ─── Stage 2: 4400ms to 5800ms (Student Discovery Moment) ───
+      else if (elapsed >= 4400 && elapsed < 5800) {
+        setLayer1Opacity(0);
+        setBridgeGlowOpacity(0);
+        setLayer2Opacity(1);
+        setLayer2Scale(1);
+        setLayer2RotateX(0);
+        setLayer3Opacity(0);
+      }
+      // ─── Transition 2 → 3: 5800ms to 6400ms (Continuous Emergence of ACM System) ───
+      else if (elapsed >= 5800 && elapsed < 6400) {
+        const t = (elapsed - 5800) / 600;
+        const ease = t * t * (3 - 2 * t);
+
+        setLayer2Opacity(1 - ease);
+        setLayer2Scale(1 + ease * 0.03);
+        setLayer3Opacity(ease);
+        setOrbitalSpeed(0.8 + ease * 0.2);
+        setYellowRingOpacity(0);
+      }
+      // ─── Stage 3: 6400ms to 7800ms (1.4s Pure Rotation Acceleration + Synchronized Yellow Ring) ───
+      else if (elapsed >= 6400 && elapsed < 7800) {
+        setLayer2Opacity(0);
+        setLayer3Opacity(1);
+
+        const t = (elapsed - 6400) / 1400; // Continuous 0.0 to 1.0 over 1.4s
+
+        // Starts rotating very slowly (0.8), accelerates continuously to fast smooth peak (~12.8)
+        const currentSpeed = 0.8 + Math.pow(t, 2.05) * 12.0;
+        setOrbitalSpeed(currentSpeed);
+
+        // ACM-yellow (#FFC107) circular border/ring becomes increasingly prominent as rotation accelerates
+        const ringOp = Math.min(Math.pow(t, 1.35) * 1.1, 1.0);
+        setYellowRingOpacity(ringOp);
+
+        // Advance rotating ring angle in direct sync with acceleration speed
+        ringAngleRef.current = (ringAngleRef.current + currentSpeed * 2.8) % 360;
+        setYellowRingAngle(ringAngleRef.current);
+      }
+
+      // ─── Peak Reached: Immediately Transition Smoothly into Main Home Page ───
+      if (elapsed >= 7800) {
+        setIntroActive(false);
+        setOrbitalSpeed(1.0);
+        setYellowRingOpacity(0);
+        return;
+      }
+
+      frameId = requestAnimationFrame(tick);
+    };
+
+    frameId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frameId);
+  }, [introActive]);
 
   const handleSkipIntro = useCallback(() => {
-    setPanel(4);
+    setIntroActive(false);
     setOrbitalSpeed(1.0);
+    setYellowRingOpacity(0);
   }, []);
 
   const handleStartExploring = useCallback(
@@ -581,7 +582,8 @@ export const HomePage: React.FC = () => {
         setRipple({ x: e.clientX - rect.left, y: e.clientY - rect.top });
       }
 
-      setPanel(4);
+      setIntroActive(false);
+      setYellowRingOpacity(0);
 
       const orbEl = document.getElementById('acm-orb');
       if (orbEl) {
@@ -612,19 +614,15 @@ export const HomePage: React.FC = () => {
   ];
 
   return (
-    <div className={`home-page ${panel >= 4 ? 'hero-bg--light' : 'bg-slate-950'}`}>
+    <div className="home-page bg-white min-h-screen relative text-[#18181B]">
+      {/* Background with geometric yellow and dark charcoal shapes at corners/edges matching reference */}
+      <GeometricCanvasBackground />
+
       {/* ─── Top Header Navigation ─── */}
-      <header className={`fixed top-0 left-0 right-0 z-40 px-4 sm:px-8 py-3 transition-all duration-700 ${
-        panel >= 4 ? 'bg-white/90 backdrop-blur-md border-b border-slate-200 text-slate-900 shadow-xs' : 'bg-slate-950/70 backdrop-blur-md border-b border-white/15 text-white'
-      }`}>
-        <div className="max-w-[1400px] mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3 cursor-pointer" onClick={() => setCurrentPage('home')}>
-            <ACMLogo variant="horizontal" size="md" lightText={panel < 4} />
-            <span className={`text-[11px] font-semibold uppercase tracking-wider hidden sm:inline-block border-l pl-3 ${
-              panel >= 4 ? 'text-slate-500 border-slate-300' : 'text-slate-200 border-white/30 drop-shadow-sm'
-            }`}>
-              Visualize · Learn · Master
-            </span>
+      <header className="fixed top-0 left-0 right-0 z-40 px-4 sm:px-8 py-3 transition-colors bg-white border-b border-[#E2E8F0] text-[#0F172A] shadow-xs">
+        <div className="max-w-[1400px] mx-auto flex items-center justify-between min-w-0">
+          <div className="flex items-center shrink-0 whitespace-nowrap cursor-pointer" onClick={() => setCurrentPage('home')}>
+            <ACMLogo variant="horizontal" size="md" lightText={false} />
           </div>
 
           <nav className="hidden md:flex items-center gap-8">
@@ -637,8 +635,8 @@ export const HomePage: React.FC = () => {
                 }}
                 className={`text-xs font-semibold transition-colors cursor-pointer py-1 ${
                   item === 'Home'
-                    ? `${panel >= 4 ? 'text-slate-900' : 'text-white'} relative after:absolute after:-bottom-2 after:left-0 after:right-0 after:h-[2px] after:bg-blue-600 after:rounded-full`
-                    : `${panel >= 4 ? 'text-slate-600 hover:text-slate-900' : 'text-slate-300 hover:text-white'}`
+                    ? 'text-[#0F172A] relative after:absolute after:-bottom-2 after:left-0 after:right-0 after:h-[2px] after:bg-[#FFC107] after:rounded-full'
+                    : 'text-[#475569] hover:text-[#0F172A]'
                 }`}
               >
                 {item}
@@ -648,7 +646,7 @@ export const HomePage: React.FC = () => {
 
           <button
             onClick={handleStartExploring}
-            className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-500/20 transition-all cursor-pointer flex items-center gap-1.5"
+            className="px-4 py-2 rounded-xl bg-[#FFC107] hover:bg-[#F59E0B] text-[#18181B] font-bold text-xs shadow-xs transition-colors cursor-pointer flex items-center gap-1.5"
           >
             <span>Start Exploring</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -656,227 +654,249 @@ export const HomePage: React.FC = () => {
         </div>
       </header>
 
-      {/* ─── CINEMATIC INTRO PANELS (1 TO 3) ─── */}
-      <AnimatePresence mode="wait">
-        {panel <= 3 && (
+      {/* ─── UNIFIED CONTINUOUS 3-STAGE CINEMATIC INTRO ─── */}
+      <AnimatePresence>
+        {introActive && (
           <motion.div
-            key={`panel-${panel}`}
-            className="relative w-full min-h-screen overflow-hidden flex items-center justify-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
+            key="cinematic-intro-stage"
+            className="fixed inset-0 z-30 overflow-hidden flex items-center justify-center bg-white"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.75, ease: [0.25, 0.1, 0.25, 1.0] } }}
+            style={{ perspective: '1200px' }}
           >
-            {/* Panel 1: Struggling Student */}
-            {panel === 1 && (
-              <>
-                <div className="absolute inset-0 z-0 overflow-hidden">
-                  <img
-                    src={studentStudyingImg}
-                    alt="Student struggling at study desk"
-                    className="w-full h-full object-cover object-center"
-                    style={{ filter: 'brightness(0.92) contrast(1.05)' }}
-                  />
-                  <div className="absolute inset-0 bg-radial-vignette pointer-events-none" />
+            {/* Background geometric shapes around edges */}
+            <GeometricCanvasBackground />
+
+            {/* ── Layer 1: Struggling Student at Desk ── */}
+            <div
+              className="absolute inset-0 z-10 overflow-hidden flex items-center justify-center pointer-events-none"
+              style={{
+                opacity: layer1Opacity,
+                transform: `scale(${layer1Scale}) rotateX(${layer1RotateX}deg)`,
+                transformOrigin: '50% 60%',
+                filter: layer1Blur > 0 ? `blur(${layer1Blur}px)` : 'none',
+                willChange: 'transform, opacity, filter',
+              }}
+            >
+              <img
+                src={studentStudyingImg}
+                alt="Student struggling at study desk"
+                className="w-full h-full object-cover object-center"
+                style={{ filter: 'brightness(0.92) contrast(1.05)' }}
+              />
+              <div className="absolute inset-0 bg-radial-vignette pointer-events-none" />
+
+              {/* Stage 1 Clock */}
+              <div className="absolute top-20 left-6 sm:left-12 z-10 text-white font-mono">
+                <div className="text-3xl sm:text-5xl font-extrabold tracking-wider text-slate-100 drop-shadow-md">
+                  02:15 <span className="text-xs font-bold text-amber-400 align-top">AM</span>
                 </div>
+                <div className="text-xs sm:text-sm font-medium tracking-widest text-slate-300 uppercase mt-1 flex items-center gap-2">
+                  <span className="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                  <span>Still Confused? _</span>
+                </div>
+              </div>
 
-                <motion.div
-                  className="absolute top-20 left-6 sm:left-12 z-10 text-white font-mono"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1 }}
-                >
-                  <div className="text-3xl sm:text-5xl font-extrabold tracking-wider text-slate-100 drop-shadow-md">
-                    02:15 <span className="text-xs font-bold text-amber-400 align-top">AM</span>
-                  </div>
-                  <div className="text-xs sm:text-sm font-medium tracking-widest text-slate-300 uppercase mt-1 flex items-center gap-2">
-                    <span className="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-                    <span>Still Confused? _</span>
-                  </div>
-                </motion.div>
-
-                {questionsCount > 0 && (
-                  <motion.div
-                    className="absolute top-[18%] right-[6%] sm:right-[12%] z-20 max-w-sm w-full bg-slate-900/90 text-white border border-slate-700/70 rounded-2xl p-5 shadow-2xl backdrop-blur-xl"
-                    initial={{ opacity: 0, scale: 0.9, y: 15 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <div className="flex items-center gap-2 pb-2.5 mb-3 border-b border-slate-800">
-                      <div className="w-6 h-6 rounded-md bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
-                        <HelpCircle className="w-3.5 h-3.5" />
-                      </div>
-                      <div>
-                        <span className="text-xs font-bold text-slate-200 uppercase tracking-wider block">
-                          Student Thoughts
-                        </span>
-                        <span className="text-[10px] text-slate-400">Struggling with Algorithm Concepts</span>
-                      </div>
+              {/* Stage 1 Thought Questions */}
+              {questionsCount > 0 && (
+                <div className="absolute top-[18%] right-[6%] sm:right-[12%] z-20 max-w-sm w-full bg-white/95 text-[#18181B] border border-[#CBD5E1] rounded-2xl p-5 shadow-2xl backdrop-blur-xl">
+                  <div className="flex items-center gap-2 pb-2.5 mb-3 border-b border-[#E2E8F0]">
+                    <div className="w-6 h-6 rounded-md bg-[#FFFBEB] border border-[#FFC107]/50 flex items-center justify-center text-[#D97706]">
+                      <HelpCircle className="w-3.5 h-3.5" />
                     </div>
-
-                    <div className="space-y-2 font-sans">
-                      {thoughtQuestions.slice(0, questionsCount).map((q, idx) => (
-                        <motion.div
-                          key={idx}
-                          initial={{ opacity: 0, x: 12 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.5 }}
-                          className={`text-xs sm:text-sm font-medium py-1 px-2.5 rounded-lg transition-colors ${
-                            idx === questionsCount - 1
-                              ? 'text-amber-300 bg-amber-500/10 border border-amber-500/20'
-                              : 'text-slate-300'
-                          }`}
-                        >
-                          {q}
-                        </motion.div>
-                      ))}
+                    <div>
+                      <span className="text-xs font-bold text-[#18181B] uppercase tracking-wider block">
+                        Student Thoughts
+                      </span>
+                      <span className="text-[10px] text-[#64748B]">Struggling with Algorithm Concepts</span>
                     </div>
-                  </motion.div>
-                )}
-              </>
-            )}
+                  </div>
 
-            {/* Panel 2: ACM Discovery */}
-            {panel === 2 && (
-              <div className="absolute inset-0 z-0 overflow-hidden flex items-center justify-center">
-                <img
-                  src={studentDiscoversImg}
-                  alt="Student discovers ACM"
-                  className="w-full h-full object-cover object-center"
+                  <div className="space-y-2 font-sans">
+                    {thoughtQuestions.slice(0, questionsCount).map((q, idx) => (
+                      <div
+                        key={idx}
+                        className={`text-xs sm:text-sm font-medium py-1 px-2.5 rounded-lg transition-colors ${
+                          idx === questionsCount - 1
+                            ? 'text-[#B45309] bg-[#FFFBEB] border border-[#FFC107]/40'
+                            : 'text-[#475569]'
+                        }`}
+                      >
+                        {q}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* ── Luminescent Golden Transformation Bridge ── */}
+            {bridgeGlowOpacity > 0.01 && (
+              <div
+                className="absolute inset-0 z-15 pointer-events-none flex items-center justify-center"
+                style={{ opacity: bridgeGlowOpacity }}
+              >
+                <div
+                  className="w-[520px] h-[520px] rounded-full blur-3xl pointer-events-none"
+                  style={{
+                    background: 'radial-gradient(circle, rgba(255, 193, 7, 0.5) 0%, rgba(254, 243, 199, 0.25) 45%, transparent 70%)',
+                  }}
                 />
-                <div className="absolute inset-0 bg-radial-vignette pointer-events-none" />
-
-                <motion.div
-                  className="absolute bottom-16 sm:bottom-24 z-10 text-center px-4 max-w-xl"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                >
-                  <span className="text-xs font-bold uppercase tracking-widest text-blue-400 bg-blue-950/80 border border-blue-800/60 px-3 py-1 rounded-full mb-3 inline-block">
-                    A New Way to Learn
-                  </span>
-                  <h3 className="text-2xl sm:text-4xl font-black text-white drop-shadow-lg tracking-tight">
-                    What if you could <span className="text-blue-400">see</span> how algorithms work?
-                  </h3>
-                </motion.div>
               </div>
             )}
 
-            {/* Panel 3: Rapid ACM Rotation Scene (Matching Reference Panel 3) */}
-            {panel === 3 && (
-              <div className="relative z-20 w-full min-h-screen flex flex-col items-center justify-center bg-slate-950 overflow-hidden px-4">
-                {/* Radial Blue Light Energy Aura */}
-                <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-                  <div
-                    className="w-[650px] h-[650px] rounded-full blur-3xl transition-all duration-500"
-                    style={{
-                      background: orbitalSpeed > 5
-                        ? 'radial-gradient(circle, rgba(37, 99, 235, 0.5) 0%, rgba(6, 182, 212, 0.3) 45%, transparent 75%)'
-                        : 'radial-gradient(circle, rgba(37, 99, 235, 0.25) 0%, transparent 70%)',
-                      opacity: orbitalSpeed > 5 ? 0.9 : 0.5,
-                      transform: `scale(${1 + (orbitalSpeed / 12) * 0.25})`,
-                    }}
-                  />
-                </div>
+            {/* ── Layer 2: Discovery Scene (Naturally Emerges from Depth) ── */}
+            <div
+              className="absolute inset-0 z-20 overflow-hidden flex items-center justify-center pointer-events-none"
+              style={{
+                opacity: layer2Opacity,
+                transform: `scale(${layer2Scale}) rotateX(${layer2RotateX}deg)`,
+                transformOrigin: '50% 60%',
+                willChange: 'transform, opacity',
+              }}
+            >
+              <img
+                src={studentDiscoversImg}
+                alt="Student discovers ACM"
+                className="w-full h-full object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-radial-vignette pointer-events-none" />
 
-                <motion.div
-                  className="w-full max-w-4xl flex flex-col items-center justify-center relative z-10"
-                  initial={{ scale: 0.9, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <div className="text-center mb-4 z-10">
-                    <span className="text-xs font-mono font-bold tracking-widest text-blue-400 uppercase bg-blue-950/80 px-3.5 py-1 rounded-full border border-blue-800/60 shadow-md">
-                      {orbitalSpeed > 5 ? 'Rapid ACM Rotation' : 'ACM Core Acceleration'}
-                    </span>
-                    <h2 className="text-2xl sm:text-4xl font-black text-white mt-3 tracking-tight drop-shadow-md">
-                      Transforming Algorithmic Understanding
-                    </h2>
-                  </div>
-
-                  <div
-                    className="w-full h-[480px] flex items-center justify-center relative transition-all duration-300"
-                    style={{
-                      filter: orbitalSpeed > 6 ? `blur(${Math.min((orbitalSpeed - 6) * 0.15, 1.2)}px)` : 'none',
-                    }}
-                  >
-                    <OrbitalSystem
-                      visible={true}
-                      speedMultiplier={orbitalSpeed}
-                      onCardClick={() => handleStartExploring()}
-                      onOrbClick={() => handleStartExploring()}
-                    />
-                  </div>
-                </motion.div>
+              {/* Stage 2 Headline */}
+              <div className="absolute bottom-16 sm:bottom-24 z-10 text-center px-4 max-w-xl">
+                <span className="text-xs font-bold uppercase tracking-widest text-[#B45309] bg-[#FFFBEB] border border-[#FFC107]/50 px-3 py-1 rounded-full mb-3 inline-block shadow-xs">
+                  A New Way to Learn
+                </span>
+                <h3 className="text-2xl sm:text-4xl font-black text-white drop-shadow-lg tracking-tight">
+                  What if you could <span className="text-[#FFC107]">see</span> how algorithms work?
+                </h3>
               </div>
-            )}
+            </div>
+
+            {/* ── Layer 3: ACM Visual Pure Rotation with Synchronized Yellow Ring ── */}
+            <div
+              className="absolute inset-0 z-25 flex items-center justify-center pointer-events-none overflow-hidden"
+              style={{
+                opacity: layer3Opacity,
+                willChange: 'opacity',
+              }}
+            >
+              {/* Radial Warm Golden Ambient Energy Aura */}
+              <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+                <div
+                  className="w-[600px] h-[600px] rounded-full blur-3xl pointer-events-none transition-all duration-300"
+                  style={{
+                    background: 'radial-gradient(circle, rgba(255, 193, 7, 0.28) 0%, rgba(254, 243, 199, 0.12) 45%, transparent 70%)',
+                    opacity: 0.55 + yellowRingOpacity * 0.45,
+                  }}
+                />
+              </div>
+
+              {/* Central Visual Stage: Completely Stable (NO Zoom, NO Camera Movement) */}
+              <div className="w-full h-[520px] flex items-center justify-center relative pointer-events-auto">
+                <OrbitalSystem
+                  visible={layer3Opacity > 0.05}
+                  speedMultiplier={orbitalSpeed}
+                  yellowRingOpacity={yellowRingOpacity}
+                  yellowRingAngle={yellowRingAngle}
+                  onCardClick={() => handleStartExploring()}
+                  onOrbClick={() => handleStartExploring()}
+                />
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* ─── PANEL 4: FINAL LANDING PAGE (PERFECT 100% MATCH TO REFERENCE SCREENSHOT 3) ─── */}
-      <AnimatePresence>
-        {panel >= 4 && (
-          <motion.div
-            className="hero-page-wrapper relative w-full min-h-screen pt-20 pb-12 px-4 sm:px-8 overflow-x-hidden flex flex-col justify-between"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-          >
-            {/* Background Image Layer */}
-            <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-              <img
-                src={heroBgLandscapeImg}
-                alt="ACM Hero Educational Architecture Landscape"
-                className="w-full h-full object-cover object-center opacity-30"
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/80 to-white/95" />
-            </div>
-
+      {/* ─── MAIN LANDING PAGE (Always Mounted or Seamlessly Revealed) ─── */}
+      <motion.div
+        className="hero-page-wrapper relative w-full min-h-screen pt-20 pb-12 px-4 sm:px-8 overflow-x-hidden flex flex-col justify-between bg-transparent text-[#18181B]"
+        initial={{ opacity: introActive ? 0 : 1, scale: introActive ? 1.02 : 1 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.85, ease: [0.25, 0.1, 0.25, 1.0] }}
+      >
             {/* Main 2-Column Hero Grid */}
             <div className="relative z-10 max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center py-6">
               {/* Left Text Column */}
               <div className="col-span-12 lg:col-span-6 text-center lg:text-left flex flex-col items-center lg:items-start gap-4">
+                {/* Architectural Eyebrow / Kicker with geometric diamond accents */}
+                <motion.div
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  className="flex items-center gap-2.5"
+                >
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    <span className="w-2.5 h-2.5 bg-[#FFC107] rotate-45 inline-block shadow-xs" />
+                    <span className="w-1.5 h-1.5 bg-[#3F3F3F] rotate-45 inline-block" />
+                  </div>
+                  <span className="text-[11px] font-mono font-bold uppercase tracking-[0.24em] text-[#3F3F3F]">
+                    ACM // Computational Logic
+                  </span>
+                  <span className="h-px w-10 bg-gradient-to-r from-[#CBD5E1] to-transparent hidden sm:inline-block" />
+                </motion.div>
+
+                {/* Refined Bespoke Editorial Headline */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
+                  transition={{ duration: 0.65, delay: 0.35 }}
+                  className="space-y-1"
                 >
-                  <div className="hero-badge hero-badge--light inline-flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-                    <span>Interactive Algorithm Visualizer</span>
+                  <h1 className="text-3xl sm:text-5xl lg:text-[3.5rem] font-black tracking-[-0.035em] leading-[1.08] text-[#18181B]">
+                    <span className="block">Precision Logic.</span>
+                    <span className="block text-[#3F3F3F] font-semibold text-2xl sm:text-4xl lg:text-[2.65rem] mt-1 tracking-tight">
+                      Visualized in Motion.
+                    </span>
+                    <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#B45309] via-[#D97706] to-[#FFC107] font-black mt-1">
+                      Master Every Step.
+                    </span>
+                  </h1>
+                </motion.div>
+
+                {/* Structured Architectural Feature Strip (Bridges space naturally) */}
+                <motion.div
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                  className="grid grid-cols-3 gap-2.5 w-full max-w-lg pt-1 pb-1"
+                >
+                  <div className="p-2.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] shadow-xs flex flex-col gap-0.5 text-left">
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#B45309]">
+                      01 // Execution
+                    </span>
+                    <span className="text-xs font-bold text-[#18181B] truncate">
+                      Step Traces
+                    </span>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] shadow-xs flex flex-col gap-0.5 text-left">
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#3F3F3F]">
+                      02 // Topology
+                    </span>
+                    <span className="text-xs font-bold text-[#18181B] truncate">
+                      Graph & Trees
+                    </span>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] shadow-xs flex flex-col gap-0.5 text-left">
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#059669]">
+                      03 // Analysis
+                    </span>
+                    <span className="text-xs font-bold text-[#18181B] truncate">
+                      Complexity O(n)
+                    </span>
                   </div>
                 </motion.div>
 
-                <motion.h1
-                  className="hero-heading hero-heading--light text-slate-900 text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1]"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: 0.35 }}
-                >
-                  Visualize <br />
-                  Algorithms <br />
-                  Like <span className="hero-heading__accent text-blue-600">Never Before.</span>
-                </motion.h1>
-
-                <motion.p
-                  className="hero-subtext text-slate-600 font-medium text-sm sm:text-base max-w-lg leading-relaxed"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.5 }}
-                >
-                  Turn complex algorithms and data structures into interactive, visual experiences. Learn, experiment and master concepts step by step.
-                </motion.p>
-
+                {/* Start Exploring Action Section (Repositioned & Balanced) */}
                 <motion.div
-                  className="hero-ctas flex items-center justify-center lg:justify-start gap-4 pt-2"
-                  initial={{ opacity: 0, y: 20 }}
+                  className="w-full flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-3 pb-1"
+                  initial={{ opacity: 0, y: 18 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.65 }}
                 >
                   <button
                     onClick={handleStartExploring}
-                    className="cta-primary"
+                    className="cta-primary px-8 py-3.5 rounded-xl font-bold text-sm tracking-wide flex items-center justify-center gap-2.5 shadow-md hover:shadow-lg transition-all cursor-pointer group w-full sm:w-auto"
                     type="button"
                   >
                     {ripple && (
@@ -886,17 +906,13 @@ export const HomePage: React.FC = () => {
                       />
                     )}
                     <span>Start Exploring</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </button>
 
-                  <button
-                    type="button"
-                    onClick={() => setDemoModalOpen(true)}
-                    className="cta-secondary cta-secondary--light"
-                  >
-                    <Play className="w-3.5 h-3.5 text-blue-600 fill-blue-600" />
-                    <span>Watch Demo</span>
-                  </button>
+                  <div className="flex items-center gap-2 text-xs font-semibold text-[#475569] bg-[#F8FAFC] border border-[#E2E8F0] px-4 py-3 rounded-xl shadow-xs">
+                    <span className="w-2 h-2 rounded-full bg-[#059669] animate-pulse" />
+                    <span>Free & Interactive Engine · 30+ Algorithms</span>
+                  </div>
                 </motion.div>
 
                 {/* Stats Bar */}
@@ -965,17 +981,15 @@ export const HomePage: React.FC = () => {
 
               {/* Scroll to explore indicator */}
               <div className="flex flex-col items-center justify-center gap-1 mt-6 text-slate-400">
-                <Mouse className="w-4 h-4 animate-bounce text-blue-600" />
-                <span className="text-[10px] font-semibold uppercase tracking-wider">Scroll to explore</span>
+                <Mouse className="w-4 h-4 animate-bounce text-[#FFC107]" />
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">Scroll to explore</span>
                 <ChevronDown className="w-3 h-3 text-slate-400" />
               </div>
             </div>
           </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* ─── Skip Intro Button ─── */}
-      {panel < 4 && (
+      {introActive && (
         <button
           className="skip-intro skip-intro--light"
           onClick={handleSkipIntro}
@@ -985,16 +999,6 @@ export const HomePage: React.FC = () => {
           <ArrowRight className="w-3.5 h-3.5" />
         </button>
       )}
-
-      {/* ─── Interactive Demo Modal ─── */}
-      <WatchDemoModal
-        isOpen={demoModalOpen}
-        onClose={() => setDemoModalOpen(false)}
-        onLaunchVisualizer={() => {
-          setDemoModalOpen(false);
-          handleStartExploring();
-        }}
-      />
 
       {/* ─── Page Transition Flash Overlay ─── */}
       {transitioning && <div className="page-transition-overlay" />}

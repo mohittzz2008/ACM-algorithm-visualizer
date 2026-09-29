@@ -26,13 +26,13 @@ export const Sidebar: React.FC = () => {
   const getCategoryIcon = (id: string) => {
     switch (id) {
       case 'sorting':
-        return <Layers className="w-3.5 h-3.5 text-[#7C3AED] dark:text-purple-400" />;
+        return <Layers className="w-3.5 h-3.5 text-[#D97706]" />;
       case 'searching':
-        return <Search className="w-3.5 h-3.5 text-[#2563EB] dark:text-blue-400" />;
+        return <Search className="w-3.5 h-3.5 text-[#3F3F3F]" />;
       case 'graph':
-        return <Network className="w-3.5 h-3.5 text-[#047857] dark:text-emerald-400" />;
+        return <Network className="w-3.5 h-3.5 text-[#059669]" />;
       default:
-        return <Boxes className="w-3.5 h-3.5 text-[#64748B] dark:text-slate-400" />;
+        return <Boxes className="w-3.5 h-3.5 text-[#64748B]" />;
     }
   };
 
@@ -62,100 +62,131 @@ export const Sidebar: React.FC = () => {
   };
 
   return (
-    <aside className="w-60 shrink-0 flex flex-col justify-between py-1 min-h-[580px] select-none" aria-label="Algorithm Directory">
+    <nav
+      className="w-full h-full bg-white flex flex-col justify-between gap-5 p-3.5 sm:p-4 select-none min-w-0"
+      aria-label="Algorithm Directory"
+    >
       {/* Category List */}
-      <div className="flex flex-col gap-4">
-        <span className="text-[10px] font-bold uppercase tracking-wider text-[#475569] dark:text-slate-400 px-3">
-          Algorithms
-        </span>
+      <div className="flex flex-col gap-3">
+        {/* Sidebar Directory Header */}
+        <div className="flex items-center justify-between px-2 pt-0.5 pb-2 border-b border-[#F1F5F9] shrink-0 w-full">
+          <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#475569] font-mono flex items-center gap-1.5 shrink-0 whitespace-nowrap">
+            <span className="w-2 h-2 rounded-full bg-[#FFC107] ring-2 ring-[#FEF3C7] shrink-0" />
+            Algorithms
+          </span>
+          <span className="text-[10px] font-mono font-bold text-[#64748B] bg-[#F1F5F9] px-1.5 py-0.5 rounded border border-[#E2E8F0] shrink-0 whitespace-nowrap">
+            Directory
+          </span>
+        </div>
 
-        {ALGORITHM_CATEGORIES.map((category) => (
-          <div key={category.id} className="flex flex-col gap-1">
-            {/* Category Header */}
-            <div className="flex items-center gap-2 px-3 py-1 text-xs font-semibold text-[#475569] dark:text-slate-300">
-              {getCategoryIcon(category.id)}
-              <span>{category.name}</span>
+        {/* Algorithm Categories */}
+        <div className="flex flex-col gap-3.5">
+          {ALGORITHM_CATEGORIES.map((category) => (
+            <div key={category.id} className="flex flex-col gap-1.5">
+              {/* Category Section Heading with Strong Visual Hierarchy */}
+              <div className="flex items-center justify-between px-2 py-1 bg-[#F8FAFC] border border-[#E2E8F0]/80 rounded-lg">
+                <div className="flex items-center gap-2">
+                  <div className="w-5 h-5 rounded flex items-center justify-center bg-white border border-[#E2E8F0] shadow-2xs">
+                    {getCategoryIcon(category.id)}
+                  </div>
+                  <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#18181B] font-mono">
+                    {category.name}
+                  </span>
+                </div>
+                <span className="text-[10px] font-mono font-bold text-[#64748B] bg-white border border-[#E2E8F0] px-1.5 py-0.2 rounded shadow-2xs">
+                  {category.algorithms.length}
+                </span>
+              </div>
+
+              {/* Algorithm Items */}
+              <div className="flex flex-col gap-1 pl-1">
+                {category.algorithms.map((algo) => {
+                  const isActive = algo.id === activeAlgorithmId;
+                  return (
+                    <button
+                      key={algo.id}
+                      onClick={() => {
+                        if (algo.implemented) {
+                          setActiveAlgorithmId(algo.id);
+                        }
+                      }}
+                      disabled={!algo.implemented}
+                      title={!algo.implemented ? `${algo.name} (Coming Soon)` : algo.name}
+                      className={`group flex items-center justify-between w-full px-2.5 py-2 rounded-xl text-xs transition-colors ${
+                        isActive
+                          ? 'bg-[#3F3F3F] text-white border border-[#27272A] shadow-xs font-semibold'
+                          : algo.implemented
+                          ? 'text-[#18181B] font-semibold hover:text-black hover:bg-[#F1F5F9] border border-transparent hover:border-[#E2E8F0] cursor-pointer'
+                          : 'text-[#334155] font-medium bg-[#F8FAFC]/70 border border-dashed border-[#CBD5E1] cursor-not-allowed hover:bg-[#F1F5F9]/80'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <span
+                          className={`shrink-0 transition-colors ${
+                            isActive
+                              ? 'text-[#FFC107]'
+                              : algo.implemented
+                              ? 'text-[#475569] group-hover:text-[#18181B]'
+                              : 'text-[#64748B]'
+                          }`}
+                        >
+                          {getAlgoIcon(algo.id)}
+                        </span>
+                        <span className="truncate">{algo.name}</span>
+                      </div>
+
+                      {isActive ? (
+                        <span className="w-2 h-2 rounded-full bg-[#FFC107] shadow-[0_0_8px_rgba(255,193,7,0.9)] shrink-0 ml-1.5" />
+                      ) : !algo.implemented ? (
+                        <span className="shrink-0 ml-1.5 flex items-center gap-1 text-[10px] font-bold font-mono text-[#78350F] bg-[#FEF3C7] px-2 py-0.5 rounded-full border border-[#FDE68A] shadow-2xs">
+                          <Lock className="w-2.5 h-2.5 text-[#D97706]" />
+                          <span>Soon</span>
+                        </span>
+                      ) : null}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-
-            {/* Algorithm Items */}
-            <div className="flex flex-col gap-1">
-              {category.algorithms.map((algo) => {
-                const isActive = algo.id === activeAlgorithmId;
-                return (
-                  <button
-                    key={algo.id}
-                    onClick={() => {
-                      if (algo.implemented) {
-                        setActiveAlgorithmId(algo.id);
-                      }
-                    }}
-                    disabled={!algo.implemented}
-                    title={!algo.implemented ? `${algo.name} is scheduled for Phase 2` : algo.name}
-                    className={`flex items-center justify-between w-full px-3 py-2 rounded-xl text-xs font-medium transition-all ${
-                      isActive
-                        ? 'bg-[#F3E8FF] dark:bg-purple-600/20 text-[#6D28D9] dark:text-purple-200 border border-[#C084FC] dark:border-purple-500/50 shadow-xs font-semibold'
-                        : algo.implemented
-                        ? 'text-[#334155] dark:text-slate-400 hover:text-[#0F172A] hover:bg-[#F8FAFC] dark:hover:text-slate-200 dark:hover:bg-[#12192D] border border-transparent cursor-pointer'
-                        : 'text-[#94A3B8] dark:text-slate-600 border border-transparent cursor-not-allowed opacity-60'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <span className={isActive ? 'text-[#7C3AED] dark:text-purple-400' : algo.implemented ? 'text-[#475569] dark:text-slate-400' : 'text-[#94A3B8] dark:text-slate-600'}>
-                        {getAlgoIcon(algo.id)}
-                      </span>
-                      <span>{algo.name}</span>
-                    </div>
-
-                    {isActive ? (
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#A855F7] dark:bg-purple-400 animate-pulse" />
-                    ) : !algo.implemented ? (
-                      <span className="flex items-center gap-1 text-[10px] text-[#64748B] dark:text-slate-500 bg-[#F1F5F9] dark:bg-[#0E1528] px-1.5 py-0.5 rounded border border-[#CBD5E1] dark:border-[#1E2942]">
-                        <Lock className="w-2.5 h-2.5" />
-                        <span>Soon</span>
-                      </span>
-                    ) : null}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       {/* Secondary Tools (Keyboard Shortcuts, Visualization Settings, Share) */}
-      <div className="mt-8 bg-white dark:bg-[#0C1120] border border-[#CBD5E1] dark:border-[#18233C] rounded-2xl p-3 flex flex-col gap-1.5 shadow-sm">
-        <span className="text-[10px] font-bold text-[#475569] dark:text-slate-400 uppercase tracking-wider px-2 py-0.5">
+      <div className="pt-3 border-t border-[#E2E8F0] flex flex-col gap-1.5">
+        <span className="text-[10px] font-extrabold text-[#64748B] uppercase tracking-wider px-2 py-0.5 font-mono">
           Tools
         </span>
 
         <button
           onClick={() => setShortcutsModalOpen(true)}
-          className="flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-[#334155] hover:text-[#0F172A] hover:bg-[#F8FAFC] dark:text-slate-300 dark:hover:text-white dark:hover:bg-[#162038] transition-colors text-left cursor-pointer"
+          className="flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-[#18181B] hover:text-black hover:bg-[#F1F5F9] border border-transparent hover:border-[#E2E8F0] transition-colors text-left cursor-pointer"
         >
-          <HelpCircle className="w-3.5 h-3.5 text-[#7C3AED] dark:text-purple-400" />
+          <HelpCircle className="w-3.5 h-3.5 text-[#475569]" />
           <span>Keyboard Shortcuts</span>
         </button>
 
         <button
           onClick={() => setSettingsModalOpen(true)}
-          className="flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-[#334155] hover:text-[#0F172A] hover:bg-[#F8FAFC] dark:text-slate-300 dark:hover:text-white dark:hover:bg-[#162038] transition-colors text-left cursor-pointer"
+          className="flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-[#18181B] hover:text-black hover:bg-[#F1F5F9] border border-transparent hover:border-[#E2E8F0] transition-colors text-left cursor-pointer"
         >
-          <Settings className="w-3.5 h-3.5 text-[#0284C7] dark:text-blue-400" />
+          <Settings className="w-3.5 h-3.5 text-[#D97706]" />
           <span>Visualization Settings</span>
         </button>
 
         <button
           onClick={handleShare}
-          className="flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-[#334155] hover:text-[#0F172A] hover:bg-[#F8FAFC] dark:text-slate-300 dark:hover:text-white dark:hover:bg-[#162038] transition-colors text-left cursor-pointer"
+          className="flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-[#18181B] hover:text-black hover:bg-[#F1F5F9] border border-transparent hover:border-[#E2E8F0] transition-colors text-left cursor-pointer"
         >
           {copied ? (
-            <Check className="w-3.5 h-3.5 text-[#059669] dark:text-emerald-400" />
+            <Check className="w-3.5 h-3.5 text-[#059669]" />
           ) : (
-            <Share2 className="w-3.5 h-3.5 text-[#E11D48] dark:text-pink-400" />
+            <Share2 className="w-3.5 h-3.5 text-[#475569]" />
           )}
           <span>{copied ? 'Link Copied!' : 'Share / Export'}</span>
         </button>
       </div>
-    </aside>
+    </nav>
   );
 };
+

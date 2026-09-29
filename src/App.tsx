@@ -16,6 +16,7 @@ import { usePlaybackEngine } from './hooks/usePlaybackEngine';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 import { useVisualizerStore } from './store/useVisualizerStore';
 import { HomePage } from './pages/HomePage';
+import { GeometricCanvasBackground } from './components/layout/GeometricCanvasBackground';
 import { Menu, X } from 'lucide-react';
 
 export const App: React.FC = () => {
@@ -42,30 +43,33 @@ const VisualizerPage: React.FC = () => {
   const isGraphAlgorithm = activeAlgorithmId === 'bfs' || activeAlgorithmId === 'dfs';
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#080B14] text-[#0F172A] dark:text-slate-100 flex flex-col font-sans selection:bg-purple-600 selection:text-white overflow-x-hidden">
+    <div className="min-h-screen bg-white text-[#18181B] flex flex-col font-sans selection:bg-[#FFC107] selection:text-[#18181B] relative">
+      {/* Edge & Corner Minimal Geometric Yellow & Charcoal Shapes */}
+      <GeometricCanvasBackground variant="visualizer" />
+
       {/* Top Navigation */}
       <TopNav />
 
-      {/* Main Content Area */}
-      <div className="flex-1 w-full max-w-[1600px] mx-auto px-3 sm:px-6 py-4 flex gap-6 max-w-full overflow-x-clip">
-        {/* Desktop Left Sidebar */}
-        <div className="hidden lg:block shrink-0">
+      {/* Main Content Area: Seamlessly Integrated Workspace */}
+      <div className="relative z-10 flex-1 flex w-full min-h-0">
+        {/* Desktop Left Sidebar - stable 256px width eliminates 32px snapping at 1280px zoom */}
+        <aside className="hidden lg:flex flex-col shrink-0 w-64 border-r border-[#E2E8F0] bg-white min-h-full">
           <Sidebar />
-        </div>
+        </aside>
 
         {/* Mobile Sidebar Drawer */}
         {mobileSidebarOpen && (
           <div className="fixed inset-0 z-50 lg:hidden flex">
             <div
-              className="fixed inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm"
+              className="fixed inset-0 bg-black/30 backdrop-blur-xs"
               onClick={() => setMobileSidebarOpen(false)}
             />
-            <div className="relative w-72 bg-white dark:bg-[#0B101D] border-r border-[#CBD5E1] dark:border-[#1E2942] h-full p-4 flex flex-col z-10 overflow-y-auto">
-              <div className="flex items-center justify-between pb-3 border-b border-[#E2E8F0] dark:border-[#1A253E]">
-                <span className="font-bold text-sm text-[#0F172A] dark:text-white">Algorithms Menu</span>
+            <div className="relative w-72 bg-white border-r border-[#CBD5E1] h-full p-4 flex flex-col z-10 overflow-y-auto shadow-2xl">
+              <div className="flex items-center justify-between pb-3 border-b border-[#E2E8F0]">
+                <span className="font-bold text-sm text-[#18181B]">Algorithms Menu</span>
                 <button
                   onClick={() => setMobileSidebarOpen(false)}
-                  className="p-1 rounded-lg text-[#64748B] hover:text-[#0F172A] dark:text-slate-400 dark:hover:text-white cursor-pointer"
+                  className="p-1 rounded-lg text-[#64748B] hover:text-[#18181B] hover:bg-[#F4F4F5] cursor-pointer"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -75,16 +79,16 @@ const VisualizerPage: React.FC = () => {
           </div>
         )}
 
-        {/* Primary Interactive Workspace */}
-        <main className="flex-1 flex flex-col gap-4 min-w-0 max-w-full">
+        {/* Primary Interactive Workspace - smooth stable padding across zoom levels */}
+        <main className="flex-1 flex flex-col gap-4 min-w-0 p-4 sm:p-6 max-w-[1440px] w-full">
           {/* Mobile menu button */}
-          <div className="lg:hidden flex items-center justify-between bg-white dark:bg-[#0F162A] border border-[#CBD5E1] dark:border-[#1E2942] rounded-xl px-4 py-2">
-            <span className="text-xs font-semibold text-[#475569] dark:text-slate-300">Algorithm Navigation</span>
+          <div className="lg:hidden flex items-center justify-between bg-white border border-[#CBD5E1] rounded-xl px-4 py-2 shadow-xs">
+            <span className="text-xs font-semibold text-[#3F3F3F]">Algorithm Navigation</span>
             <button
               onClick={() => setMobileSidebarOpen(true)}
-              className="flex items-center gap-1.5 text-xs text-[#6D28D9] dark:text-purple-400 font-semibold px-2.5 py-1 rounded-lg bg-[#F3E8FF] dark:bg-purple-600/20 border border-[#C084FC] dark:border-purple-500/30 cursor-pointer"
+              className="flex items-center gap-1.5 text-xs text-[#18181B] font-semibold px-2.5 py-1 rounded-lg bg-[#FFFBEB] border border-[#FDE68A] hover:bg-[#FEF3C7] cursor-pointer"
             >
-              <Menu className="w-4 h-4" />
+              <Menu className="w-4 h-4 text-[#D97706]" />
               <span>Browse</span>
             </button>
           </div>
@@ -98,7 +102,7 @@ const VisualizerPage: React.FC = () => {
           {/* Primary Visualization Stage with integrated Operation HUD and Playback Controls */}
           <VisualizerContainer />
 
-          {/* Lower Information Area */}
+          {/* Lower Information Area - stable lg breakpoint prevents sudden 1-column jumping on zoom */}
           {isGraphAlgorithm ? (
             /* Graph Traversal layout (BFS & DFS): Pseudocode & Explanation top row, Statistics full width below */
             <div className="flex flex-col gap-3.5 pt-1">
@@ -109,7 +113,7 @@ const VisualizerPage: React.FC = () => {
               <StatisticsPanel />
             </div>
           ) : activeAlgorithmId === 'binary-search' ? (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-3.5 pt-1">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 pt-1">
               <PseudocodePanel />
               <ExplanationPanel />
               <StatisticsPanel />

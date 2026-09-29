@@ -72,31 +72,31 @@ export const GraphInputPanel: React.FC = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-[#0C1120] border border-[#CBD5E1] dark:border-[#18233C] rounded-2xl p-3.5 flex flex-col gap-3 shadow-sm">
+    <div className="bg-white border border-[#E2E8F0] rounded-2xl p-3.5 flex flex-col gap-3 shadow-clean-card">
       {/* Top Controls Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5 items-center">
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-3.5 items-center">
         {/* Left Column: Graph Input & Controls (Span 6) */}
-        <div className="lg:col-span-6 flex flex-col gap-2.5">
+        <div className="xl:col-span-6 flex flex-col gap-2.5 min-w-0">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-[#0F172A] dark:text-slate-200 uppercase tracking-wide font-mono flex items-center gap-1.5">
-                <Network className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+              <span className="text-xs font-bold text-[#18181B] uppercase tracking-wide font-mono flex items-center gap-1.5">
+                <Network className="w-3.5 h-3.5 text-[#3F3F3F]" />
                 Graph Input
               </span>
-              <span className="text-[11px] text-[#475569] dark:text-slate-400 font-normal hidden sm:inline">
+              <span className="text-[11px] text-[#64748B] font-normal hidden sm:inline">
                 ({isBFS ? 'Level-by-level queue expansion' : 'Deep branch exploration with backtracking'})
               </span>
             </div>
 
             {/* Input Mode Toggle: Adjacency List / Matrix */}
-            <div className="flex items-center gap-1 bg-[#F8FAFC] dark:bg-[#090D18] border border-[#CBD5E1] dark:border-[#1A253E] p-0.5 rounded-lg shadow-sm">
+            <div className="flex items-center gap-1 bg-[#F8FAFC] border border-[#E2E8F0] p-0.5 rounded-lg shadow-xs">
               <button
                 type="button"
                 onClick={() => setGraphInputMode('list')}
-                className={`px-2 py-0.5 rounded-md text-[11px] font-medium transition-all cursor-pointer flex items-center gap-1 ${
+                className={`px-2 py-0.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer flex items-center gap-1 ${
                   graphInputMode === 'list'
-                    ? 'bg-[#7C3AED] text-white font-bold shadow-sm'
-                    : 'text-[#334155] dark:text-slate-400 hover:text-[#0F172A] dark:hover:text-slate-200'
+                    ? 'bg-[#3F3F3F] text-white font-bold shadow-xs'
+                    : 'text-[#475569] hover:text-[#18181B]'
                 }`}
               >
                 <ListFilter className="w-3 h-3" />
@@ -105,10 +105,10 @@ export const GraphInputPanel: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setGraphInputMode('matrix')}
-                className={`px-2 py-0.5 rounded-md text-[11px] font-medium transition-all cursor-pointer flex items-center gap-1 ${
+                className={`px-2 py-0.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer flex items-center gap-1 ${
                   graphInputMode === 'matrix'
-                    ? 'bg-[#7C3AED] text-white font-bold shadow-sm'
-                    : 'text-[#334155] dark:text-slate-400 hover:text-[#0F172A] dark:hover:text-slate-200'
+                    ? 'bg-[#3F3F3F] text-white font-bold shadow-xs'
+                    : 'text-[#475569] hover:text-[#18181B]'
                 }`}
               >
                 <Grid className="w-3 h-3" />
@@ -116,19 +116,19 @@ export const GraphInputPanel: React.FC = () => {
               </button>
             </div>
 
-            {/* DFS Mode Toggle (Recursive / Iterative) matching reference image */}
+            {/* DFS Mode Toggle (Recursive / Iterative) */}
             {activeAlgorithmId === 'dfs' && (
-              <div className="flex items-center gap-1 bg-[#F8FAFC] dark:bg-[#090D18] border border-[#CBD5E1] dark:border-[#1A253E] p-0.5 rounded-lg shadow-sm">
-                <span className="text-[10.5px] font-bold text-[#475569] dark:text-slate-300 px-1 font-mono">
+              <div className="flex items-center gap-1 bg-[#F8FAFC] border border-[#E2E8F0] p-0.5 rounded-lg shadow-xs">
+                <span className="text-[10.5px] font-bold text-[#475569] px-1 font-mono">
                   DFS Mode:
                 </span>
                 <button
                   type="button"
                   onClick={() => setDfsMode('recursive')}
-                  className={`px-2 py-0.5 rounded-md text-[11px] font-medium transition-all cursor-pointer ${
+                  className={`px-2 py-0.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer ${
                     dfsMode === 'recursive'
-                      ? 'bg-[#7C3AED] text-white font-bold shadow-sm'
-                      : 'text-[#334155] dark:text-slate-400 hover:text-[#0F172A] dark:hover:text-slate-200'
+                      ? 'bg-[#FFC107] text-[#18181B] font-bold shadow-xs'
+                      : 'text-[#475569] hover:text-[#18181B]'
                   }`}
                 >
                   Recursive
@@ -136,10 +136,10 @@ export const GraphInputPanel: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setDfsMode('iterative')}
-                  className={`px-2 py-0.5 rounded-md text-[11px] font-medium transition-all cursor-pointer ${
+                  className={`px-2 py-0.5 rounded-md text-[11px] font-medium transition-colors cursor-pointer ${
                     dfsMode === 'iterative'
-                      ? 'bg-[#7C3AED] text-white font-bold shadow-sm'
-                      : 'text-[#334155] dark:text-slate-400 hover:text-[#0F172A] dark:hover:text-slate-200'
+                      ? 'bg-[#FFC107] text-[#18181B] font-bold shadow-xs'
+                      : 'text-[#475569] hover:text-[#18181B]'
                   }`}
                 >
                   Iterative
@@ -151,15 +151,15 @@ export const GraphInputPanel: React.FC = () => {
           {/* Node Count & Directed Toggle & Buttons */}
           <div className="flex flex-wrap items-center gap-2.5">
             {/* Number of nodes counter */}
-            <div className="flex items-center gap-1.5 bg-white dark:bg-[#090D18] border border-[#CBD5E1] dark:border-[#1A253E] px-2.5 py-1 rounded-lg text-xs shadow-sm">
-              <span className="text-[#334155] dark:text-slate-400 font-medium">Nodes:</span>
-              <span className="font-mono font-bold text-[#7C3AED] dark:text-purple-400 w-4 text-center">{nodeCount}</span>
+            <div className="flex items-center gap-1.5 bg-white border border-[#E2E8F0] px-2.5 py-1 rounded-lg text-xs shadow-xs">
+              <span className="text-[#475569] font-medium">Nodes:</span>
+              <span className="font-mono font-bold text-[#18181B] w-4 text-center">{nodeCount}</span>
               <div className="flex items-center gap-0.5 ml-1">
                 <button
                   type="button"
                   onClick={() => setGraphNodesCount(nodeCount - 1)}
                   disabled={nodeCount <= 1}
-                  className="w-5 h-5 rounded flex items-center justify-center bg-white dark:bg-[#131B2E] hover:bg-slate-100 dark:hover:bg-slate-700 text-[#0F172A] dark:text-slate-300 border border-[#CBD5E1] dark:border-transparent disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-colors"
+                  className="w-5 h-5 rounded flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-[#18181B] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-colors"
                   title="Decrease nodes"
                 >
                   <Minus className="w-3 h-3" />
@@ -168,7 +168,7 @@ export const GraphInputPanel: React.FC = () => {
                   type="button"
                   onClick={() => setGraphNodesCount(nodeCount + 1)}
                   disabled={nodeCount >= 20}
-                  className="w-5 h-5 rounded flex items-center justify-center bg-white dark:bg-[#131B2E] hover:bg-slate-100 dark:hover:bg-slate-700 text-[#0F172A] dark:text-slate-300 border border-[#CBD5E1] dark:border-transparent disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-colors"
+                  className="w-5 h-5 rounded flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-[#18181B] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-colors"
                   title="Increase nodes"
                 >
                   <Plus className="w-3 h-3" />
@@ -180,15 +180,15 @@ export const GraphInputPanel: React.FC = () => {
             <button
               type="button"
               onClick={toggleDirectedGraph}
-              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-medium cursor-pointer transition-all shadow-sm ${
+              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-medium cursor-pointer transition-colors shadow-xs ${
                 graphData.isDirected
-                  ? 'bg-[#F3E8FF] dark:bg-purple-950/50 border-[#C084FC] dark:border-purple-600/60 text-[#7C3AED] dark:text-purple-300 font-semibold'
-                  : 'bg-white dark:bg-[#090D18] border-[#CBD5E1] dark:border-[#1A253E] text-[#334155] dark:text-slate-400 hover:text-[#0F172A] dark:hover:text-slate-200'
+                  ? 'bg-[#FFFBEB] border-[#FFC107] text-[#B45309] font-semibold'
+                  : 'bg-white border-[#E2E8F0] text-[#475569] hover:text-[#18181B]'
               }`}
             >
               <span
                 className={`w-2 h-2 rounded-full ${
-                  graphData.isDirected ? 'bg-[#7C3AED] dark:bg-purple-400 animate-pulse' : 'bg-slate-400 dark:bg-slate-600'
+                  graphData.isDirected ? 'bg-[#FFC107]' : 'bg-slate-400'
                 }`}
               />
               <span>{graphData.isDirected ? 'Directed Graph' : 'Undirected Graph'}</span>
@@ -198,9 +198,9 @@ export const GraphInputPanel: React.FC = () => {
             <button
               type="button"
               onClick={clearGraph}
-              className="px-2.5 py-1 rounded-lg bg-white dark:bg-[#090D18] border border-[#CBD5E1] dark:border-[#1A253E] hover:bg-slate-100 dark:hover:bg-slate-800 text-[#334155] hover:text-[#0F172A] dark:text-slate-300 text-xs font-medium cursor-pointer transition-colors flex items-center gap-1 shadow-sm"
+              className="px-2.5 py-1 rounded-lg bg-white border border-[#E2E8F0] hover:bg-slate-50 text-[#475569] hover:text-[#18181B] text-xs font-medium cursor-pointer transition-colors flex items-center gap-1 shadow-xs"
             >
-              <RotateCcw className="w-3 h-3 text-[#64748B] dark:text-slate-400" />
+              <RotateCcw className="w-3 h-3 text-[#64748B]" />
               <span>Clear Graph</span>
             </button>
 
@@ -208,42 +208,42 @@ export const GraphInputPanel: React.FC = () => {
             <button
               type="button"
               onClick={generateExampleGraph}
-              className="px-3 py-1 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-semibold shadow-sm cursor-pointer transition-all flex items-center gap-1.5"
+              className="px-3 py-1 rounded-lg bg-[#FFC107] hover:bg-[#F59E0B] text-[#18181B] text-xs font-bold shadow-xs cursor-pointer transition-colors flex items-center gap-1.5"
             >
-              <Sparkles className="w-3 h-3 text-purple-200" />
+              <Sparkles className="w-3 h-3 text-[#18181B]" />
               <span>Generate Example</span>
             </button>
           </div>
         </div>
 
         {/* Middle Column: Start Node Selection (Span 2) */}
-        <div className="lg:col-span-2 flex flex-col gap-1.5">
-          <label className="text-[11px] font-bold text-[#475569] dark:text-slate-300 uppercase tracking-wider font-mono">
+        <div className="xl:col-span-2 flex flex-col gap-1.5 min-w-0">
+          <label className="text-[11px] font-bold text-[#475569] uppercase tracking-wider font-mono">
             Start Node
           </label>
           <div className="relative">
             <select
               value={startNode}
               onChange={(e) => setStartNode(Number(e.target.value))}
-              className="w-full appearance-none bg-white dark:bg-[#090D18] border border-[#CBD5E1] dark:border-[#1A253E] hover:border-[#7C3AED] rounded-xl px-3 py-1.5 text-xs font-mono font-bold text-[#D97706] dark:text-amber-300 cursor-pointer focus:outline-none focus:border-[#7C3AED] transition-colors shadow-sm"
+              className="w-full appearance-none bg-white border border-[#E2E8F0] hover:border-[#FFC107] rounded-xl px-3 py-1.5 text-xs font-mono font-bold text-[#B45309] cursor-pointer focus:outline-none focus:border-[#FFC107] transition-colors shadow-xs"
             >
               {graphData.nodes.map((node) => (
-                <option key={node.id} value={node.id} className="bg-white dark:bg-[#0C1120] text-[#0F172A] dark:text-slate-200">
+                <option key={node.id} value={node.id} className="bg-white text-[#18181B]">
                   Node {node.id}
                 </option>
               ))}
             </select>
-            <ChevronDown className="w-3.5 h-3.5 text-[#64748B] dark:text-slate-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <ChevronDown className="w-3.5 h-3.5 text-[#64748B] absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           </div>
         </div>
 
         {/* Right Column: Preset Graphs (Span 4) */}
-        <div className="lg:col-span-4 flex flex-col gap-1.5">
+        <div className="xl:col-span-4 flex flex-col gap-1.5 min-w-0">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-[#475569] dark:text-slate-300 uppercase tracking-wider font-mono">
+            <span className="text-[11px] font-bold text-[#475569] uppercase tracking-wider font-mono">
               Preset Graphs
             </span>
-            <span className="text-[10px] text-[#64748B] dark:text-slate-500 font-mono">
+            <span className="text-[10px] text-[#64748B] font-mono">
               {GRAPH_PRESETS.length} presets
             </span>
           </div>
@@ -257,10 +257,10 @@ export const GraphInputPanel: React.FC = () => {
                   type="button"
                   onClick={() => selectGraphPreset(preset.id)}
                   title={preset.description}
-                  className={`px-2 py-1 rounded-lg text-[11px] font-medium border text-center transition-all truncate cursor-pointer shadow-sm ${
+                  className={`px-2 py-1 rounded-lg text-[11px] font-medium border text-center transition-colors truncate cursor-pointer shadow-xs ${
                     isActive
-                      ? 'bg-[#7C3AED] border-[#7C3AED] text-white font-bold'
-                      : 'bg-white dark:bg-[#090D18] border-[#CBD5E1] dark:border-[#1A253E] text-[#334155] dark:text-slate-400 hover:bg-[#F8FAFC] dark:hover:bg-slate-800'
+                      ? 'bg-[#3F3F3F] border-[#3F3F3F] text-white font-bold'
+                      : 'bg-white border-[#E2E8F0] text-[#475569] hover:bg-[#F8FAFC]'
                   }`}
                 >
                   {preset.name}
@@ -272,10 +272,10 @@ export const GraphInputPanel: React.FC = () => {
             <button
               type="button"
               disabled
-              className={`px-2 py-1 rounded-lg text-[11px] font-medium border text-center transition-all truncate ${
+              className={`px-2 py-1 rounded-lg text-[11px] font-medium border text-center transition-colors truncate ${
                 activeGraphPresetId === 'custom'
-                  ? 'bg-amber-100 dark:bg-amber-600/30 border-amber-400 dark:border-amber-500/50 text-amber-800 dark:text-amber-300 font-bold'
-                  : 'bg-[#F8FAFC]/50 dark:bg-[#090D18]/50 border-[#CBD5E1]/60 dark:border-[#1A253E]/60 text-slate-400 dark:text-slate-600'
+                  ? 'bg-amber-100 border-amber-400 text-amber-800 font-bold'
+                  : 'bg-[#F8FAFC]/50 border-[#E2E8F0]/60 text-slate-400'
               }`}
             >
               Custom
@@ -284,50 +284,50 @@ export const GraphInputPanel: React.FC = () => {
         </div>
       </div>
 
-      {/* Prominent Connect Edge Action Bar (Visible in both List and Matrix modes) */}
-      <div className="pt-2.5 border-t border-[#E2E8F0] dark:border-[#17223A] flex flex-wrap items-center justify-between gap-3 text-xs">
+      {/* Prominent Connect Edge Action Bar */}
+      <div className="pt-2.5 border-t border-[#E2E8F0] flex flex-wrap items-center justify-between gap-3 text-xs">
         <div className="flex items-center gap-2.5 flex-wrap">
-          <span className="font-mono text-[#334155] dark:text-slate-400 font-bold flex items-center gap-1.5">
+          <span className="font-mono text-[#3F3F3F] font-bold flex items-center gap-1.5">
             Connect Edge:
           </span>
 
           {/* From Node Selector */}
-          <div className="flex items-center gap-1.5 bg-white dark:bg-[#090D18] border border-[#CBD5E1] dark:border-[#1A253E] hover:border-[#7C3AED] px-2.5 py-1 rounded-lg transition-colors shadow-sm">
-            <span className="text-[#64748B] dark:text-slate-500 font-mono text-[11px]">From:</span>
+          <div className="flex items-center gap-1.5 bg-white border border-[#E2E8F0] hover:border-[#FFC107] px-2.5 py-1 rounded-lg transition-colors shadow-xs">
+            <span className="text-[#64748B] font-mono text-[11px]">From:</span>
             <div className="relative flex items-center">
               <select
                 value={currentFrom}
                 onChange={(e) => setEdgeFrom(Number(e.target.value))}
-                className="bg-transparent text-[#D97706] dark:text-amber-300 font-bold font-mono focus:outline-none cursor-pointer pr-4 appearance-none"
+                className="bg-transparent text-[#B45309] font-bold font-mono focus:outline-none cursor-pointer pr-4 appearance-none"
               >
                 {graphData.nodes.map((n) => (
-                  <option key={n.id} value={n.id} className="bg-white dark:bg-[#0C1120] text-[#0F172A] dark:text-slate-200">
+                  <option key={n.id} value={n.id} className="bg-white text-[#18181B]">
                     Node {n.id}
                   </option>
                 ))}
               </select>
-              <ChevronDown className="w-3 h-3 text-[#64748B] dark:text-slate-400 pointer-events-none absolute right-0" />
+              <ChevronDown className="w-3 h-3 text-[#64748B] pointer-events-none absolute right-0" />
             </div>
           </div>
 
-          <ArrowRight className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 shrink-0" />
+          <ArrowRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
 
           {/* To Node Selector */}
-          <div className="flex items-center gap-1.5 bg-white dark:bg-[#090D18] border border-[#CBD5E1] dark:border-[#1A253E] hover:border-[#7C3AED] px-2.5 py-1 rounded-lg transition-colors shadow-sm">
-            <span className="text-[#64748B] dark:text-slate-500 font-mono text-[11px]">To:</span>
+          <div className="flex items-center gap-1.5 bg-white border border-[#E2E8F0] hover:border-[#FFC107] px-2.5 py-1 rounded-lg transition-colors shadow-xs">
+            <span className="text-[#64748B] font-mono text-[11px]">To:</span>
             <div className="relative flex items-center">
               <select
                 value={currentTo}
                 onChange={(e) => setEdgeTo(Number(e.target.value))}
-                className="bg-transparent text-[#0284C7] dark:text-cyan-300 font-bold font-mono focus:outline-none cursor-pointer pr-4 appearance-none"
+                className="bg-transparent text-[#0284C7] font-bold font-mono focus:outline-none cursor-pointer pr-4 appearance-none"
               >
                 {graphData.nodes.map((n) => (
-                  <option key={n.id} value={n.id} className="bg-white dark:bg-[#0C1120] text-[#0F172A] dark:text-slate-200">
+                  <option key={n.id} value={n.id} className="bg-white text-[#18181B]">
                     Node {n.id}
                   </option>
                 ))}
               </select>
-              <ChevronDown className="w-3 h-3 text-[#64748B] dark:text-slate-400 pointer-events-none absolute right-0" />
+              <ChevronDown className="w-3 h-3 text-[#64748B] pointer-events-none absolute right-0" />
             </div>
           </div>
 
@@ -335,30 +335,30 @@ export const GraphInputPanel: React.FC = () => {
           <button
             type="button"
             onClick={handleAddEdge}
-            className="px-3.5 py-1 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] active:bg-[#5B21B6] text-white font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm"
+            className="px-3.5 py-1 rounded-lg bg-[#3F3F3F] hover:bg-[#2A2A2A] text-white font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
           >
-            <PlusCircle className="w-3.5 h-3.5" />
+            <PlusCircle className="w-3.5 h-3.5 text-[#FFC107]" />
             <span>Add Edge</span>
           </button>
         </div>
 
-        {/* User-facing Validation & Status Message (Self-loop, duplicate, or success feedback) */}
+        {/* User-facing Validation & Status Message */}
         {edgeFeedback && (
           <div
-            className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono font-medium transition-all shadow-sm ${
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono font-medium transition-colors shadow-xs ${
               edgeFeedback.type === 'success'
-                ? 'bg-emerald-100 dark:bg-emerald-950/70 border border-emerald-300 dark:border-emerald-600/60 text-emerald-800 dark:text-emerald-300'
+                ? 'bg-emerald-50 border border-emerald-300 text-emerald-800'
                 : edgeFeedback.type === 'warning'
-                ? 'bg-amber-100 dark:bg-amber-950/70 border border-amber-300 dark:border-amber-600/60 text-amber-800 dark:text-amber-300'
-                : 'bg-rose-100 dark:bg-rose-950/70 border border-rose-300 dark:border-rose-600/60 text-rose-800 dark:text-rose-300'
+                ? 'bg-amber-50 border border-amber-300 text-amber-800'
+                : 'bg-rose-50 border border-rose-300 text-rose-800'
             }`}
           >
             {edgeFeedback.type === 'success' ? (
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
             ) : edgeFeedback.type === 'warning' ? (
-              <AlertTriangle className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+              <AlertTriangle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
             ) : (
-              <XCircle className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400 shrink-0" />
+              <XCircle className="w-3.5 h-3.5 text-rose-600 shrink-0" />
             )}
             <span>{edgeFeedback.message}</span>
           </div>
@@ -367,13 +367,13 @@ export const GraphInputPanel: React.FC = () => {
 
       {/* Interactive Adjacency List View */}
       {graphInputMode === 'list' && (
-        <div className="pt-2 border-t border-[#E2E8F0] dark:border-[#17223A] flex flex-col gap-2">
+        <div className="pt-2 border-t border-[#E2E8F0] flex flex-col gap-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-[#0F172A] dark:text-slate-300 font-mono flex items-center gap-1.5">
-              <ListFilter className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+            <span className="text-xs font-bold text-[#18181B] font-mono flex items-center gap-1.5">
+              <ListFilter className="w-3.5 h-3.5 text-[#3F3F3F]" />
               Adjacency List ({nodeCount} nodes)
             </span>
-            <span className="text-[11px] text-[#64748B] dark:text-slate-400">
+            <span className="text-[11px] text-[#64748B]">
               Click any neighbor badge to remove edge
             </span>
           </div>
@@ -384,11 +384,11 @@ export const GraphInputPanel: React.FC = () => {
               return (
                 <div
                   key={node.id}
-                  className="bg-[#F8FAFC] dark:bg-[#090D18] border border-[#CBD5E1] dark:border-[#1A253E] rounded-xl p-2 flex flex-col gap-1.5 text-xs font-mono shadow-sm"
+                  className="bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-2 flex flex-col gap-1.5 text-xs font-mono shadow-xs"
                 >
-                  <div className="flex items-center justify-between border-b border-[#E2E8F0] dark:border-[#141E33] pb-1">
-                    <span className="font-bold text-purple-700 dark:text-purple-300">Node {node.id}</span>
-                    <span className="text-[10px] text-[#64748B] dark:text-slate-500 font-sans">{nbrs.length} nbr</span>
+                  <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-1">
+                    <span className="font-bold text-[#3F3F3F]">Node {node.id}</span>
+                    <span className="text-[10px] text-[#64748B] font-sans">{nbrs.length} nbr</span>
                   </div>
                   <div className="flex flex-wrap gap-1 min-h-[22px] items-center">
                     {nbrs.length > 0 ? (
@@ -398,14 +398,14 @@ export const GraphInputPanel: React.FC = () => {
                           type="button"
                           onClick={() => removeEdge(node.id, nbrId)}
                           title={`Click to remove edge ${node.id} ${graphData.isDirected ? '→' : '—'} ${nbrId}`}
-                          className="px-1.5 py-0.5 rounded bg-white dark:bg-[#131B2E] hover:bg-rose-50 dark:hover:bg-rose-950/60 border border-[#CBD5E1] dark:border-[#1F2C4A] hover:border-rose-300 dark:hover:border-rose-600/60 text-[#0F172A] dark:text-slate-200 hover:text-rose-700 dark:hover:text-rose-300 transition-colors cursor-pointer text-[11px] flex items-center gap-1 group"
+                          className="px-1.5 py-0.5 rounded bg-white hover:bg-rose-50 border border-[#CBD5E1] hover:border-rose-300 text-[#18181B] hover:text-rose-700 transition-colors cursor-pointer text-[11px] flex items-center gap-1 group shadow-xs"
                         >
                           <span>{nbrId}</span>
-                          <span className="text-slate-400 dark:text-slate-500 group-hover:text-rose-600 dark:group-hover:text-rose-400 text-[10px]">×</span>
+                          <span className="text-slate-400 group-hover:text-rose-600 text-[10px]">×</span>
                         </button>
                       ))
                     ) : (
-                      <span className="text-slate-400 dark:text-slate-600 text-[11px] italic">empty</span>
+                      <span className="text-slate-400 text-[11px] italic">empty</span>
                     )}
                   </div>
                 </div>
@@ -417,13 +417,13 @@ export const GraphInputPanel: React.FC = () => {
 
       {/* Interactive Adjacency Matrix View */}
       {graphInputMode === 'matrix' && (
-        <div className="pt-2 border-t border-[#E2E8F0] dark:border-[#17223A] flex flex-col gap-2">
+        <div className="pt-2 border-t border-[#E2E8F0] flex flex-col gap-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-[#0F172A] dark:text-slate-300 font-mono flex items-center gap-1.5">
-              <Grid className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
+            <span className="text-xs font-bold text-[#18181B] font-mono flex items-center gap-1.5">
+              <Grid className="w-3.5 h-3.5 text-[#3F3F3F]" />
               Adjacency Matrix ({nodeCount} × {nodeCount})
             </span>
-            <span className="text-[11px] text-[#64748B] dark:text-slate-400">
+            <span className="text-[11px] text-[#64748B]">
               Click any cell to toggle an edge
             </span>
           </div>
@@ -432,9 +432,9 @@ export const GraphInputPanel: React.FC = () => {
             <table className="border-collapse font-mono text-xs mx-auto">
               <thead>
                 <tr>
-                  <th className="p-1 text-[#64748B] dark:text-slate-500 font-bold text-center w-8">#</th>
+                  <th className="p-1 text-[#64748B] font-bold text-center w-8">#</th>
                   {graphData.nodes.map((n) => (
-                    <th key={n.id} className="p-1 text-purple-700 dark:text-purple-300 font-bold text-center w-8">
+                    <th key={n.id} className="p-1 text-[#3F3F3F] font-bold text-center w-8">
                       {n.id}
                     </th>
                   ))}
@@ -443,7 +443,7 @@ export const GraphInputPanel: React.FC = () => {
               <tbody>
                 {graphData.nodes.map((rowNode, rIdx) => (
                   <tr key={rowNode.id}>
-                    <td className="p-1 text-purple-700 dark:text-purple-300 font-bold text-center">{rowNode.id}</td>
+                    <td className="p-1 text-[#3F3F3F] font-bold text-center">{rowNode.id}</td>
                     {graphData.nodes.map((colNode, cIdx) => {
                       const hasEdge = (adjMatrix[rIdx] && adjMatrix[rIdx][cIdx] === 1) || false;
                       const isSelf = rowNode.id === colNode.id;
@@ -452,12 +452,12 @@ export const GraphInputPanel: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => toggleEdge(rowNode.id, colNode.id)}
-                            className={`w-7 h-7 rounded flex items-center justify-center font-bold text-xs transition-all cursor-pointer ${
+                            className={`w-7 h-7 rounded flex items-center justify-center font-bold text-xs transition-colors cursor-pointer ${
                               isSelf
-                                ? 'bg-[#F8FAFC] dark:bg-[#090D18] text-slate-400 dark:text-slate-600 hover:text-slate-600 dark:hover:text-slate-400 border border-slate-200 dark:border-slate-800'
+                                ? 'bg-[#F8FAFC] text-slate-400 hover:text-slate-600 border border-slate-200'
                                 : hasEdge
-                                ? 'bg-purple-600 hover:bg-purple-500 text-white shadow-sm border border-purple-500'
-                                : 'bg-white dark:bg-[#0F162A] hover:bg-slate-100 dark:hover:bg-slate-800 text-[#475569] dark:text-slate-400 border border-[#CBD5E1] dark:border-[#1A2640]'
+                                ? 'bg-[#3F3F3F] hover:bg-[#2A2A2A] text-white shadow-xs border border-[#3F3F3F]'
+                                : 'bg-white hover:bg-slate-100 text-[#475569] border border-[#CBD5E1]'
                             }`}
                             title={
                               isSelf

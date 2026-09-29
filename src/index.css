@@ -1,86 +1,50 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 @layer base {
   :root {
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-    /* Semantic color tokens - Dark Mode (Default) */
-    --bg-page: #080B14;
-    --bg-surface: #0C1120;
-    --bg-surface-elevated: #11182B;
-    --bg-surface-muted: #090E1A;
-    --bg-surface-tertiary: #121A2D;
-    --border-subtle: #162035;
-    --border-primary: #1E2942;
-    --border-strong: #2A3B60;
+    /* ACM Geometric Clean Light Design System Tokens */
+    --bg-page: #FFFFFF;
+    --bg-surface: #FFFFFF;
+    --bg-surface-elevated: #F8FAFC;
+    --bg-surface-muted: #F1F5F9;
+    --bg-surface-tertiary: #FFFBEB;
+    
+    --border-subtle: #F1F5F9;
+    --border-primary: #E2E8F0;
+    --border-strong: #CBD5E1;
+    --border-charcoal: #3F3F3F;
+    --border-yellow: #FFC107;
 
-    --text-primary: #F8FAFC;
-    --text-secondary: #94A3B8;
+    --text-primary: #18181B;
+    --text-secondary: #3F3F3F;
     --text-muted: #64748B;
 
-    --accent-primary: #8B5CF6;
-    --accent-hover: #7C3AED;
-    --accent-subtle: rgba(139, 92, 246, 0.15);
-    --focus-ring: rgba(139, 92, 246, 0.6);
-  }
+    --acm-yellow: #FFC107;
+    --acm-yellow-hover: #E5AC00;
+    --acm-yellow-soft: #FFFBEB;
+    --acm-yellow-border: #FDE68A;
 
-  html.light {
-    /* Required Light Theme Design System Tokens */
-    --light-page-bg: #F8FAFC;
-    --light-surface: #FFFFFF;
-    --light-surface-secondary: #F1F5F9;
-    --light-surface-tertiary: #FAF5FF;
-    --light-border: #CBD5E1;
-    --light-border-secondary: #D6DEE8;
-    --light-border-subtle: #E2E8F0;
-    --light-border-strong: #94A3B8;
-    --light-border-active: #A855F7;
-    --light-border-brand: #C084FC;
-    --light-text-primary: #0F172A;
-    --light-text-secondary: #334155;
-    --light-text-muted: #64748B;
-    --light-primary: #6D28D9;
-    --light-accent: #7C3AED;
-    --light-primary-soft: #F3E8FF;
-    --light-primary-very-soft: #FAF5FF;
-    --light-primary-border: #C084FC;
+    --acm-charcoal: #3F3F3F;
+    --acm-charcoal-hover: #18181B;
+    --acm-charcoal-soft: #F4F4F5;
 
-    /* Semantic Saturated Light Colors */
-    --light-success: #059669;
-    --light-success-soft: #ECFDF5;
-    --light-info: #0284C7;
-    --light-info-soft: #F0F9FF;
-    --light-warning: #D97706;
-    --light-warning-soft: #FFFBEB;
-    --light-danger: #E11D48;
-    --light-danger-soft: #FFF1F2;
-    --light-blue: #0284C7;
-    --light-cyan: #0284C7;
-    --light-green: #059669;
-    --light-amber: #D97706;
-    --light-red: #E11D48;
+    --accent-primary: #3F3F3F;
+    --accent-hover: #18181B;
+    --accent-subtle: rgba(255, 193, 7, 0.15);
+    --focus-ring: rgba(255, 193, 7, 0.6);
 
-    /* Semantic Mappings for Light Mode */
-    --bg-page: var(--light-page-bg);
-    --bg-surface: var(--light-surface);
-    --bg-surface-elevated: var(--light-surface-secondary);
-    --bg-surface-muted: var(--light-surface-secondary);
-    --bg-surface-tertiary: var(--light-surface-tertiary);
-    --border-subtle: #E2E8F0;
-    --border-primary: var(--light-border);
-    --border-strong: var(--light-border-strong);
-
-    --text-primary: var(--light-text-primary);
-    --text-secondary: var(--light-text-secondary);
-    --text-muted: var(--light-text-muted);
-
-    --accent-primary: var(--light-accent);
-    --accent-hover: var(--light-primary);
-    --accent-subtle: var(--light-primary-soft);
-    --focus-ring: rgba(124, 58, 237, 0.5);
+    /* Pedagogical / State Colors */
+    --color-success: #059669;
+    --color-success-soft: #ECFDF5;
+    --color-warning: #D97706;
+    --color-warning-soft: #FFFBEB;
+    --color-danger: #E11D48;
+    --color-danger-soft: #FFF1F2;
+    --color-info: #0284C7;
+    --color-info-soft: #F0F9FF;
   }
 
   body {
@@ -88,7 +52,6 @@
     color: var(--text-primary);
     font-family: var(--font-sans);
     overflow-x: hidden;
-    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   /* Universal accessible focus indicators */
@@ -96,33 +59,24 @@
   input:focus-visible,
   select:focus-visible,
   a:focus-visible {
-    outline: 2px solid var(--accent-primary);
+    outline: 2px solid var(--acm-yellow);
     outline-offset: 2px;
   }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar in clean light aesthetic */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0B0F19;
-}
-html.light ::-webkit-scrollbar-track {
-  background: #F1F5F9;
+  background: #F8FAFC;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1E293B;
+  background: #CBD5E1;
   border-radius: 4px;
 }
-html.light ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-}
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
-}
-html.light ::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
 }
 
@@ -135,52 +89,26 @@ html.light ::-webkit-scrollbar-thumb:hover {
   display: none;
 }
 
-/* Professional Glow and Shadow Effects */
-.glow-purple {
-  box-shadow: 0 0 20px -3px rgba(139, 92, 246, 0.35);
-}
-html.light .glow-purple {
-  box-shadow: 0 4px 12px rgba(109, 40, 217, 0.12);
+/* Crisp Minimal Shadows & Glows */
+.shadow-clean-card {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
 }
 
-.glow-purple-sm {
-  box-shadow: 0 0 10px -2px rgba(139, 92, 246, 0.4);
-}
-html.light .glow-purple-sm {
-  box-shadow: 0 2px 8px rgba(109, 40, 217, 0.1);
+.shadow-clean-elevated {
+  box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
 }
 
-.glow-amber {
-  box-shadow: 0 0 18px -2px rgba(245, 158, 11, 0.45);
-}
-html.light .glow-amber {
-  box-shadow: 0 2px 8px rgba(180, 83, 9, 0.12);
+.glow-yellow {
+  box-shadow: 0 0 16px -2px rgba(255, 193, 7, 0.4);
 }
 
-.glow-rose {
-  box-shadow: 0 0 18px -2px rgba(244, 63, 94, 0.45);
-}
-html.light .glow-rose {
-  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.12);
-}
-
-.glow-emerald {
-  box-shadow: 0 0 18px -2px rgba(16, 185, 129, 0.45);
-}
-html.light .glow-emerald {
-  box-shadow: 0 2px 8px rgba(4, 120, 87, 0.12);
-}
-
-.glow-blue {
-  box-shadow: 0 0 18px -2px rgba(59, 130, 246, 0.35);
-}
-html.light .glow-blue {
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.12);
+.glow-charcoal {
+  box-shadow: 0 4px 14px -2px rgba(63, 63, 63, 0.25);
 }
 
 /* Range input styling */
 input[type='range'] {
-  accent-color: #7C3AED;
+  accent-color: #3F3F3F;
 }
 
 /* Reduced Motion Support */
@@ -194,3 +122,5 @@ input[type='range'] {
     scroll-behavior: auto !important;
   }
 }
+
+

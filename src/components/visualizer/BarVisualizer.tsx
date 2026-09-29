@@ -22,7 +22,7 @@ export const BarVisualizer: React.FC = () => {
       return 'sorted';
     }
 
-    // Direct visualState from step generator if available (Merge Sort & custom states)
+    // Direct visualState from step generator if available
     if (currentStep.visualStates && currentStep.visualStates[index]) {
       return currentStep.visualStates[index];
     }
@@ -52,33 +52,33 @@ export const BarVisualizer: React.FC = () => {
   const getBarStyleClasses = (state: ElementVisualState) => {
     switch (state) {
       case 'comparing':
-        return 'bg-gradient-to-t from-amber-600 via-amber-500 to-amber-400 border-2 border-amber-500 shadow-[0_0_12px_rgba(217,119,6,0.35)] z-20 scale-[1.02]';
+        return 'bg-gradient-to-t from-[#D97706] via-[#FFC107] to-[#FDE047] border-2 border-[#D97706] shadow-md z-20 scale-[1.02]';
       case 'swapping':
       case 'selected':
-        return 'bg-gradient-to-t from-rose-600 via-rose-500 to-red-500 border-2 border-rose-500 shadow-[0_0_12px_rgba(225,29,72,0.4)] z-20 scale-[1.02]';
+        return 'bg-gradient-to-t from-rose-600 via-rose-500 to-red-400 border-2 border-rose-500 shadow-md z-20 scale-[1.02]';
       case 'active-range':
-        return 'bg-gradient-to-t from-purple-800 via-purple-600 to-purple-400 border border-purple-400 shadow-[0_0_10px_rgba(168,85,247,0.4)] z-10';
+        return 'bg-gradient-to-t from-neutral-800 via-neutral-700 to-neutral-600 border border-neutral-600 shadow-xs z-10';
       case 'base-case':
-        return 'bg-gradient-to-t from-cyan-700 via-cyan-600 to-teal-400 border border-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.4)] z-10';
+        return 'bg-gradient-to-t from-cyan-700 via-cyan-600 to-teal-400 border border-cyan-400 shadow-xs z-10';
       case 'sorted':
-        return 'bg-gradient-to-t from-emerald-600 via-emerald-500 to-teal-400 border border-emerald-500 shadow-sm z-10';
+        return 'bg-gradient-to-t from-emerald-600 via-emerald-500 to-teal-400 border border-emerald-500 shadow-xs z-10';
       case 'unsorted':
       default:
-        return 'bg-gradient-to-t from-sky-600 via-sky-500 to-blue-500 border border-sky-400/70 shadow-sm z-0 hover:brightness-110';
+        return 'bg-gradient-to-t from-[#2B2B2B] via-[#3F3F3F] to-[#525252] border border-[#3F3F3F] shadow-xs z-0 hover:brightness-110';
     }
   };
 
   const getValueTextColor = (state: ElementVisualState) => {
     switch (state) {
       case 'comparing':
-        return 'text-[#D97706] dark:text-amber-300 font-bold';
+        return 'text-[#B45309] font-bold';
       case 'swapping':
-        return 'text-[#E11D48] dark:text-rose-300 font-bold';
+        return 'text-[#E11D48] font-bold';
       case 'sorted':
-        return 'text-[#059669] dark:text-emerald-300 font-semibold';
+        return 'text-[#059669] font-semibold';
       case 'unsorted':
       default:
-        return 'text-[#0F172A] dark:text-slate-300 font-semibold';
+        return 'text-[#18181B] font-semibold';
     }
   };
 
@@ -115,7 +115,7 @@ export const BarVisualizer: React.FC = () => {
           // Proportional height
           const heightPercent = Math.max(18, Math.min(92, Math.round((value / maxVal) * 85)));
 
-          // Dim unsorted elements gently when a comparison or swap is actively occurring without washing out
+          // Dim unsorted elements gently when active
           const dimClass =
             hasActivePair && state === 'unsorted'
               ? 'opacity-85 hover:opacity-100 transition-opacity'
@@ -124,21 +124,18 @@ export const BarVisualizer: React.FC = () => {
           return (
             <motion.div
               key={id}
-              layout
+              layout="position"
               transition={springTransition}
               className={`flex-1 flex flex-col items-center justify-end h-full max-w-[72px] min-w-[20px] transition-opacity duration-150 ${dimClass}`}
             >
-              {/* Value Label above Bar: with subtle highlight pill for active comparison */}
-              <motion.div
-                layout="position"
-                className="mb-1.5 flex flex-col items-center"
-              >
+              {/* Value Label above Bar */}
+              <div className="mb-1.5 flex flex-col items-center">
                 {isActive ? (
                   <span
-                    className={`text-xs md:text-sm font-mono font-bold px-1.5 py-0.5 rounded-md border select-none tracking-tight shadow-sm ${
+                    className={`text-xs md:text-sm font-mono font-bold px-1.5 py-0.5 rounded-md border select-none tracking-tight shadow-xs ${
                       isSwappingPair
-                        ? 'text-[#E11D48] bg-[#FFF1F2] border-[#FECDD3] dark:text-rose-200 dark:bg-rose-950/80 dark:border-rose-500/60 shadow-rose-950/20'
-                        : 'text-[#D97706] bg-[#FFFBEB] border-[#FDE68A] dark:text-amber-200 dark:bg-amber-950/80 dark:border-amber-500/60 shadow-amber-950/20'
+                        ? 'text-[#E11D48] bg-[#FFF1F2] border-[#FECDD3]'
+                        : 'text-[#B45309] bg-[#FFFBEB] border-[#FDE68A]'
                     }`}
                   >
                     {value}
@@ -152,11 +149,10 @@ export const BarVisualizer: React.FC = () => {
                     {value}
                   </span>
                 )}
-              </motion.div>
+              </div>
 
               {/* Vertical Bar */}
               <motion.div
-                layout="position"
                 initial={false}
                 animate={{
                   height: `${heightPercent}%`,
@@ -166,11 +162,11 @@ export const BarVisualizer: React.FC = () => {
                   state
                 )}`}
               >
-                {/* Subtle active top highlight bar for compared pair */}
+                {/* Active top highlight bar */}
                 {isActive && (
                   <div
                     className={`absolute top-0 inset-x-0 h-1 rounded-t-xl ${
-                      isSwappingPair ? 'bg-rose-300' : 'bg-amber-200'
+                      isSwappingPair ? 'bg-rose-200' : 'bg-yellow-200'
                     }`}
                   />
                 )}
@@ -182,11 +178,11 @@ export const BarVisualizer: React.FC = () => {
                   className={`text-[11px] font-mono font-medium transition-colors ${
                     isActive
                       ? isSwappingPair
-                        ? 'text-[#E11D48] dark:text-rose-300 font-bold'
-                        : 'text-[#D97706] dark:text-amber-300 font-bold'
+                        ? 'text-[#E11D48] font-bold'
+                        : 'text-[#B45309] font-bold'
                       : state === 'sorted'
-                      ? 'text-[#059669] dark:text-emerald-400 font-semibold'
-                      : 'text-[#334155] dark:text-slate-400'
+                      ? 'text-[#059669] font-semibold'
+                      : 'text-[#64748B]'
                   }`}
                 >
                   {idx}
@@ -197,8 +193,8 @@ export const BarVisualizer: React.FC = () => {
                   <span
                     className={`text-[9px] font-mono font-bold uppercase tracking-tighter px-1 rounded transition-colors ${
                       isSwappingPair
-                        ? 'text-[#E11D48] bg-[#FFF1F2] border border-[#FECDD3] dark:text-rose-300 dark:bg-rose-950/60 dark:border-rose-800/40'
-                        : 'text-[#D97706] bg-[#FFFBEB] border border-[#FDE68A] dark:text-amber-300 dark:bg-amber-950/60 dark:border-amber-800/40'
+                        ? 'text-[#E11D48] bg-[#FFF1F2] border border-[#FECDD3]'
+                        : 'text-[#B45309] bg-[#FFFBEB] border border-[#FDE68A]'
                     }`}
                   >
                     A[{idx}]

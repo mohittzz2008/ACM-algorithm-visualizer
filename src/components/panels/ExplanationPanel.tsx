@@ -74,33 +74,33 @@ export const ExplanationPanel: React.FC = () => {
     activeAlgorithmId === 'dfs';
 
   return (
-    <div className="bg-white dark:bg-[#0A0E1A] border border-[#CBD5E1] dark:border-[#162136] rounded-2xl p-4 flex flex-col justify-between shadow-sm h-full">
+    <div className="bg-white border border-[#E2E8F0] rounded-2xl p-4 flex flex-col justify-between shadow-clean-card h-full">
       {/* Header */}
-      <div className="flex items-center gap-2 pb-2.5 border-b border-[#E2E8F0] dark:border-[#141B2D]">
-        <Lightbulb className="w-4 h-4 text-[#7C3AED] dark:text-purple-400" />
-        <span className="text-xs font-bold text-[#0F172A] dark:text-white uppercase tracking-wider font-mono">
+      <div className="flex items-center gap-2 pb-2.5 border-b border-[#E2E8F0]">
+        <Lightbulb className="w-4 h-4 text-[#D97706]" />
+        <span className="text-xs font-bold text-[#18181B] uppercase tracking-wider font-mono">
           Explanation
         </span>
       </div>
 
       {/* Content */}
       <div className="pt-2 flex flex-col justify-between flex-1 gap-2.5">
-        <p className="text-xs leading-relaxed text-[#334155] dark:text-slate-300 font-normal">
+        <p className="text-xs leading-relaxed text-[#3F3F3F] font-normal">
           {getExplanation()}
         </p>
 
         {/* Pedagogical Visual State Changes for DFS */}
         {activeAlgorithmId === 'dfs' && currentStep && (
-          <div className="p-2.5 rounded-xl bg-[#F8FAFC] dark:bg-[#0B101D] border border-[#CBD5E1] dark:border-[#17233B] text-[11px] font-mono flex flex-col gap-1.5">
-            <span className="text-[10px] font-bold text-[#7C3AED] dark:text-purple-400 uppercase tracking-wider flex items-center gap-1">
+          <div className="p-2.5 rounded-xl bg-[#F8FAFC] border border-[#CBD5E1] text-[11px] font-mono flex flex-col gap-1.5">
+            <span className="text-[10px] font-bold text-[#3F3F3F] uppercase tracking-wider flex items-center gap-1">
               Visual State Changes
             </span>
-            <div className="flex flex-col gap-1 text-[#334155] dark:text-slate-300 text-[10.5px]">
+            <div className="flex flex-col gap-1 text-[#3F3F3F] text-[10.5px]">
               {/* Current Node / Neighbor */}
               {currentStep.currentNode !== null && currentStep.currentNode !== undefined && (
                 <div className="flex items-center gap-1.5">
-                  <span className="text-[#64748B] dark:text-slate-500 w-24 shrink-0">Current Node:</span>
-                  <span className="text-[#D97706] dark:text-amber-300 font-bold">
+                  <span className="text-[#64748B] w-24 shrink-0">Current Node:</span>
+                  <span className="text-[#B45309] font-bold">
                     Node {currentStep.currentNode}
                   </span>
                 </div>
@@ -108,10 +108,10 @@ export const ExplanationPanel: React.FC = () => {
 
               {/* Call Stack / Stack */}
               <div className="flex items-center gap-1.5">
-                <span className="text-[#64748B] dark:text-slate-500 w-24 shrink-0">
+                <span className="text-[#64748B] w-24 shrink-0">
                   {currentStep.dfsMode === 'iterative' ? 'Stack:' : 'Call Stack:'}
                 </span>
-                <span className="text-[#7C3AED] dark:text-purple-300 font-bold">
+                <span className="text-[#18181B] font-bold">
                   {(currentStep.callStack || currentStep.stackState || []).length > 0
                     ? `[${(currentStep.callStack || currentStep.stackState || []).join(', ')}]`
                     : '[ Empty ]'}
@@ -120,16 +120,16 @@ export const ExplanationPanel: React.FC = () => {
 
               {/* Visited Set */}
               <div className="flex items-center gap-1.5">
-                <span className="text-[#64748B] dark:text-slate-500 w-24 shrink-0">Visited Set:</span>
-                <span className="text-[#059669] dark:text-emerald-300 font-semibold">
+                <span className="text-[#64748B] w-24 shrink-0">Visited Set:</span>
+                <span className="text-[#059669] font-semibold">
                   `[${(currentStep.visitedNodes || []).join(', ')}]`
                 </span>
               </div>
 
               {/* Traversal Order */}
               <div className="flex items-center gap-1.5">
-                <span className="text-[#64748B] dark:text-slate-500 w-24 shrink-0">Traversal Order:</span>
-                <span className="text-[#059669] dark:text-emerald-300 font-bold">
+                <span className="text-[#64748B] w-24 shrink-0">Traversal Order:</span>
+                <span className="text-[#059669] font-bold">
                   {currentStep.traversalOrder && currentStep.traversalOrder.length > 0
                     ? `[${currentStep.traversalOrder.join(' → ')}]`
                     : '—'}
@@ -141,16 +141,16 @@ export const ExplanationPanel: React.FC = () => {
 
         {/* Pedagogical Visual State Changes for BFS */}
         {activeAlgorithmId === 'bfs' && currentStep && (
-          <div className="p-2.5 rounded-xl bg-[#F8FAFC] dark:bg-[#0B101D] border border-[#CBD5E1] dark:border-[#17233B] text-[11px] font-mono flex flex-col gap-1.5">
-            <span className="text-[10px] font-bold text-[#7C3AED] dark:text-purple-400 uppercase tracking-wider flex items-center gap-1">
+          <div className="p-2.5 rounded-xl bg-[#F8FAFC] border border-[#CBD5E1] text-[11px] font-mono flex flex-col gap-1.5">
+            <span className="text-[10px] font-bold text-[#3F3F3F] uppercase tracking-wider flex items-center gap-1">
               Visual State Changes
             </span>
-            <div className="flex flex-col gap-1 text-[#334155] dark:text-slate-300 text-[10.5px]">
+            <div className="flex flex-col gap-1 text-[#3F3F3F] text-[10.5px]">
               {/* Current Node / Neighbor */}
               {currentStep.currentNeighbor !== null && currentStep.currentNeighbor !== undefined ? (
                 <div className="flex items-center gap-1.5">
-                  <span className="text-[#64748B] dark:text-slate-500 w-24 shrink-0">Neighbor {currentStep.currentNeighbor}:</span>
-                  <span className={currentStep.graphPhase === 'enqueue-neighbor' ? 'text-[#0284C7] dark:text-cyan-300 font-semibold' : 'text-[#7C3AED] dark:text-indigo-300'}>
+                  <span className="text-[#64748B] w-24 shrink-0">Neighbor {currentStep.currentNeighbor}:</span>
+                  <span className={currentStep.graphPhase === 'enqueue-neighbor' ? 'text-[#0284C7] font-semibold' : 'text-[#3F3F3F]'}>
                     {currentStep.graphPhase === 'enqueue-neighbor'
                       ? 'Unvisited → In Queue (Visited)'
                       : currentStep.graphPhase === 'skip-neighbor'
@@ -160,17 +160,17 @@ export const ExplanationPanel: React.FC = () => {
                 </div>
               ) : currentStep.currentNode !== null && currentStep.currentNode !== undefined ? (
                 <div className="flex items-center gap-1.5">
-                  <span className="text-[#64748B] dark:text-slate-500 w-24 shrink-0">Node {currentStep.currentNode}:</span>
-                  <span className="text-[#D97706] dark:text-amber-300 font-semibold">
+                  <span className="text-[#64748B] w-24 shrink-0">Node {currentStep.currentNode}:</span>
+                  <span className="text-[#B45309] font-semibold">
                     {currentStep.graphPhase === 'dequeue' ? 'Dequeued (Processing)' : 'Start Node'}
                   </span>
                 </div>
               ) : null}
 
               {/* Queue State Transition */}
-              <div className="flex items-center gap-1.5">
-                <span className="text-[#64748B] dark:text-slate-500 w-24 shrink-0">Queue:</span>
-                <span className="text-[#0284C7] dark:text-cyan-300 font-bold">
+              <div className="flex flex-wrap items-baseline gap-1.5 min-w-0">
+                <span className="text-[#64748B] w-24 shrink-0">Queue:</span>
+                <span className="text-[#0284C7] font-bold break-words min-w-0">
                   {currentStep.queueBefore && currentStep.queueAfter
                     ? `[${currentStep.queueBefore.join(', ')}] → [${currentStep.queueAfter.join(', ')}]`
                     : `[${(currentStep.queueState || []).join(', ')}]`}
@@ -178,9 +178,9 @@ export const ExplanationPanel: React.FC = () => {
               </div>
 
               {/* Visited Set Transition */}
-              <div className="flex items-center gap-1.5">
-                <span className="text-[#64748B] dark:text-slate-500 w-24 shrink-0">Visited Set:</span>
-                <span className="text-[#059669] dark:text-emerald-300 font-semibold">
+              <div className="flex flex-wrap items-baseline gap-1.5 min-w-0">
+                <span className="text-[#64748B] w-24 shrink-0">Visited Set:</span>
+                <span className="text-[#059669] font-semibold break-words min-w-0">
                   {currentStep.visitedBefore && currentStep.visitedAfter && currentStep.visitedBefore.length !== currentStep.visitedAfter.length
                     ? `[${currentStep.visitedBefore.join(', ')}] → [${currentStep.visitedAfter.join(', ')}]`
                     : `[${(currentStep.visitedNodes || []).join(', ')}]`}
@@ -188,11 +188,11 @@ export const ExplanationPanel: React.FC = () => {
               </div>
 
               {/* Traversal Order */}
-              <div className="flex items-center gap-1.5">
-                <span className="text-[#64748B] dark:text-slate-500 w-24 shrink-0">Traversal Order:</span>
-                <span className="text-[#059669] dark:text-emerald-300 font-bold">
+              <div className="flex flex-wrap items-baseline gap-1.5 min-w-0">
+                <span className="text-[#64748B] w-24 shrink-0">Traversal Order:</span>
+                <span className="text-[#059669] font-bold break-words min-w-0">
                   {currentStep.traversalOrder && currentStep.traversalOrder.length > 0
-                    ? `[${currentStep.traversalOrder.join(', ')}]`
+                    ? `[${currentStep.traversalOrder.join(' → ')}]`
                     : '—'}
                 </span>
               </div>
@@ -202,15 +202,15 @@ export const ExplanationPanel: React.FC = () => {
 
         {/* Key Concept Callout */}
         {showKeyConcept && (
-          <div className="mt-1 p-2.5 rounded-xl bg-[#FFFBEB] dark:bg-[#121008] border border-[#F59E0B] dark:border-amber-600/40 text-[11px] flex gap-2.5 items-start">
-            <div className="w-5 h-5 rounded-md bg-[#FEF3C7] dark:bg-amber-500/20 border border-[#FDE68A] dark:border-amber-500/40 flex items-center justify-center shrink-0 mt-0.5">
-              <Lightbulb className="w-3.5 h-3.5 text-[#D97706] dark:text-amber-400" />
+          <div className="mt-1 p-2.5 rounded-xl bg-[#FFFBEB] border border-[#FDE68A] text-[11px] flex gap-2.5 items-start">
+            <div className="w-5 h-5 rounded-md bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center shrink-0 mt-0.5">
+              <Lightbulb className="w-3.5 h-3.5 text-[#D97706]" />
             </div>
             <div className="flex flex-col gap-0.5">
-              <span className="text-[10px] font-bold text-[#B45309] dark:text-amber-400 uppercase tracking-wider font-mono">
+              <span className="text-[10px] font-bold text-[#B45309] uppercase tracking-wider font-mono">
                 Key Concept
               </span>
-              <p className="text-[#334155] dark:text-slate-300 font-sans leading-relaxed">
+              <p className="text-[#3F3F3F] font-sans leading-relaxed">
                 {getKeyConcept()}
               </p>
             </div>
@@ -218,8 +218,8 @@ export const ExplanationPanel: React.FC = () => {
         )}
 
         {isCompleted && (
-          <div className="mt-2 flex items-center gap-2 p-2.5 rounded-xl bg-[#ECFDF5] dark:bg-emerald-950/40 border border-[#A7F3D0] dark:border-emerald-600/40 text-[11px] text-[#059669] dark:text-emerald-300 font-medium">
-            <CheckCircle2 className="w-4 h-4 text-[#059669] dark:text-emerald-400 shrink-0" />
+          <div className="mt-2 flex items-center gap-2 p-2.5 rounded-xl bg-[#ECFDF5] border border-[#A7F3D0] text-[11px] text-[#059669] font-medium">
+            <CheckCircle2 className="w-4 h-4 text-[#059669] shrink-0" />
             <span>Array fully sorted in ascending order.</span>
           </div>
         )}

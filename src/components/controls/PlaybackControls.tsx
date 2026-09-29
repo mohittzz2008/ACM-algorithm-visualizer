@@ -15,8 +15,6 @@ export const PlaybackControls: React.FC = () => {
   const playbackSpeed = useVisualizerStore((state) => state.playbackSpeed);
   const steps = useVisualizerStore((state) => state.steps);
   const currentStepIndex = useVisualizerStore((state) => state.currentStepIndex);
-  const theme = useVisualizerStore((state) => state.theme);
-  const isDark = theme === 'dark';
 
   const togglePlay = useVisualizerStore((state) => state.togglePlay);
   const nextStep = useVisualizerStore((state) => state.nextStep);
@@ -32,13 +30,11 @@ export const PlaybackControls: React.FC = () => {
   const progressPercent = totalSteps > 0 ? (currentStepIndex / totalSteps) * 100 : 0;
 
   const btnBase =
-    'flex items-center gap-1 rounded-xl text-xs font-semibold transition-all active:scale-95 cursor-pointer disabled:cursor-not-allowed';
+    'flex items-center gap-1 rounded-xl text-xs font-semibold transition-colors active:scale-95 cursor-pointer disabled:cursor-not-allowed';
   const btnSecondary =
-    'px-3 py-2 bg-white dark:bg-[#11182B] hover:bg-[#F8FAFC] dark:hover:bg-[#18233E] text-[#334155] dark:text-slate-300 hover:text-[#0F172A] dark:hover:text-white border border-[#CBD5E1] dark:border-[#202E4E] disabled:bg-[#F1F5F9] dark:disabled:bg-[#11182B] disabled:text-[#94A3B8] dark:disabled:text-slate-600 disabled:border-[#CBD5E1] dark:disabled:border-[#202E4E] disabled:opacity-70 disabled:hover:bg-[#F1F5F9] shadow-sm';
+    'px-3 py-2 bg-white hover:bg-[#F8FAFC] text-[#3F3F3F] hover:text-[#18181B] border border-[#CBD5E1] disabled:bg-[#F8FAFC] disabled:text-[#94A3B8] disabled:border-[#E2E8F0] disabled:opacity-60 shadow-xs';
 
-  const sliderTrackBg = isDark
-    ? `linear-gradient(to right, #8B5CF6 0%, #8B5CF6 ${progressPercent}%, #1E293B ${progressPercent}%, #1E293B 100%)`
-    : `linear-gradient(to right, #7C3AED 0%, #7C3AED ${progressPercent}%, #CBD5E1 ${progressPercent}%, #CBD5E1 100%)`;
+  const sliderTrackBg = `linear-gradient(to right, #FFC107 0%, #FFC107 ${progressPercent}%, #E2E8F0 ${progressPercent}%, #E2E8F0 100%)`;
 
   return (
     <div className="flex flex-col gap-4 w-full" role="toolbar" aria-label="Playback Controls">
@@ -70,25 +66,25 @@ export const PlaybackControls: React.FC = () => {
             <span>Previous</span>
           </button>
 
-          {/* Primary Play/Pause Button */}
+          {/* Primary Play/Pause Button in Geometric Yellow (#FFC107) */}
           <button
             onClick={togglePlay}
             className={`${btnBase} justify-center gap-2 px-7 py-2.5 font-bold uppercase tracking-wider shadow-md min-w-[110px] ${
               isPlaying
-                ? 'bg-[#D97706] hover:bg-[#B45309] text-white shadow-amber-900/20'
-                : 'bg-[#7C3AED] hover:bg-[#6D28D9] text-white shadow-purple-900/20'
+                ? 'bg-[#3F3F3F] hover:bg-[#18181B] text-[#FFC107] border border-[#3F3F3F]'
+                : 'bg-[#FFC107] hover:bg-[#E5AC00] text-[#18181B] border border-[#FFC107]'
             }`}
             title="Play / Pause (Space)"
             aria-label={isPlaying ? 'Pause' : 'Play'}
           >
             {isPlaying ? (
               <>
-                <Pause className="w-4 h-4 fill-white" />
+                <Pause className="w-4 h-4 fill-current" />
                 <span>PAUSE</span>
               </>
             ) : (
               <>
-                <Play className="w-4 h-4 fill-white ml-0.5" />
+                <Play className="w-4 h-4 fill-current ml-0.5" />
                 <span>PLAY</span>
               </>
             )}
@@ -120,8 +116,8 @@ export const PlaybackControls: React.FC = () => {
         </div>
 
         {/* Speed Controls */}
-        <div className="flex items-center gap-2 bg-[#F8FAFC] dark:bg-[#0E1528] border border-[#CBD5E1] dark:border-[#1F2B48] px-3 py-1.5 rounded-xl shadow-sm" role="group" aria-label="Speed Controls">
-          <span className="text-xs font-medium text-[#334155] dark:text-slate-400">Speed</span>
+        <div className="flex items-center gap-2 bg-[#F8FAFC] border border-[#CBD5E1] px-3 py-1.5 rounded-xl shadow-xs" role="group" aria-label="Speed Controls">
+          <span className="text-xs font-medium text-[#475569]">Speed</span>
           <div className="flex items-center gap-1">
             {speedOptions.map((spd) => {
               const isActive = playbackSpeed === spd;
@@ -129,10 +125,10 @@ export const PlaybackControls: React.FC = () => {
                 <button
                   key={spd}
                   onClick={() => setPlaybackSpeed(spd)}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-mono font-medium transition-all cursor-pointer ${
+                  className={`px-2.5 py-1 rounded-lg text-xs font-mono font-medium transition-colors cursor-pointer ${
                     isActive
-                      ? 'bg-[#7C3AED] text-white shadow-sm font-bold'
-                      : 'bg-white dark:bg-transparent text-[#334155] dark:text-slate-400 hover:text-[#0F172A] dark:hover:text-slate-200 hover:bg-[#F1F5F9] dark:hover:bg-[#19233D] border border-[#CBD5E1] dark:border-transparent'
+                      ? 'bg-[#3F3F3F] text-white shadow-xs font-bold'
+                      : 'bg-white text-[#3F3F3F] hover:text-[#18181B] hover:bg-[#F1F5F9] border border-[#CBD5E1]'
                   }`}
                   aria-label={`Set speed to ${spd}x`}
                   aria-pressed={isActive}
@@ -158,12 +154,12 @@ export const PlaybackControls: React.FC = () => {
 
       {/* Timeline Slider Row */}
       <div className="flex items-center gap-4 w-full">
-        {/* Current Step Counter (1-indexed for learners) */}
-        <div className="text-xs font-mono font-semibold text-[#0F172A] dark:text-slate-300 shrink-0 min-w-[95px]" aria-live="polite">
-          Step <span className="text-[#6D28D9] dark:text-purple-400 font-bold">{currentStepIndex + 1}</span> / {steps.length}
+        {/* Current Step Counter */}
+        <div className="text-xs font-mono font-semibold text-[#18181B] shrink-0 min-w-[95px]" aria-live="polite">
+          Step <span className="text-[#B45309] font-bold">{currentStepIndex + 1}</span> / {steps.length}
         </div>
 
-        {/* Slider Track with dynamic filled purple progress bar */}
+        {/* Slider Track with yellow progress fill */}
         <div className="relative flex-1 flex items-center">
           <input
             type="range"
@@ -174,7 +170,7 @@ export const PlaybackControls: React.FC = () => {
             style={{
               background: sliderTrackBg,
             }}
-            className="w-full h-2 rounded-lg appearance-none cursor-pointer accent-[#7C3AED] focus:outline-none transition-all shadow-inner"
+            className="w-full h-2 rounded-lg appearance-none cursor-pointer accent-[#3F3F3F] focus:outline-none shadow-inner border border-[#E2E8F0]"
             aria-label="Step timeline"
             aria-valuemin={0}
             aria-valuemax={totalSteps}
@@ -183,7 +179,7 @@ export const PlaybackControls: React.FC = () => {
         </div>
 
         {/* Max step number on right */}
-        <span className="text-xs font-mono text-[#64748B] dark:text-slate-500 shrink-0">{steps.length}</span>
+        <span className="text-xs font-mono text-[#64748B] shrink-0">{steps.length}</span>
       </div>
     </div>
   );
